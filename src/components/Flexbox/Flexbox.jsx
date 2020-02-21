@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { getMarginProperties, getPaddingProperties, getWidthProperty, getHeightProperty } from '../../utils';
+import { space, colour } from '../../utils';
 
 const isTruthyOrZero = value => value || value === 0;
 
@@ -21,12 +21,8 @@ const Flexbox = styled(({
     ${props => (isTruthyOrZero(props.flexShrink) ? `flex-shrink: ${props.flexShrink};` : '')}
     ${props => (props.flexWrap ? `flex-wrap: ${props.flexWrap};` : '')}
     ${props => (props.justifyContent ? `justify-content: ${props.justifyContent};` : '')}
-    width: ${ props => getWidthProperty(props.width) };
-    height: ${ props => getHeightProperty(props.height) };
-    margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
-    padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
-    color: ${ props => props.theme.colours[props.color || 'inherit'] };
-    background: ${ props => props.theme.colours[props.bg || 'inherit'] };
+    ${ props => space(props) };
+    ${ props => colour(props) };
 `;
 
 Flexbox.propTypes = {

@@ -6,7 +6,8 @@ import Header from './Header/Header.jsx';
 import Jumbo from './Jumbo/Jumbo.jsx';
 import Label from './Label/Label.jsx';
 import Text from './Text/Text.jsx';
+import TextLink from './TextLink/TextLink.jsx';
 
 export {
-    Box, Button, Flexbox, GridBox, Header, Jumbo, Label, Text
+    Box, Button, Flexbox, GridBox, Header, Jumbo, Label, Text, TextLink
 };

@@ -4,7 +4,7 @@ const match6or8Hex = `#?[${hexCharacters}]{6}([${hexCharacters}]{2})?`;
 const nonHexChars = new RegExp(`[^#${hexCharacters}]`, 'gi');
 const validHexSize = new RegExp(`^${match3or4Hex}$|^${match6or8Hex}$`, 'i');
 
-export function hexToRgb(hex, a) {
+export const hexToRgb = (hex, a) => {
 	if (typeof hex !== 'string' || nonHexChars.test(hex) || !validHexSize.test(hex)) {
 		throw new TypeError('Expected a valid hex string');
 	}
@@ -33,3 +33,25 @@ export function hexToRgb(hex, a) {
 
 	return `rgba(${ [red, green, blue, a || alpha] })`
 };
+
+const isValidColor = (color) => {
+	const s = new Option().style;
+	s.color = color;
+
+	return s.color !== '';
+}
+
+const getColourProperty = (themeColours, colour) => {
+	if (!colour) {
+		return 'inherit';
+	} else if ((!themeColours || !themeColours[colour]) && isValidColor(colour)) {
+		return colour;
+	}
+
+	return themeColours[colour];
+};
+
+export const colour = (props) => `
+	color: ${ getColourProperty(props.theme.colours, props.color) };
+    background: ${ getColourProperty(props.theme.colours, props.bg) };
+`;

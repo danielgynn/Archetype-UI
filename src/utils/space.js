@@ -1,18 +1,18 @@
 const defaultSpace = [ 0, 15, 30, 45, 60, 75, 90 ];
 
-export function getWidthProperty(width) {
+export const getWidthProperty = (width) => {
     const widthValue = (width && typeof width === 'number') ? `${ width }%` : ((width) ? width : null);
 
-    return (widthValue) ? widthValue : 'auto';
+    return (widthValue) ? widthValue : '';
 }
 
-export function getHeightProperty(height) {
+export const getHeightProperty = (height) => {
     const heightValue = (height && typeof height === 'number') ? `${ height }%` : ((height) ? height : null);
 
-    return (heightValue) ? heightValue : 'auto';
+    return (heightValue) ? heightValue : '';
 }
 
-export function getMarginProperties(themeSpace, margin) {
+export const getMarginProperties = (themeSpace, margin) => {
     const space = themeSpace || defaultSpace;
 
     return (margin) ? `
@@ -20,10 +20,10 @@ export function getMarginProperties(themeSpace, margin) {
         ${ space[getPropertyValue(margin, 1)] }px 
         ${ space[getPropertyValue(margin, 2)] }px 
         ${ space[getPropertyValue(margin, 3)] }px
-    ` : '0';
+    ` : '';
 }
 
-export function getPaddingProperties(themeSpace, padding) {
+export const getPaddingProperties = (themeSpace, padding) => {
     const space = themeSpace || defaultSpace;
 
     return (padding) ? `
@@ -31,9 +31,16 @@ export function getPaddingProperties(themeSpace, padding) {
         ${ space[getPropertyValue(padding, 1)] }px 
         ${ space[getPropertyValue(padding, 2)] }px 
         ${ space[getPropertyValue(padding, 3)] }px
-    ` : '0';
+    ` : '';
 }
 
-function getPropertyValue(prop, index) {
+const getPropertyValue = (prop, index) => {
     return (prop && prop[index]) ? prop[index] : 0;
 }
+
+export const space = (props) => `
+    width: ${ getWidthProperty(props.width) };
+    height: ${ getHeightProperty(props.height) };
+    margin: ${ getMarginProperties(props.theme.space, props.margin) };
+    padding: ${ getPaddingProperties(props.theme.space, props.padding) };
+`;
