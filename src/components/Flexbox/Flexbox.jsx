@@ -48,6 +48,7 @@ Flexbox.propTypes = {
         'main',
         'nav',
         'section',
+        'form'
     ]),
     flex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     flexBasis: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

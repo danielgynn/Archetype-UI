@@ -22,20 +22,22 @@ const StyledButton = styled.button`
     border: none;
     height: ${ props => props.theme.sizes.inputHeight };
     background-color: ${props => (props.inverted ? props.theme.colours.white : props.theme.colours[props.colour || 'primary']) };
-    border: 2px solid ${props => props.theme.colours[props.colour || 'primary'] };
+    border: 1px solid ${props => props.theme.colours[props.colour || 'primary'] };
     color: ${ props => (props.inverted ? props.theme.colours[props.colour || 'primary'] : props.theme.colours.textInverted) };
     transition: ${ props => props.theme.transitions.default };
 
     &:hover {
         box-shadow: 0 1px 4px rgba(0,0,0,0.15), 0 3px 8px rgba(0,0,0,0.1), 0 6px 16px rgba(0,0,0,0.1);
-        background-color: ${ props => hexToRgb(props.theme.colours[props.colour || 'primary'], .8) };
+        background-color: ${ props => hexToRgb(props.theme.colours[props.colour || 'primary'], .9) };
         color: ${ props => props.theme.colours.textInverted };
     }
 
     &.disabled,
     &[disabled] {
-        color: ${ props => props.theme.colours.textInverted };
+        cursor: not-allowed;
+        color: ${ props => props.theme.colours.text };
         background-color: ${ props => props.theme.colours.textTertiary };
+        border-color: ${ props => props.theme.colours.textTertiary };
         pointer-events: none;
         opacity: .4;
         box-shadow: none;
@@ -77,17 +79,18 @@ export default class Button extends Component {
     }
 
     render() {
-        const { id, className, text, colour, disabled, inverted, ...rest } = this.props;
+        const { id, className, type, text, colour, disabled, inverted, width } = this.props;
 
         return (
             <StyledButton
                 id={ id }
+                type={ type }
                 className={ className }
                 colour={ colour }
-                onClick={ this.onClick }
+                width={ width }
                 disabled={ disabled }
                 inverted={ inverted }
-                { ...rest }>
+                onClick={ this.onClick }>
 
                 { text }
 
@@ -95,6 +98,10 @@ export default class Button extends Component {
         )
     }
 }
+
+Button.defaultProps = {
+    type: 'submit'
+};
 
 Button.propTypes = {
     id: PropTypes.string,

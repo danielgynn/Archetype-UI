@@ -31,8 +31,8 @@ const StyledInput = styled.input`
     line-height: normal;
     background-color: ${ props => props.theme.colours.white };
     background-clip: padding-box;
-    border: 1px solid ${ props => props.theme.colours.accentTwo };
-    border-color: ${ props => props.theme.colours.accentTwo };
+    box-shadow: none;
+    border: 1px solid ${ props => props.error ? props.theme.colours.error : props.success ? props.theme.colours.success : props.theme.colours.accentTwo };
     -webkit-transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
@@ -41,7 +41,7 @@ const StyledInput = styled.input`
     &.active,
     &:active,
     &:focus {
-        border-color: ${ props => props.theme.colours.primary };
+        border-color: ${ props => props.error ? props.theme.colours.error : props.success ? props.theme.colours.success : props.theme.colours.primary };
     }
 
     &.disabled,
@@ -51,6 +51,15 @@ const StyledInput = styled.input`
         opacity: .4;
         border: 0;
       }  
+`;
+
+const StyledHelpText = styled.span`
+    font-weight: 300;
+    font-size: .85rem;
+    padding-top: 7px;
+    color: ${ props => props.error ? props.theme.colours.error : props.success ? props.theme.colours.success : '#7b7e8a' };
+    display: inline-block;
+    text-transform: unset;
 `;
 
 export default class Input extends Component {
@@ -71,7 +80,10 @@ export default class Input extends Component {
 	}
 
     render() {
-        const { margin, className, id, label, type, placeholder, value, onChange, onKeyUp, disabled, forceFocus, ...rest } = this.props;
+        const {
+            margin, className, id, label, type, placeholder, value, onChange, onKeyUp, disabled, forceFocus, error,
+            errorMessage, success, successMessage, ...rest
+        } = this.props;
 
         return (
             <InputWrapper margin={ margin } className={ className } { ...rest }>
@@ -79,7 +91,6 @@ export default class Input extends Component {
 
                 <StyledInput
 					type={ type }
-					// className={'input-control' + (error ? ' error' : '') + (success ? ' success' : '') + (solid ? ' solid' : '')}
 					id={ id }
 					ref={ (input) => { this[`inputField${id}`] = input; } } 
 					aria-describedby={ id }
@@ -88,8 +99,17 @@ export default class Input extends Component {
 					value={ value }
 					onChange={ onChange }
 					onKeyUp={ onKeyUp }
-					disabled={ disabled }
+                    disabled={ disabled }
+                    error={ error }
+                    success={ success }
 				/>
+
+                { (error && errorMessage) ? (
+					<StyledHelpText error={ error }>{ errorMessage }</StyledHelpText>
+				) : (success && successMessage) ? (
+					<StyledHelpText success={ success }>{ successMessage }</StyledHelpText>
+                ) : null }
+
             </InputWrapper>
         )
     }
@@ -115,5 +135,7 @@ Input.propTypes = {
     className: PropTypes.string,
     label: PropTypes.string,
     id: PropTypes.string,
-    forceFocus: PropTypes.bool
+    forceFocus: PropTypes.bool,
+    error: PropTypes.bool,
+    errorMessage: PropTypes.string
 };

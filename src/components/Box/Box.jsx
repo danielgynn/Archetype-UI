@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { space, colour } from '../../utils';
+import { space, colour, borders } from '../../utils';
 
 const StyledBox = styled.div`
     ${ props => space(props) };
     ${ props => colour(props) };
+    ${ props => borders(props) }
 `;
 
 export default class Box extends Component {
