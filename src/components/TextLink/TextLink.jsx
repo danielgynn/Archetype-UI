@@ -38,8 +38,6 @@ export default class TextLink extends Component {
     render() {
         const { onClick, href, text, colour, active, disabled, ...rest } = this.props;
 
-        console.log(this.props);
-
         return (
             <StyledLink
                 onClick={ onClick }

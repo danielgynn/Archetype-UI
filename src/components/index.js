@@ -3,11 +3,12 @@ import Button from './Button/Button.jsx';
 import Flexbox from './Flexbox/Flexbox.jsx';
 import GridBox from './GridBox/GridBox.jsx';
 import Header from './Header/Header.jsx';
+import Input from './Input/Input.jsx';
 import Jumbo from './Jumbo/Jumbo.jsx';
 import Label from './Label/Label.jsx';
 import Text from './Text/Text.jsx';
 import TextLink from './TextLink/TextLink.jsx';
 
 export {
-    Box, Button, Flexbox, GridBox, Header, Jumbo, Label, Text, TextLink
+    Box, Button, Flexbox, GridBox, Header, Jumbo, Input, Label, Text, TextLink
 };
