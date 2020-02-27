@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { hexToRgb, getWidthProperty } from '../../utils';
+import { hexToRgb, getWidthProperty, space } from '../../utils';
 
 const StyledButton = styled.button`
     border-radius: 8px;
@@ -25,6 +25,7 @@ const StyledButton = styled.button`
     border: 1px solid ${props => props.theme.colours[props.colour || 'primary'] };
     color: ${ props => (props.inverted ? props.theme.colours[props.colour || 'primary'] : props.theme.colours.textInverted) };
     transition: ${ props => props.theme.transitions.default };
+    ${ props => space(props) };
 
     &:hover {
         box-shadow: 0 1px 4px rgba(0,0,0,0.15), 0 3px 8px rgba(0,0,0,0.1), 0 6px 16px rgba(0,0,0,0.1);
@@ -79,7 +80,7 @@ export default class Button extends Component {
     }
 
     render() {
-        const { id, className, type, text, colour, disabled, inverted, width } = this.props;
+        const { id, className, type, text, colour, disabled, inverted, width, margin } = this.props;
 
         return (
             <StyledButton
@@ -88,6 +89,7 @@ export default class Button extends Component {
                 className={ className }
                 colour={ colour }
                 width={ width }
+                margin={ margin }
                 disabled={ disabled }
                 inverted={ inverted }
                 onClick={ this.onClick }>

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { space } from '../../utils';
 import Cell from './Cell.jsx';
+import Icon from '../Icon/Icon.jsx';
 
 const StyledTable = styled.table`
     border-spacing: 0;
@@ -34,9 +35,8 @@ const StyledTableRow = styled.tr`
 `;
 
 const StyledTableAction = styled.td`
-    padding: 0 .5rem 1rem;
+    padding: 0 .5rem;
     align-items: center;
-    font-size: 2rem;
     color: ${ props => props.theme.colours.textSecondary };
     transition: ${ props => props.theme.transitions.default };
 
@@ -88,7 +88,9 @@ export default class Table extends Component {
                 }) }
 
                 { (actions && actions.length > 0) && (
-                    <StyledTableAction>…</StyledTableAction>
+                    <StyledTableAction>
+                        <Icon icon={ 'ellipsis-h' } />
+                    </StyledTableAction>
                 ) }
             </StyledTableRow>
         );

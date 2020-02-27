@@ -35,12 +35,14 @@ export const getPaddingProperties = (themeSpace, padding) => {
 }
 
 const getPropertyValue = (prop, index) => {
-    return (prop && prop[index]) ? prop[index] : 0;
+    return (prop && Array.isArray(prop)) ? prop[index] : (prop) ? prop : 0;
 }
 
 export const space = (props) => `
     width: ${ getWidthProperty(props.width) };
     height: ${ getHeightProperty(props.height) };
+    min-height: ${ getHeightProperty(props.minHeight) };
+    max-height: ${ getHeightProperty(props.maxHeight) };
     margin: ${ getMarginProperties(props.theme.space, props.margin) };
     padding: ${ getPaddingProperties(props.theme.space, props.padding) };
 `;

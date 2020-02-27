@@ -7,7 +7,7 @@ import { space, colour, borders } from '../../utils';
 const StyledBox = styled.div`
     ${ props => space(props) };
     ${ props => colour(props) };
-    ${ props => borders(props) }
+    ${ props => borders(props) };
 `;
 
 export default class Box extends Component {
