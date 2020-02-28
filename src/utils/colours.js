@@ -43,7 +43,7 @@ const isValidColor = (color) => {
 
 const getColourProperty = (themeColours, colour) => {
 	if (!colour) {
-		return 'inherit';
+		return '';
 	} else if ((!themeColours || !themeColours[colour]) && isValidColor(colour)) {
 		return colour;
 	}

@@ -1,5 +1,6 @@
 import Box from './Box/Box.jsx';
 import Button from './Button/Button.jsx';
+import Dropdown from './Dropdown/Dropdown.jsx';
 import Flexbox from './Flexbox/Flexbox.jsx';
 import GridBox from './GridBox/GridBox.jsx';
 import Header from './Header/Header.jsx';
@@ -18,5 +19,5 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
 export {
-    Box, Button, Flexbox, GridBox, Header, Jumbo, Icon, Image, Input, Label, Table, Text, TextLink
+    Box, Button, Dropdown, Flexbox, GridBox, Header, Jumbo, Icon, Image, Input, Label, Table, Text, TextLink
 };

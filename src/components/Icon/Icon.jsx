@@ -3,24 +3,25 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { space } from '../../utils';
+import { space, colour } from '../../utils';
 
-const StyledBox = styled.span`
-    display: inline-block;
+const IconWrapper = styled.span`
+    display: ${ props => props.display ? props.display : 'inline-block' };
+    ${ props => colour(props) };
     ${ props => space(props) };
 `;
 
 export default class Icon extends Component {
     render() {
-        const { icon, size, ...rest } = this.props;
+        const { icon, size, color, ...rest } = this.props;
 
         return (
-            <StyledBox { ...rest }>
+            <IconWrapper color={ color } { ...rest }>
                 <FontAwesomeIcon
                     icon={ icon }
                     size={ size }
                 />
-            </StyledBox>
+            </IconWrapper>
         )
     }
 }
@@ -31,5 +32,6 @@ Icon.defaultProps = {
 
 Icon.propTypes = {
     icon: PropTypes.string.isRequired,
-    size: PropTypes.string
+    size: PropTypes.string,
+    color: PropTypes.string
 };
