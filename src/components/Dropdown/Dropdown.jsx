@@ -48,7 +48,6 @@ const DropdownList = styled.ul`
     border: 1px solid ${ props => props.theme.colours.accentTwo };
     border-radius: 8px;
     background-color: ${ props => props.theme.colours.white };
-    box-shadow: 0 2px 5px -1px #e8e8e8;
     font-weight: 700;
     max-height: 215px;
     overflow-y: scroll;
@@ -60,7 +59,7 @@ const DropdownListItem = styled.li`
     font-size: 1.5rem;
     padding: .75rem;
     line-height: normal;
-    cursor: default;
+    cursor: pointer;
     display: inline-block;
     white-space: nowrap;
     text-overflow: ellipsis;
