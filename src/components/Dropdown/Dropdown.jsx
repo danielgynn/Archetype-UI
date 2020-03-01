@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Box, Icon, Flexbox } from '../..';
 
-import { space, hexToRgb } from '../../utils';
+import { Box, Icon, Flexbox, OptionsList } from '../..';
+import { space } from '../../utils';
 
 const DropdownWrapper = styled(Box)`
     user-select: none;
@@ -39,50 +39,6 @@ const DropdownHeaderTitle = styled.div`
     font-size: ${ props => props.theme.fontSizes.p };
 `;
 
-const DropdownList = styled.ul`
-    cursor: pointer;
-    z-index: 10;
-    position: absolute;
-    top: 80px;
-    width: 100%;
-    border: 1px solid ${ props => props.theme.colours.accentTwo };
-    border-radius: 8px;
-    background-color: ${ props => props.theme.colours.white };
-    font-weight: 700;
-    max-height: 215px;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-`;
-
-const DropdownListItem = styled.li`
-    width: 100%;
-    font-size: 1.5rem;
-    padding: .75rem;
-    line-height: normal;
-    cursor: pointer;
-    display: inline-block;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: ${ props => props.theme.fontSizes.p };
-    color: ${ props => props.selected ? props.theme.colours.white : props.theme.colours.text };
-    background-color: ${ props => props.selected ? props.theme.colours.primary : 'inherit' };
-
-    &:hover {
-        color: ${ props => props.theme.colours.white };
-        background-color: ${ props => hexToRgb(props.theme.colours.primary, .85) };
-    }
-`;
-
-const DropdownItemText = styled.p`
-    display: block;
-`;
-
-const DropdownItemDescription = styled.p`
-    color: ${ props => props.selected ? props.theme.colours.accentTwo : 'inherit' };
-    font-size: .85rem;
-    font-weight: 300;
-`;
-
 export default class Dropdown extends Component {
     constructor(props) {
         super(props);
@@ -93,9 +49,10 @@ export default class Dropdown extends Component {
         };
 
         this.close = this.close.bind(this);
+        this.selectItem = this.selectItem.bind(this);
     }
     
-    componentDidUpdate(){
+    componentDidUpdate() {
         const { listOpen } = this.state;
 
         setTimeout(() => {
@@ -107,7 +64,7 @@ export default class Dropdown extends Component {
         }, 0);
     }
     
-    componentWillUnmount(){
+    componentWillUnmount() {
         window.removeEventListener('click', this.close);
     }
     
@@ -144,8 +101,8 @@ export default class Dropdown extends Component {
                     <DropdownLabel htmlFor={ id }>{ label }</DropdownLabel>
                  ) }
 
-                <DropdownHeader className="dd-header" onClick={ () => this.toggleList() }>
-                    <DropdownHeaderTitle className="dd-header-title">
+                <DropdownHeader onClick={ () => this.toggleList() }>
+                    <DropdownHeaderTitle>
                         { headerTitle }
                     </DropdownHeaderTitle>
                     <Flexbox alignItems={ 'center' } margin={ [0,1,0,0] }>
@@ -159,23 +116,11 @@ export default class Dropdown extends Component {
                 </DropdownHeader>
 
                 { listOpen && (
-                    <DropdownList id={ id } className="dd-list" onClick={ e => e.stopPropagation() }>
-                        { list && list.map((item)=> (
-                            <DropdownListItem
-                                selected={ item.selected }
-                                className="dd-list-item"
-                                key={ item.id }
-                                onClick={ () => this.selectItem(item.title, item.id, item.key) }
-                            >
-                                <DropdownItemText>
-                                    { item.title } { item.selected && <Icon icon="check"/> }
-                                </DropdownItemText>
-                                <DropdownItemDescription selected={ item.selected }>
-                                    { item.description ? item.description : '' }
-                                </DropdownItemDescription>
-                            </DropdownListItem>
-                        )) }
-                    </DropdownList>
+                    <OptionsList
+                        id={ id }
+                        list={ list }
+                        selectItem={ this.selectItem }
+                    />
                 ) }
             </DropdownWrapper>
         )

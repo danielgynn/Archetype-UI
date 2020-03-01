@@ -8,15 +8,18 @@ const StyledBox = styled.div`
     ${ props => space(props) };
     ${ props => colour(props) };
     ${ props => borders(props) };
+    ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colours[props.borderBottom] }` : '' };
+    ${ props => props.position && `position: ${ props.position }` }
 `;
 
 export default class Box extends Component {
     render() {
-        const { children, element, ...rest } = this.props;
+        const { children, id, element, ...rest } = this.props;
 
         return (
             <StyledBox
                 as={ element }
+                id={ id }
                 { ...rest }>
 
                 { children }
@@ -27,5 +30,6 @@ export default class Box extends Component {
 }
 
 Box.propTypes = {
-    element: PropTypes.string
+    element: PropTypes.string,
+    id: PropTypes.string
 };

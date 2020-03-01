@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 import { space } from '../../utils';
 import Cell from './Cell.jsx';
+import { Box } from '../..';
 import Icon from '../Icon/Icon.jsx';
+import OptionsList from '../OptionsList/OptionsList.jsx';
 
 const StyledTable = styled.table`
     border-spacing: 0;
@@ -28,6 +30,7 @@ const StyledTableRow = styled.tr`
     border-bottom: 2px solid ${ props => props.theme.colours.accentTwo };
     transition: ${ props => props.theme.transitions.default };
     cursor: pointer;
+    position: relative;
 
     &:hover {
         background: ${ props => props.theme.colours.accent };
@@ -46,6 +49,16 @@ const StyledTableAction = styled.td`
 `;
 
 export default class Table extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showActions: null
+        };
+
+        this.toggleShowActions = this.toggleShowActions.bind(this);
+    }
+
     renderHeadings() {
         const { columns, sortColIndex, fixedFirstCol, actions } = this.props;
 
@@ -72,8 +85,9 @@ export default class Table extends Component {
         );
     }
 
-    renderBodyRow(_row, rowIndex) {
+    renderBodyRow(row, rowIndex) {
         const { data, fixedFirstCol, actions } = this.props;
+        const { showActions } = this.state;
 
         return (
             <StyledTableRow key={ `row-${rowIndex}` }>
@@ -88,13 +102,33 @@ export default class Table extends Component {
                 }) }
 
                 { (actions && actions.length > 0) && (
-                    <StyledTableAction>
-                        <Icon icon={ 'ellipsis-h' } />
+                    <StyledTableAction id={ `actions${ rowIndex }` }>
+                        <Icon onClick={ () => this.toggleShowActions(rowIndex) } icon={ 'ellipsis-h' } />
                     </StyledTableAction>
+                ) }
+
+                { (showActions !== null && rowIndex === showActions) && (
+                    <Box element={ 'td' } position={ 'relative' } id={ '' }>
+                        <OptionsList
+                            id={ 'tableOptionsList' }
+                            list={ actions }
+                            selectItem={ (title, id, key) => console.log(title, id, key, row) }
+                            top={ '40px' }
+                            right={ '10px' }
+                            width={ '225px' }
+                        />
+                    </Box>
+                        
                 ) }
             </StyledTableRow>
         );
-    };
+    }
+
+    toggleShowActions(rowIndex) {
+        this.setState((prevState) => ({
+            showActions: (prevState.showActions !== rowIndex) ? rowIndex : null
+        }));
+    }
 
     render() {
         const { data, title, ...rest } = this.props;

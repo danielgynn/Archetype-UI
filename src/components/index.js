@@ -6,9 +6,11 @@ import GridBox from './GridBox/GridBox.jsx';
 import Header from './Header/Header.jsx';
 import Icon from './Icon/Icon.jsx';
 import Image from './Image/Image.jsx';
+import ImageUpload from './ImageUpload/ImageUpload.jsx';
 import Input from './Input/Input.jsx';
 import Jumbo from './Jumbo/Jumbo.jsx';
 import Label from './Label/Label.jsx';
+import OptionsList from './OptionsList/OptionsList.jsx';
 import PageHeader from './PageHeader/PageHeader.jsx';
 import Table from './Table/Table.jsx';
 import Text from './Text/Text.jsx';
@@ -21,5 +23,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
 export {
-    Box, Button, Dropdown, Flexbox, GridBox, Header, Jumbo, Icon, Image, Input, Label, PageHeader, Table, Text, TextLink, Toast
+    Box, Button, Dropdown, Flexbox, GridBox, Header, Jumbo, Icon, Image, ImageUpload, Input, Label, 
+    OptionsList, PageHeader, Table, Text, TextLink, Toast
 };

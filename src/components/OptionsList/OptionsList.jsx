@@ -1,0 +1,86 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import { Icon } from '../..';
+import { hexToRgb } from '../../utils';
+
+const DropdownList = styled.ul`
+    cursor: pointer;
+    z-index: 10;
+    position: absolute;
+    top: ${ props => props.top ? props.top : '80px' };
+    right: ${ props => props.right ? props.right : '0' };
+    width: ${ props => props.width ? props.width : '100%' };
+    border: 1px solid ${ props => props.theme.colours.accentTwo };
+    border-radius: 8px;
+    background-color: ${ props => props.theme.colours.white };
+    font-weight: 700;
+    max-height: 215px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+`;
+
+const DropdownListItem = styled.li`
+    width: 100%;
+    font-size: 1.5rem;
+    padding: .75rem;
+    line-height: normal;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: ${ props => props.theme.fontSizes.p };
+    color: ${ props => props.selected ? props.theme.colours.white : props.theme.colours.text };
+    background-color: ${ props => props.selected ? props.theme.colours.primary : 'inherit' };
+
+    &:hover {
+        color: ${ props => props.theme.colours.white };
+        background-color: ${ props => hexToRgb(props.theme.colours.primary, .85) };
+    }
+`;
+
+const DropdownItemText = styled.p`
+    display: block;
+`;
+
+const DropdownItemDescription = styled.p`
+    color: ${ props => props.selected ? props.theme.colours.accentTwo : 'inherit' };
+    font-size: .85rem;
+    font-weight: 300;
+`;
+
+export default class OptionsList extends Component {
+    render() {
+        const { id, list, selectItem, ...rest } = this.props;
+
+        return (
+            <DropdownList id={ id } onClick={ e => e.stopPropagation() } { ...rest }>
+                { list && list.map((item)=> (
+                    <DropdownListItem
+                        selected={ item.selected }
+                        key={ item.id }
+                        onClick={ () => selectItem(item.title, item.id, item.key) }
+                    >
+                        <DropdownItemText>
+                            { item.title } { item.selected && <Icon icon="check"/> }
+                        </DropdownItemText>
+                        <DropdownItemDescription selected={ item.selected }>
+                            { item.description ? item.description : '' }
+                        </DropdownItemDescription>
+                    </DropdownListItem>
+                )) }
+            </DropdownList>
+        )
+    }
+}
+
+OptionsList.defaultProps = {
+
+};
+
+OptionsList.propTypes = {
+    id: PropTypes.string,
+    list: PropTypes.array.isRequired,
+    selectItem: PropTypes.func.isRequired
+};

@@ -82,7 +82,7 @@ export default class Input extends Component {
     render() {
         const {
             margin, className, id, label, type, placeholder, value, onChange, onKeyUp, disabled, forceFocus, error,
-            errorMessage, success, successMessage, ...rest
+            errorMessage, success, successMessage, helpMessage, ...rest
         } = this.props;
 
         return (
@@ -108,7 +108,9 @@ export default class Input extends Component {
 					<StyledHelpText error={ error }>{ errorMessage }</StyledHelpText>
 				) : (success && successMessage) ? (
 					<StyledHelpText success={ success }>{ successMessage }</StyledHelpText>
-                ) : null }
+                ) : ((helpMessage) ? (
+                    <StyledHelpText>{ helpMessage }</StyledHelpText>
+                ) : null ) }
 
             </InputWrapper>
         )
@@ -137,5 +139,6 @@ Input.propTypes = {
     id: PropTypes.string,
     forceFocus: PropTypes.bool,
     error: PropTypes.bool,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    helpMessage: PropTypes.string
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const StyledTableHeader = styled.th`
     margin: 0;
@@ -47,3 +47,7 @@ export default class Cell extends Component {
         return CellComponent;
     }
 }
+
+Cell.propTypes = {
+    header: PropTypes.string
+};
