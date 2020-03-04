@@ -9,15 +9,23 @@ const StyledText = styled.p`
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.theme.fontWeights.p };
+
+    ${ ({ clamp }) => clamp && `
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: ${ clamp };
+        -webkit-box-orient: vertical;
+    `}
 `;
 
 export default class Text extends Component {
     render() {
-        const { children, className, ...rest } = this.props;
+        const { children, className, clamp, ...rest } = this.props;
 
         return (
             <StyledText
                 className={ className }
+                clamp={ clamp }
                 { ...rest }>
 
                 { children }

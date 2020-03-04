@@ -45,7 +45,7 @@ export default class Dropdown extends Component {
 
         this.state = {
             listOpen: false,
-            headerTitle: props.title
+            headerTitle: (props.list && props.list.find((item) => item.selected)) ? props.list.find((item) => item.selected).title : props.title
         };
 
         this.close = this.close.bind(this);

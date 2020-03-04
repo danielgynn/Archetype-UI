@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { space } from '../../utils';
+
 const StyledLabel = styled.div`
     background-color: ${ props => props.theme.colours[props.colour || 'primary'] };
     color: ${ props => props.theme.colours[props.textColour || 'textInverted'] };
-    font-size: ${ props => props.theme.fontSizes.label };
+    font-size: ${ props => props.small ? props.theme.fontSizes.labelSmall : props.theme.fontSizes.label };
     padding: ${ props => props.theme.labels.padding || '6px' };
     font-weight: ${ props => props.theme.fontWeights.label };
     border-radius: ${ props => props.theme.labels.radius };
@@ -14,6 +16,7 @@ const StyledLabel = styled.div`
     text-transform: uppercase;
     cursor: ${ props => props.onClick ? 'pointer' : 'auto' };
     transition: ${ props => props.theme.transitions.default };
+    ${ props => space(props) };
 
     &:hover {
         opacity: ${ props => props.onClick ? '.85' : '1' };
@@ -27,14 +30,17 @@ const StyledLabel = styled.div`
 
 export default class Label extends Component {
     render() {
-        const { text, className, colour, textColour, onClick } = this.props;
+        const { text, className, colour, textColour, onClick, small, ...rest } = this.props;
 
         return (
             <StyledLabel
                 className={ className }
                 colour={ colour }
                 textColour={ textColour }
-                onClick={ onClick }>
+                onClick={ onClick }
+                small={ small }
+                { ...rest }
+            >
 
                 { text }
 
@@ -48,5 +54,6 @@ Label.propTypes = {
     className: PropTypes.string,
     colour: PropTypes.string,
     textColour: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    small: PropTypes.bool
 }
