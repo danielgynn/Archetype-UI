@@ -12,8 +12,10 @@ import Jumbo from './Jumbo/Jumbo.jsx';
 import Label from './Label/Label.jsx';
 import OptionsList from './OptionsList/OptionsList.jsx';
 import PageHeader from './PageHeader/PageHeader.jsx';
+import RichTextInput from './RichTextInput/RichTextInput.jsx';
 import Table from './Table/Table.jsx';
 import Text from './Text/Text.jsx';
+import TextButton from './TextButton/TextButton.jsx';
 import TextLink from './TextLink/TextLink.jsx';
 import Toast from './Toast/Toast.jsx';
 
@@ -24,5 +26,5 @@ library.add(fas);
 
 export {
     Box, Button, Dropdown, Flexbox, GridBox, Header, Jumbo, Icon, Image, ImageUpload, Input, Label, 
-    OptionsList, PageHeader, Table, Text, TextLink, Toast
+    OptionsList, PageHeader, RichTextInput, Table, Text, TextButton, TextLink, Toast
 };
