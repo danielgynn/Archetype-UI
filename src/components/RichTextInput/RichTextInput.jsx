@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import 'draft-js/dist/Draft.css';
 
 import { Box } from '../..';
+import { space } from '../../utils';
 
 const StyledLabel = Styled.label`
     color: ${ props => props.theme.colours.textSecondary };
@@ -21,6 +22,7 @@ const EditorWrapper = Styled.div`
     border-radius: 8px;
     font-size: 14px;
     padding: 15px;
+    ${ props => space(props) };
 `;
 
 const EditorContainer = Styled.div`
@@ -212,7 +214,7 @@ export default class RichTextInput extends Component {
     
     render() {
         const { editorState } = this.state;
-        const { label, placeholder } = this.props;
+        const { label, placeholder, required, ...rest } = this.props;
     
         // If the user changes block type before entering any text, we can
         // either style the placeholder or hide it. Let's just hide it now.
@@ -227,8 +229,8 @@ export default class RichTextInput extends Component {
 
         return (
             <Box>
-                { (label) && <StyledLabel>{ label }</StyledLabel> }
-                <EditorWrapper>
+                { (label) && <StyledLabel>{ label } { required && '*' }</StyledLabel> }
+                <EditorWrapper { ...rest }>
                     <BlockStyleControls
                         editorState={editorState}
                         onToggle={this.toggleBlockType}
@@ -257,10 +259,12 @@ export default class RichTextInput extends Component {
 }
 
 RichTextInput.defaultProps = {
-    placeholder: 'Enter some text...'
+    placeholder: 'Enter some text...',
+    required: false
 };
 
 RichTextInput.propTypes = {
     label: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    required: PropTypes.bool
 };

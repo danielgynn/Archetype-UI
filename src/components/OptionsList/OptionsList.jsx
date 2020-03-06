@@ -9,7 +9,7 @@ const DropdownList = styled.ul`
     cursor: pointer;
     z-index: 10;
     position: absolute;
-    top: ${ props => props.top ? props.top : '80px' };
+    top: ${ props => props.top ? props.top : props.hasLabel ? '80px' : '50px' };
     right: ${ props => props.right ? props.right : '0' };
     width: ${ props => props.width ? props.width : '100%' };
     border: 1px solid ${ props => props.theme.colours.accentTwo };

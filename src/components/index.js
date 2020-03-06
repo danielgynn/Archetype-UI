@@ -1,3 +1,4 @@
+import AutocompleteInput from './AutocompleteInput/AutocompleteInput.jsx';
 import Box from './Box/Box.jsx';
 import Button from './Button/Button.jsx';
 import Checkbox from './Checkbox/Checkbox.jsx';
@@ -27,6 +28,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
 export {
-    Box, Button, Checkbox, Dropdown, Flexbox, GridBox, Header, Jumbo, Icon, Image, ImageUpload, Input, Label, 
+    AutocompleteInput, Box, Button, Checkbox, Dropdown, Flexbox, GridBox, Header, Jumbo, Icon, Image, ImageUpload, Input, Label, 
     OptionsList, PageHeader, Pagination, RichTextInput, Table, Text, TextButton, TextLink, Toast
 };

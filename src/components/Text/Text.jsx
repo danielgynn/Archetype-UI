@@ -8,7 +8,7 @@ const StyledText = styled.p`
     font-size: ${ props => props.small ? props.theme.fontSizes.pSmall : 'inherit' };
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
-    font-weight: ${ props => props.theme.fontWeights.p };
+    font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
 
     ${ ({ clamp }) => clamp && `
         overflow: hidden;

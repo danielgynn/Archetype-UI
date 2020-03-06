@@ -92,13 +92,13 @@ export default class Dropdown extends Component {
     }
 
     render() {
-        const { id, list, label, ...rest } = this.props;
+        const { id, list, label, required, ...rest } = this.props;
         const { listOpen, headerTitle } = this.state;
 
         return (
             <DropdownWrapper { ...rest }>
                 { (label) && (
-                    <DropdownLabel htmlFor={ id }>{ label }</DropdownLabel>
+                    <DropdownLabel htmlFor={ id }>{ label } { required && '*' }</DropdownLabel>
                  ) }
 
                 <DropdownHeader onClick={ () => this.toggleList() }>
@@ -119,6 +119,7 @@ export default class Dropdown extends Component {
                     <OptionsList
                         id={ id }
                         list={ list }
+                        hasLabel={ label }
                         selectItem={ this.selectItem }
                     />
                 ) }
@@ -128,11 +129,12 @@ export default class Dropdown extends Component {
 }
 
 Dropdown.defaultProps = {
-
+    required: false
 };
 
 Dropdown.propTypes = {
     id: PropTypes.string,
     label: PropTypes.string,
-    list: PropTypes.array.isRequired
+    list: PropTypes.array.isRequired,
+    required: PropTypes.bool
 };

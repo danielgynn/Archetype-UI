@@ -81,13 +81,13 @@ export default class Input extends Component {
 
     render() {
         const {
-            margin, className, id, label, type, placeholder, value, onChange, onKeyUp, disabled, forceFocus, error,
-            errorMessage, success, successMessage, helpMessage, ...rest
+            margin, className, id, label, type, placeholder, value, onChange, onKeyUp, onKeyDown, disabled, forceFocus, error,
+            errorMessage, success, successMessage, helpMessage, required, ...rest
         } = this.props;
 
         return (
             <InputWrapper margin={ margin } className={ className } { ...rest }>
-				{ (label) && <StyledLabel htmlFor={ id }>{ label }</StyledLabel> }
+				{ (label) && <StyledLabel htmlFor={ id }>{ label } { required && '*' }</StyledLabel> }
 
                 <StyledInput
 					type={ type }
@@ -98,7 +98,8 @@ export default class Input extends Component {
 					autoFocus={ forceFocus }
 					value={ value }
 					onChange={ onChange }
-					onKeyUp={ onKeyUp }
+                    onKeyUp={ onKeyUp }
+                    onKeyDown={ onKeyDown }
                     disabled={ disabled }
                     error={ error }
                     success={ success }
@@ -120,7 +121,8 @@ export default class Input extends Component {
 Input.defaultProps = {
     margin: [0,0,0,0],
     type: 'text',
-    forceFocus: false
+    forceFocus: false,
+    required: false
 };
 
 Input.propTypes = {
@@ -129,8 +131,10 @@ Input.propTypes = {
 		PropTypes.number
     ]).isRequired,
     placeholder: PropTypes.string,
+    required: PropTypes.bool,
     type: PropTypes.string,
     onChange: PropTypes.func,
+    onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func,
     disabled: PropTypes.bool,
     margin: PropTypes.array,
