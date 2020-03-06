@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { Icon } from '../..';
 import { hexToRgb, getWidthProperty, space } from '../../utils';
 
 const StyledButton = styled.button`
@@ -80,7 +81,7 @@ export default class Button extends Component {
     }
 
     render() {
-        const { id, className, type, text, colour, disabled, inverted, width, margin } = this.props;
+        const { id, className, type, text, colour, disabled, inverted, width, margin, icon, iconPosition, iconType } = this.props;
 
         return (
             <StyledButton
@@ -94,7 +95,11 @@ export default class Button extends Component {
                 inverted={ inverted }
                 onClick={ this.onClick }>
 
+                { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
+
                 { text }
+
+                { (icon && iconPosition === 'right') && <Icon margin={ [0,0,0,1] } icon={ icon } type={ iconType } /> }
 
             </StyledButton> 
         )
@@ -112,5 +117,8 @@ Button.propTypes = {
     colour: PropTypes.string,
     onClick: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
-    inverted: PropTypes.bool
+    inverted: PropTypes.bool,
+    icon: PropTypes.string,
+    iconType: PropTypes.string,
+    iconPosition: PropTypes.string
 };

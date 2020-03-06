@@ -11,6 +11,8 @@ const StyledHeader = styled.h1`
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.weight || props.theme.fontWeights[`h${ props.level }`] };
+    display: flex;
+    align-items: center;
 `;
 
 export default class Header extends Component {
