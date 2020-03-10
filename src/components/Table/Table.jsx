@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { space } from '../../utils';
+import { space, hexToRgb } from '../../utils';
 import Cell from './Cell.jsx';
 import { Box } from '../..';
 import Icon from '../Icon/Icon.jsx';
@@ -31,9 +31,11 @@ const StyledTableRow = styled.tr`
     transition: ${ props => props.theme.transitions.default };
     cursor: pointer;
     position: relative;
+    color: ${ props => props.selected ? props.theme.colours.textInverted : props.theme.colours.text };
+    background: ${ props => props.selected ? props.theme.colours.primary : props.theme.colours.white };
 
     &:hover {
-        background: ${ props => props.theme.colours.accent };
+        background: ${ props => props.selected ? hexToRgb(props.theme.colours.primary, .85) : props.theme.colours.accent };
     }
 `;
 
@@ -86,19 +88,24 @@ export default class Table extends Component {
     }
 
     renderBodyRow(row, rowIndex) {
-        const { data, fixedFirstCol, actions } = this.props;
+        const { data, fixedFirstCol, actions, onRowClick, selectedRows } = this.props;
         const { showActions } = this.state;
 
+        const objRow = row.find(col => typeof col === 'object');
+        const selected = ((objRow && objRow.selected) || (selectedRows && selectedRows.includes(rowIndex))) ? true : false;
+
         return (
-            <StyledTableRow key={ `row-${rowIndex}` }>
-                {data[rowIndex].map((_cell, cellIndex) => {
-                    return (
-                        <Cell
-                            key={ `${rowIndex}-${cellIndex}` }
-                            content={ data[rowIndex][cellIndex] }
-                            fixed={ cellIndex === 0 && fixedFirstCol }
-                        />
-                    )
+            <StyledTableRow key={ `row-${rowIndex}` } onClick={ onRowClick ? () => onRowClick(row, rowIndex) : null } selected={ selected }>
+                {data[rowIndex].map((cell, cellIndex) => {
+                    if (cell && (typeof cell !== 'object' || (typeof cell === 'object' && !cell.hide))) {
+                        return (
+                            <Cell
+                                key={ `${rowIndex}-${cellIndex}` }
+                                content={ data[rowIndex][cellIndex] }
+                                fixed={ cellIndex === 0 && fixedFirstCol }
+                            />
+                        )
+                    }
                 }) }
 
                 { (actions && actions.length > 0) && (
@@ -145,11 +152,14 @@ export default class Table extends Component {
 
 Table.defaultProps = {
     margin: [2,0,2,0],
-    width: 100
+    width: 100,
+    selectedRows: []
 };
 
 Table.propTypes = {
     title: PropTypes.string,
     columns: PropTypes.array,
-    data: PropTypes.array
+    data: PropTypes.array,
+    onRowClick: PropTypes.func,
+    selectedRows: PropTypes.array
 };

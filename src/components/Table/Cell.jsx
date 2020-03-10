@@ -18,6 +18,9 @@ const StyledTableCell = styled.td`
     margin: 0;
     padding: 0.5rem;
     height: 65px;
+    font-size: .9rem;
+    max-width: 350px;
+    color: ${ props => props.empty ? props.theme.colours.textSecondary : '' };
 `;
 
 export default class Cell extends Component {
@@ -38,7 +41,7 @@ export default class Cell extends Component {
                     { this.returnContent(content) }
                 </StyledTableHeader>
             ) : (
-                <StyledTableCell className={ className } style={ style }>
+                <StyledTableCell className={ className } style={ style } empty={ content === 'N/A' }>
                     { this.returnContent(content) }
                 </StyledTableCell>
             )
@@ -49,5 +52,5 @@ export default class Cell extends Component {
 }
 
 Cell.propTypes = {
-    header: PropTypes.string
+    header: PropTypes.bool
 };
