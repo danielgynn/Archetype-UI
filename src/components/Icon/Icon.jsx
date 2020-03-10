@@ -7,17 +7,17 @@ import { space, colour } from '../../utils';
 
 const IconWrapper = styled.span`
     display: ${ props => props.display ? props.display : 'inline-block' };
-    cursor: ${ props => props.onClick ? 'pointer' : 'auto' };
+    cursor: ${ props => props.cursor ? props.cursor : props.onClick ? 'pointer' : 'auto' };
     ${ props => colour(props) };
     ${ props => space(props) };
 `;
 
 export default class Icon extends Component {
     render() {
-        const { icon, size, color, onClick, ...rest } = this.props;
+        const { icon, size, color, onClick, cursor, ...rest } = this.props;
 
         return (
-            <IconWrapper color={ color } onClick={ onClick } { ...rest }>
+            <IconWrapper color={ color } cursor={ cursor } onClick={ onClick } { ...rest }>
                 <FontAwesomeIcon
                     icon={ icon }
                     size={ size }
@@ -35,5 +35,6 @@ Icon.propTypes = {
     icon: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     size: PropTypes.string,
-    color: PropTypes.string
+    color: PropTypes.string,
+    cursor: PropTypes.string
 };

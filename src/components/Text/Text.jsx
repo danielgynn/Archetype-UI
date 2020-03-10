@@ -20,12 +20,13 @@ const StyledText = styled.p`
 
 export default class Text extends Component {
     render() {
-        const { children, className, clamp, ...rest } = this.props;
+        const { children, className, clamp, html, ...rest } = this.props;
 
         return (
             <StyledText
                 className={ className }
                 clamp={ clamp }
+                dangerouslySetInnerHTML={ html ? {__html: html} : null }
                 { ...rest }>
 
                 { children }

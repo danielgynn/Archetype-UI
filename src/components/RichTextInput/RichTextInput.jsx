@@ -8,6 +8,10 @@ import 'draft-js/dist/Draft.css';
 import { Box } from '../..';
 import { space } from '../../utils';
 
+const EditorBox = Styled(Box)`
+    ${ props => space(props) };
+`;
+
 const StyledLabel = Styled.label`
     color: ${ props => props.theme.colours.textSecondary };
     font-weight: 400;
@@ -22,7 +26,6 @@ const EditorWrapper = Styled.div`
     border-radius: 8px;
     font-size: 14px;
     padding: 15px;
-    ${ props => space(props) };
 `;
 
 const EditorContainer = Styled.div`
@@ -147,7 +150,6 @@ export default class RichTextInput extends Component {
     constructor(props) {
         super(props);
 
-
         const blocksFromHTML = (props.content) ? convertFromHTML(props.content) : null;
         const state = (props.content) ? ContentState.createFromBlockArray(
             blocksFromHTML.contentBlocks,
@@ -228,7 +230,7 @@ export default class RichTextInput extends Component {
         }
 
         return (
-            <Box>
+            <EditorBox>
                 { (label) && <StyledLabel>{ label } { required && '*' }</StyledLabel> }
                 <EditorWrapper { ...rest }>
                     <BlockStyleControls
@@ -253,7 +255,7 @@ export default class RichTextInput extends Component {
                         />
                     </EditorContainer>
                 </EditorWrapper>
-            </Box>
+            </EditorBox>
         );
     }
 }
