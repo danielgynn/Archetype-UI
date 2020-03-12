@@ -22,24 +22,24 @@ const StyledButton = styled.button`
     white-space: nowrap;
     border: none;
     height: ${ props => props.theme.sizes.inputHeight };
-    background-color: ${props => (props.inverted ? props.theme.colours.white : props.theme.colours[props.colour || 'primary']) };
-    border: 1px solid ${props => props.theme.colours[props.colour || 'primary'] };
-    color: ${ props => (props.inverted ? props.theme.colours[props.colour || 'primary'] : props.theme.colours.textInverted) };
+    background-color: ${props => (props.inverted ? props.theme.colors.white : props.theme.colors[props.color || 'primary']) };
+    border: 1px solid ${props => props.theme.colors[props.color || 'primary'] };
+    color: ${ props => (props.inverted ? props.theme.colors[props.color || 'primary'] : props.theme.colors.textInverted) };
     transition: ${ props => props.theme.transitions.default };
     ${ props => space(props) };
 
     &:hover {
         box-shadow: 0 1px 4px rgba(0,0,0,0.15), 0 3px 8px rgba(0,0,0,0.1), 0 6px 16px rgba(0,0,0,0.1);
-        background-color: ${ props => hexToRgb(props.theme.colours[props.colour || 'primary'], .9) };
-        color: ${ props => props.theme.colours.textInverted };
+        background-color: ${ props => hexToRgb(props.theme.colors[props.color || 'primary'], .9) };
+        color: ${ props => props.theme.colors.textInverted };
     }
 
     &.disabled,
     &[disabled] {
         cursor: not-allowed;
-        color: ${ props => props.theme.colours.text };
-        background-color: ${ props => props.theme.colours.textTertiary };
-        border-color: ${ props => props.theme.colours.textTertiary };
+        color: ${ props => props.theme.colors.text };
+        background-color: ${ props => props.theme.colors.textTertiary };
+        border-color: ${ props => props.theme.colors.textTertiary };
         pointer-events: none;
         opacity: .4;
         box-shadow: none;
@@ -81,14 +81,14 @@ export default class Button extends Component {
     }
 
     render() {
-        const { id, className, type, text, colour, disabled, inverted, width, margin, icon, iconPosition, iconType } = this.props;
+        const { id, className, type, text, color, disabled, inverted, width, margin, icon, iconPosition, iconType } = this.props;
 
         return (
             <StyledButton
                 id={ id }
                 type={ type }
                 className={ className }
-                colour={ colour }
+                color={ color }
                 width={ width }
                 margin={ margin }
                 disabled={ disabled }
@@ -114,7 +114,7 @@ Button.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
     text: PropTypes.string.isRequired,
-    colour: PropTypes.string,
+    color: PropTypes.string,
     onClick: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     inverted: PropTypes.bool,

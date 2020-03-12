@@ -11,7 +11,7 @@ const Wrapper = styled(Box)`
 `;
 
 const StyledLabel = styled.label`
-    color: ${ props => props.theme.colours.textSecondary };
+    color: ${ props => props.theme.colors.textSecondary };
     font-weight: 400;
     font-size: .9rem;
     display: inline-block;
@@ -19,8 +19,8 @@ const StyledLabel = styled.label`
 `;
 
 const FileContainer = styled.div`
-    background: ${ props => hexToRgb(props.theme.colours.white, 1) };
-    border: 1px solid ${ props => props.theme.colours.accentTwo };
+    background: ${ props => hexToRgb(props.theme.colors.white, 1) };
+    border: 1px solid ${ props => props.theme.colors.accentTwo };
 	position: relative;
 	border-radius: 8px;
 	padding: 20px 0;
@@ -42,7 +42,7 @@ const PictureContainer = styled.div`
     width: 16%;
 	margin: 1rem;
 	padding: 4px;
-	background: ${ props => props.theme.colours.white };
+	background: ${ props => props.theme.colors.white };
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -68,7 +68,7 @@ const DeletePicture = styled.div`
 	top: -8px;
 	right: -8px;
 	color: #fff;
-	background: ${ props => props.theme.colours.error };
+	background: ${ props => props.theme.colors.error };
 	border-radius: 50%;
 	text-align: center;
 	cursor: pointer;
@@ -83,7 +83,7 @@ const ErrorContainer = styled.div`
     max-width: 300px;
     font-size: 12px;
     margin: 1rem 0;
-	color: ${ props => props.theme.colours.error };
+	color: ${ props => props.theme.colors.error };
 	text-align: left;
 `;
 
@@ -259,7 +259,7 @@ class ImageUpload extends Component {
         const { withLabel, help } = this.props;
     
         if (withLabel) {
-            return <Text colour={ 'textSecondary' } small>{ help }</Text>
+            return <Text color={ 'textSecondary' } small>{ help }</Text>
         }
     }
 

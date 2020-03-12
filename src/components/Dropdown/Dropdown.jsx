@@ -13,7 +13,7 @@ const DropdownWrapper = styled(Box)`
 `;
 
 const DropdownLabel = styled.label`
-    color: ${ props => props.theme.colours.textSecondary };
+    color: ${ props => props.theme.colors.textSecondary };
     font-weight: 400;
     font-size: .9rem;
     display: inline-block;
@@ -26,7 +26,7 @@ const DropdownHeader = styled.div`
     justify-content: space-between;
     height: ${ props => props.theme.sizes.inputHeight };
     line-height: normal;
-    border: 1px solid ${ props => props.theme.colours.accentTwo };;
+    border: 1px solid ${ props => props.theme.colors.accentTwo };;
     border-radius: 8px;
     cursor: pointer;
     position: relative;
@@ -35,7 +35,7 @@ const DropdownHeader = styled.div`
 
 const DropdownHeaderTitle = styled.div`
     margin: 2px 30px 2px 20px;
-    color: ${ props => props.theme.colours.text };
+    color: ${ props => props.theme.colors.text };
     font-size: ${ props => props.theme.fontSizes.p };
 `;
 

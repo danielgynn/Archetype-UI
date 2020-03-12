@@ -6,7 +6,7 @@ import { Input } from '../..';
 import { hexToRgb, space } from "../../utils";
 
 const StyledLabel = Styled.label`
-    color: ${ props => props.theme.colours.textSecondary };
+    color: ${ props => props.theme.colors.textSecondary };
     font-weight: 400;
     font-size: .9rem;
     display: inline-block;
@@ -19,7 +19,7 @@ const SuggestionsWrapper = Styled.div`
 `;
 
 const SuggestionsList = Styled.ul`
-    border: 1px solid ${ props => props.theme.colours.accentTwo };
+    border: 1px solid ${ props => props.theme.colors.accentTwo };
     list-style: none;
     margin-top: 0;
     border-radius: 8px;
@@ -28,7 +28,7 @@ const SuggestionsList = Styled.ul`
     -webkit-overflow-scrolling: touch;
     padding-left: 0;
     z-index: 10000;
-    background-color: ${ props => props.theme.colours.white };
+    background-color: ${ props => props.theme.colors.white };
     position: absolute;
     width: 100%;
     top: 80px;
@@ -42,12 +42,12 @@ const SuggestionsListItem = Styled.li`
     display: inline-block;
     white-space: nowrap;
     text-overflow: ellipsis;
-    background-color: ${ props => props.activeItem ? hexToRgb(props.theme.colours.primary, .75) : props.theme.colours.white };
-    color: ${ props => props.activeItem ? props.theme.colours.textInverted : props.theme.colours.text };
+    background-color: ${ props => props.activeItem ? hexToRgb(props.theme.colors.primary, .75) : props.theme.colors.white };
+    color: ${ props => props.activeItem ? props.theme.colors.textInverted : props.theme.colors.text };
 
     &:hover {
-        background-color: ${ props => props.theme.colours.primary };
-        color: ${ props => props.theme.colours.textInverted };
+        background-color: ${ props => props.theme.colors.primary };
+        color: ${ props => props.theme.colors.textInverted };
         cursor: pointer;
         font-weight: 700;
     }

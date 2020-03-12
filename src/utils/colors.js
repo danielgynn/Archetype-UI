@@ -41,17 +41,17 @@ const isValidColor = (color) => {
 	return s.color !== '';
 }
 
-const getColourProperty = (themeColours, colour) => {
-	if (!colour) {
+const getcolorProperty = (themecolors, color) => {
+	if (!color) {
 		return '';
-	} else if ((!themeColours || !themeColours[colour]) && isValidColor(colour)) {
-		return colour;
+	} else if ((!themecolors || !themecolors[color]) && isValidColor(color)) {
+		return color;
 	}
 
-	return themeColours[colour];
+	return themecolors[color];
 };
 
-export const colour = (props) => `
-	color: ${ getColourProperty(props.theme.colours, props.color) };
-    background: ${ getColourProperty(props.theme.colours, props.bg) };
+export const color = (props) => `
+	color: ${ getcolorProperty(props.theme.colors, props.color) };
+    background: ${ getcolorProperty(props.theme.colors, props.bg) };
 `;

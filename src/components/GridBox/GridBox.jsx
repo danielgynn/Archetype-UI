@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { space, colour } from '../../utils';
+import { space, color } from '../../utils';
 
 const GridWrapper = styled.div`
     display: grid !important;
@@ -10,7 +10,7 @@ const GridWrapper = styled.div`
     grid-row-gap: ${ props => props.rowGap }rem;
     grid-column-gap: ${ props => props.colGap }rem;
     ${ props => space(props) };
-    ${ props => colour(props) };
+    ${ props => color(props) };
 `;
 
 export default class GridBox extends Component {

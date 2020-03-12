@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { getMarginProperties, getPaddingProperties } from '../../utils';
 
 const StyledHeader = styled.h1`
-    color: ${ props => props.theme.colours[props.colour || 'text'] };
+    color: ${ props => props.theme.colors[props.color || 'text'] };
     font-size: ${ props => props.theme.fontSizes[`h${ props.level }`] };
     ${props => (props.textAlign ? `text-align: ${props.textAlign};` : '')}
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
@@ -18,14 +18,14 @@ const StyledHeader = styled.h1`
 export default class Header extends Component {
     render() {
         const {
-            level, children, className, colour, weight, ...rest
+            level, children, className, color, weight, ...rest
         } = this.props;
 
         return (
             <StyledHeader
                 as={ `h${level}` }
                 className={ className }
-                colour={ colour }
+                color={ color }
                 level={ level }
                 weight={ weight }
                 { ...rest }>
@@ -45,6 +45,6 @@ Header.defaultProps = {
 Header.propTypes = {
     level: PropTypes.number,
     className: PropTypes.string,
-    colour: PropTypes.string,
+    color: PropTypes.string,
     weight: PropTypes.number
 }

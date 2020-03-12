@@ -11,7 +11,7 @@ const StyledTableHeader = styled.th`
     padding: 0.5rem;
     font-size: .7rem;
     font-weight: ${ props => props.sorted ? '700' : '600' };
-    color: ${ props => props.sorted ? props.theme.colours.text : props.theme.colours.textSecondary };
+    color: ${ props => props.sorted ? props.theme.colors.text : props.theme.colors.textSecondary };
 `;
 
 const StyledTableCell = styled.td`
@@ -21,7 +21,7 @@ const StyledTableCell = styled.td`
     font-size: .9rem;
     max-width: 350px;
     font-weight: ${ props => props.sorted ? '700' : '500' };
-    color: ${ props => props.empty ? props.theme.colours.textSecondary : '' };
+    color: ${ props => props.empty ? props.theme.colors.textSecondary : '' };
 `;
 
 export default class Cell extends Component {

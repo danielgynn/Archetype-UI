@@ -22,7 +22,7 @@ const ToastWrapper = styled.div`
     position: relative;
     padding: 1rem 1rem 1rem 1.75rem;
     border-radius: 8px;
-    background: ${ props => props.theme.colours.white };
+    background: ${ props => props.theme.colors.white };
     border-left: 10px solid transparent;
     min-height: 95px;
     cursor: pointer;
@@ -45,7 +45,7 @@ const ToastBorder = styled.div`
     height: 100%;
     border-radius: 8px;
     height: 80%;
-    background-color: ${ props => props.theme.colours[props.type] };
+    background-color: ${ props => props.theme.colors[props.type] };
 `;
 
 const ToastMessage = styled.div`
@@ -55,17 +55,17 @@ const ToastMessage = styled.div`
 const ToastMessageType = styled.p`
     font-size: 1rem;
     font-weight: 700;
-    color: ${ props => props.theme.colours.text };
+    color: ${ props => props.theme.colors.text };
 `;
 
 const ToastMessageText = styled.p`
     font-size: .95rem;
-    color: ${ props => props.theme.colours.textSecondary };
+    color: ${ props => props.theme.colors.textSecondary };
 `;
 
 const ToastTime = styled.p`
     font-size: .85rem;
-    color: ${ props => props.theme.colours.textTertiary };
+    color: ${ props => props.theme.colors.textTertiary };
 `;
 
 export default class Toast extends Component {

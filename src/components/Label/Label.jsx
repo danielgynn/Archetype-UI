@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { space } from '../../utils';
 
 const StyledLabel = styled.div`
-    background-color: ${ props => props.colour && props.colour.includes('#') ? props.colour : props.theme.colours[props.colour || 'primary'] };
-    color: ${ props => props.theme.colours[props.textColour || 'textInverted'] };
+    background-color: ${ props => props.color && props.color.includes('#') ? props.color : props.theme.colors[props.color || 'primary'] };
+    color: ${ props => props.theme.colors[props.textcolor || 'textInverted'] };
     font-size: ${ props => props.small ? props.theme.fontSizes.labelSmall : props.theme.fontSizes.label };
     padding: ${ props => props.theme.labels.padding || '6px' };
     font-weight: ${ props => props.theme.fontWeights.label };
@@ -30,13 +30,13 @@ const StyledLabel = styled.div`
 
 export default class Label extends Component {
     render() {
-        const { text, className, colour, textColour, onClick, small, ...rest } = this.props;
+        const { text, className, color, textcolor, onClick, small, ...rest } = this.props;
 
         return (
             <StyledLabel
                 className={ className }
-                colour={ colour }
-                textColour={ textColour }
+                color={ color }
+                textcolor={ textcolor }
                 onClick={ onClick }
                 small={ small }
                 { ...rest }
@@ -52,8 +52,8 @@ export default class Label extends Component {
 Label.propTypes = {
     text: PropTypes.string.isRequired,
     className: PropTypes.string,
-    colour: PropTypes.string,
-    textColour: PropTypes.string,
+    color: PropTypes.string,
+    textcolor: PropTypes.string,
     onClick: PropTypes.func,
     small: PropTypes.bool
 }

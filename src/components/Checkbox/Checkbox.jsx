@@ -10,7 +10,7 @@ const CheckboxWrapper = styled.label`
 `;
 
 const CheckboxLabel = styled.span`
-    color: ${ props => props.theme.colours.textSecondary };
+    color: ${ props => props.theme.colors.textSecondary };
     margin-left: 1rem;
 `;
 
@@ -42,12 +42,12 @@ const StyledCheckbox = styled.div`
     display: inline-block;
     width: 22px;
     height: 22px;
-    background: ${props => (props.checked ? props.theme.colours.primary : hexToRgb(props.theme.colours.primary, .7)) };
+    background: ${props => (props.checked ? props.theme.colors.primary : hexToRgb(props.theme.colors.primary, .7)) };
     border-radius: 3px;
     transition: all 150ms;
 
     ${HiddenCheckbox}:focus + & {
-        box-shadow: 0 0 0 3px ${ props => hexToRgb(props.theme.colours.primary, .45) };
+        box-shadow: 0 0 0 3px ${ props => hexToRgb(props.theme.colors.primary, .45) };
     }
 
     ${Icon} {

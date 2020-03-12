@@ -2,28 +2,28 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { colour, space, hexToRgb } from '../../utils';
+import { color, space, hexToRgb } from '../../utils';
 
 const StyledLink = styled.p`
-    ${ props => colour(props) };
+    ${ props => color(props) };
     ${ props => space(props) };
     font-size: ${ props => props.theme.fontSizes.p };
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
-    border-bottom: ${ props => props.active ? `1px solid ${ props.theme.colours[props.color || 'textInverted'] }` : '1px solid transparent' };
+    border-bottom: ${ props => props.active ? `1px solid ${ props.theme.colors[props.color || 'textInverted'] }` : '1px solid transparent' };
     user-select: none;
     transition: ${ props => props.theme.transitions.default };
 
     &:hover {
-        color: ${ props => hexToRgb(props.theme.colours[props.color || 'textInverted'], .85) };
-        border-color: ${ props => hexToRgb(props.theme.colours[props.color || 'textInverted'], .85) };
+        color: ${ props => hexToRgb(props.theme.colors[props.color || 'textInverted'], .85) };
+        border-color: ${ props => hexToRgb(props.theme.colors[props.color || 'textInverted'], .85) };
     }
 
     &:active,
     &:focus {
-        color: ${ props => hexToRgb(props.theme.colours[props.color || 'textInverted'], .7) };
-        border-color: ${ props => hexToRgb(props.theme.colours[props.color || 'textInverted'], .7) };
+        color: ${ props => hexToRgb(props.theme.colors[props.color || 'textInverted'], .7) };
+        border-color: ${ props => hexToRgb(props.theme.colors[props.color || 'textInverted'], .7) };
     }
 
     ${ props => props.disabled && `
@@ -36,13 +36,13 @@ const StyledLink = styled.p`
 
 export default class TextLink extends Component {
     render() {
-        const { onClick, href, text, colour, active, disabled, icon, iconPosition, iconType, ...rest } = this.props;
+        const { onClick, href, text, color, active, disabled, icon, iconPosition, iconType, ...rest } = this.props;
 
         return (
             <StyledLink
                 onClick={ onClick }
                 href={ href }
-                color={ colour }
+                color={ color }
                 disabled={ disabled }
                 active={ active }
                 role={ (onClick) ? 'button' : null }
@@ -70,7 +70,7 @@ TextLink.propTypes = {
     className: PropTypes.string,
     text: PropTypes.string.isRequired,
     active: PropTypes.bool,
-    colour: PropTypes.string,
+    color: PropTypes.string,
     onClick: PropTypes.func,
     href: PropTypes.string,
     disabled: PropTypes.bool,

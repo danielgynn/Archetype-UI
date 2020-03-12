@@ -13,7 +13,7 @@ const EditorBox = Styled(Box)`
 `;
 
 const StyledLabel = Styled.label`
-    color: ${ props => props.theme.colours.textSecondary };
+    color: ${ props => props.theme.colors.textSecondary };
     font-weight: 400;
     font-size: .9rem;
     display: inline-block;
@@ -22,14 +22,14 @@ const StyledLabel = Styled.label`
 
 const EditorWrapper = Styled.div`
     background: #fff;
-    border: 1px solid ${ props => props.theme.colours.accentTwo };
+    border: 1px solid ${ props => props.theme.colors.accentTwo };
     border-radius: 8px;
     font-size: 14px;
     padding: 15px;
 `;
 
 const EditorContainer = Styled.div`
-    border-top: 1px solid ${ props => props.theme.colours.accentTwo };
+    border-top: 1px solid ${ props => props.theme.colors.accentTwo };
     cursor: text;
     font-size: 16px;
     margin-top: 10px;
@@ -43,7 +43,7 @@ const EditorControls = Styled.div`
 `;
 
 const EditorButton = Styled.span`
-    color: ${ props => props.active ? props.theme.colours.primary : props.theme.colours.textSecondary };
+    color: ${ props => props.active ? props.theme.colors.primary : props.theme.colors.textSecondary };
     cursor: pointer;
     margin-right: 16px;
     font-weight: ${ props => props.active ? 700 : 400 };

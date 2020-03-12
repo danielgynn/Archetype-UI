@@ -88,7 +88,7 @@ export default class Pagination extends Component {
                     { (allowFirstPage || allowEndPages) && (
                         <PaginationButton
                             margin={ [0,1,0,0] }
-                            colour={ 'primary' }
+                            color={ 'primary' }
                             disabled={ currentPage === 1 }
                             onClick={ () => this.setPage(1) }
                             icon={ 'angle-double-left' }
@@ -98,7 +98,7 @@ export default class Pagination extends Component {
                     ) }
 
                     <PaginationButton
-                        colour={ 'primary' }
+                        color={ 'primary' }
                         margin={ [0,2,0,0] }
                         inverted
                         disabled={ currentPage === 1 }
@@ -128,7 +128,7 @@ export default class Pagination extends Component {
 
                 <Flexbox alignItems={ 'center' } justifyContent={ 'flex-end' }>
                     <PaginationButton
-                        colour={ 'primary' }
+                        color={ 'primary' }
                         margin={ [0,0,0,2] }
                         inverted
                         disabled={ currentPage === totalPages }
@@ -141,7 +141,7 @@ export default class Pagination extends Component {
                     { (allowLastPage || allowEndPages) && (
                         <PaginationButton
                             margin={ [0,0,0,1] }
-                            colour={ 'primary' }
+                            color={ 'primary' }
                             disabled={ currentPage === totalPages }
                             onClick={ () => this.setPage(totalPages) }
                             icon={ 'angle-double-right' }

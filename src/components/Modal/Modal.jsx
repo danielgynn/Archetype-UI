@@ -40,7 +40,7 @@ export default class Modal extends Component {
                         ) }
 
                         { (text) && (
-                            <Text align={ 'center' } colour={ 'textSecondary' }>{ text }</Text>
+                            <Text align={ 'center' } color={ 'textSecondary' }>{ text }</Text>
                         ) }
                     </Flexbox>
 
@@ -48,9 +48,9 @@ export default class Modal extends Component {
 
                     <Flexbox margin={ [3,0,0,0] } alignItems={ 'center' } justifyContent={ 'space-between' }>
                         { (action && action.handleAction) && (
-                            <Button colour={ action.type } width={ 48 } onClick={ action.handleAction } text={ action.text } />
+                            <Button color={ action.type } width={ 48 } onClick={ action.handleAction } text={ action.text } />
                         ) }
-                        <Button colour={ 'primary' } width={ 48 } inverted onClick={ handleClose } text={ 'Cancel' } />
+                        <Button color={ 'primary' } width={ 48 } inverted onClick={ handleClose } text={ 'Cancel' } />
                     </Flexbox>
                 </ModalMain>
             </ModalWrapper>

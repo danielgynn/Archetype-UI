@@ -17,17 +17,17 @@ const TextButtonWrapper = Styled.div`
 
     &:hover {
         opacity: 1;
-        background: ${ props => props.theme.colours.accent };
+        background: ${ props => props.theme.colors.accent };
     }
 
     &:active,
     &:focus {
-        background: ${ props => props.theme.colours.accentTwo };
+        background: ${ props => props.theme.colors.accentTwo };
         opacity: .9;
     }
 
     ${ ({ disabled }) => disabled && `
-        background: ${ props => props.theme.colours.accent };
+        background: ${ props => props.theme.colors.accent };
         cursor: unset;
         opacity: .7;
     `}

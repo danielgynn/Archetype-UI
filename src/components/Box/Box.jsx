@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { space, colour, borders } from '../../utils';
+import { space, color, borders } from '../../utils';
 
 const StyledBox = styled.div`
     ${ props => space(props) };
-    ${ props => colour(props) };
+    ${ props => color(props) };
     ${ props => borders(props) };
-    ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colours[props.borderBottom] }` : '' };
+    ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colors[props.borderBottom] }` : '' };
     ${ props => props.position && `position: ${ props.position }` }
 `;
 

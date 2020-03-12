@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getMarginProperties, getPaddingProperties } from '../../utils';
 
 const StyledText = styled.p`
-    color: ${ props => props.theme.colours[props.colour || 'text'] };
+    color: ${ props => props.theme.colors[props.color || 'text'] };
     font-size: ${ props => props.small ? props.theme.fontSizes.pSmall : 'inherit' };
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };

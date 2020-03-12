@@ -12,9 +12,9 @@ const DropdownList = styled.ul`
     top: ${ props => props.top ? props.top : props.hasLabel ? '80px' : '50px' };
     right: ${ props => props.right ? props.right : '0' };
     width: ${ props => props.width ? props.width : '100%' };
-    border: 1px solid ${ props => props.theme.colours.accentTwo };
+    border: 1px solid ${ props => props.theme.colors.accentTwo };
     border-radius: 8px;
-    background-color: ${ props => props.theme.colours.white };
+    background-color: ${ props => props.theme.colors.white };
     font-weight: 700;
     max-height: 215px;
     overflow-y: scroll;
@@ -31,12 +31,12 @@ const DropdownListItem = styled.li`
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: ${ props => props.theme.fontSizes.p };
-    color: ${ props => props.selected ? props.theme.colours.white : props.theme.colours.text };
-    background-color: ${ props => props.selected ? props.theme.colours.primary : 'inherit' };
+    color: ${ props => props.selected ? props.theme.colors.white : props.theme.colors.text };
+    background-color: ${ props => props.selected ? props.theme.colors.primary : 'inherit' };
 
     &:hover {
-        color: ${ props => props.theme.colours.white };
-        background-color: ${ props => hexToRgb(props.theme.colours.primary, .85) };
+        color: ${ props => props.theme.colors.white };
+        background-color: ${ props => hexToRgb(props.theme.colors.primary, .85) };
     }
 `;
 
@@ -45,7 +45,7 @@ const DropdownItemText = styled.p`
 `;
 
 const DropdownItemDescription = styled.p`
-    color: ${ props => props.selected ? props.theme.colours.accentTwo : 'inherit' };
+    color: ${ props => props.selected ? props.theme.colors.accentTwo : 'inherit' };
     font-size: .85rem;
     font-weight: 300;
 `;

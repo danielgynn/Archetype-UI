@@ -13,7 +13,7 @@ const StyledTable = styled.table`
     position: relative;
     border-radius: 8px;
     border-collapse: collapse;
-    border: 1px solid ${ props => props.theme.colours.accentTwo };
+    border: 1px solid ${ props => props.theme.colors.accentTwo };
     ${ props => space(props) };
 `;
 
@@ -26,34 +26,34 @@ const StyledTableCaption = styled.caption`
 
 const StyledTableHead = styled.thead`
     background: #f5f8fa;
-    border-bottom: 1px solid ${ props => props.theme.colours.accentTwo };
+    border-bottom: 1px solid ${ props => props.theme.colors.accentTwo };
 `;
 
 const StyledTableRow = styled.tr`
-    border-bottom: 1px solid ${ props => props.theme.colours.accentTwo };
+    border-bottom: 1px solid ${ props => props.theme.colors.accentTwo };
     transition: ${ props => props.theme.transitions.default };
     cursor: pointer;
     position: relative;
-    color: ${ props => props.selected ? props.theme.colours.textInverted : props.theme.colours.text };
-    background: ${ props => props.selected ? props.theme.colours.primary : props.theme.colours.white };
+    color: ${ props => props.selected ? props.theme.colors.textInverted : props.theme.colors.text };
+    background: ${ props => props.selected ? props.theme.colors.primary : props.theme.colors.white };
 
     &:nth-of-type(2n) {
-        background: ${ props => props.selected ? props.theme.colours.primary : 'rgba(230,234,238,.2)' };
+        background: ${ props => props.selected ? props.theme.colors.primary : 'rgba(230,234,238,.2)' };
     }
 
     &:hover {
-        background: ${ props => props.selected ? hexToRgb(props.theme.colours.primary, .85) : props.theme.colours.accent };
+        background: ${ props => props.selected ? hexToRgb(props.theme.colors.primary, .85) : props.theme.colors.accent };
     }
 `;
 
 const StyledTableAction = styled.td`
     padding: 0 .5rem;
     align-items: center;
-    color: ${ props => props.theme.colours.textSecondary };
+    color: ${ props => props.theme.colors.textSecondary };
     transition: ${ props => props.theme.transitions.default };
 
     &:hover {
-        color: ${ props => props.theme.colours.text };   
+        color: ${ props => props.theme.colors.text };   
     }
 `;
 

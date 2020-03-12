@@ -22,7 +22,7 @@ export default class PageHeader extends Component {
                             { title }
                         </Header>
                         <Text
-                            colour={ 'tertiary' }
+                            color={ 'tertiary' }
                             margin={ [0,0,0,0] }
                         >
                             { subtitle }

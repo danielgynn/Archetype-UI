@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { space, colour } from '../../utils';
+import { space, color } from '../../utils';
 
 const IconWrapper = styled.span`
     display: ${ props => props.display ? props.display : 'inline-block' };
     cursor: ${ props => props.cursor ? props.cursor : props.onClick ? 'pointer' : 'auto' };
-    ${ props => colour(props) };
+    ${ props => color(props) };
     ${ props => space(props) };
 `;
 

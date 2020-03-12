@@ -1,3 +1,3 @@
 export * from './borders';
-export * from './colours';
+export * from './colors';
 export * from './space';

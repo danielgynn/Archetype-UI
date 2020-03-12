@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { Box } from '../..';
-import { space, colour } from '../../utils';
+import { space, color } from '../../utils';
 
 const InputWrapper = styled(Box)`
     position: relative;
@@ -11,7 +11,7 @@ const InputWrapper = styled(Box)`
 `;
 
 const StyledLabel = styled.label`
-    color: ${ props => props.theme.colours.textSecondary };
+    color: ${ props => props.theme.colors.textSecondary };
     font-weight: 400;
     font-size: .9rem;
     display: inline-block;
@@ -21,7 +21,7 @@ const StyledLabel = styled.label`
 const StyledInput = styled.input`
     overflow: visible;
     outline: none;
-    color: ${ props => props.theme.colours.text };
+    color: ${ props => props.theme.colors.text };
     border-radius: 8px;
     display: block;
     width: 100%;
@@ -29,25 +29,25 @@ const StyledInput = styled.input`
     padding: .85rem 1.15rem;
     font-size: ${ props => props.theme.fontSizes.p };
     line-height: normal;
-    background-color: ${ props => props.theme.colours.white };
+    background-color: ${ props => props.theme.colors.white };
     background-clip: padding-box;
     box-shadow: none;
-    border: 1px solid ${ props => props.error ? props.theme.colours.error : props.success ? props.theme.colours.success : props.theme.colours.accentTwo };
+    border: 1px solid ${ props => props.error ? props.theme.colors.error : props.success ? props.theme.colors.success : props.theme.colors.accentTwo };
     -webkit-transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
-    ${ props => colour(props) };
+    ${ props => color(props) };
 
     &.active,
     &:active,
     &:focus {
-        border-color: ${ props => props.error ? props.theme.colours.error : props.success ? props.theme.colours.success : props.theme.colours.primary };
+        border-color: ${ props => props.error ? props.theme.colors.error : props.success ? props.theme.colors.success : props.theme.colors.primary };
     }
 
     &.disabled,
     &[disabled] {
-        background-color: ${ props => props.theme.colours.accentTwo };
+        background-color: ${ props => props.theme.colors.accentTwo };
         pointer-events: none;
         opacity: .4;
         border: 0;
@@ -58,7 +58,7 @@ const StyledHelpText = styled.span`
     font-weight: 300;
     font-size: .85rem;
     padding-top: 7px;
-    color: ${ props => props.error ? props.theme.colours.error : props.success ? props.theme.colours.success : '#7b7e8a' };
+    color: ${ props => props.error ? props.theme.colors.error : props.success ? props.theme.colors.success : '#7b7e8a' };
     display: inline-block;
     text-transform: unset;
 `;
