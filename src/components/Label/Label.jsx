@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { space } from '../../utils';
 
 const StyledLabel = styled.div`
-    background-color: ${ props => props.theme.colours[props.colour || 'primary'] };
+    background-color: ${ props => props.colour && props.colour.includes('#') ? props.colour : props.theme.colours[props.colour || 'primary'] };
     color: ${ props => props.theme.colours[props.textColour || 'textInverted'] };
     font-size: ${ props => props.small ? props.theme.fontSizes.labelSmall : props.theme.fontSizes.label };
     padding: ${ props => props.theme.labels.padding || '6px' };

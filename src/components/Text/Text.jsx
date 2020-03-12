@@ -9,6 +9,7 @@ const StyledText = styled.p`
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
+    text-align: ${ props => props.align ? props.align : 'left' };
 
     ${ ({ clamp }) => clamp && `
         overflow: hidden;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { Box } from '../..';
-import { space } from '../../utils';
+import { space, colour } from '../../utils';
 
 const InputWrapper = styled(Box)`
     position: relative;
@@ -37,6 +37,7 @@ const StyledInput = styled.input`
     transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+    ${ props => colour(props) };
 
     &.active,
     &:active,
@@ -82,7 +83,7 @@ export default class Input extends Component {
     render() {
         const {
             margin, className, id, label, type, placeholder, value, onChange, onKeyUp, onKeyDown, disabled, forceFocus, error,
-            errorMessage, success, successMessage, helpMessage, required, ...rest
+            errorMessage, success, successMessage, helpMessage, required, bg, ...rest
         } = this.props;
 
         return (
@@ -103,6 +104,7 @@ export default class Input extends Component {
                     disabled={ disabled }
                     error={ error }
                     success={ success }
+                    bg={ bg }
 				/>
 
                 { (error && errorMessage) ? (
@@ -144,5 +146,6 @@ Input.propTypes = {
     forceFocus: PropTypes.bool,
     error: PropTypes.bool,
     errorMessage: PropTypes.string,
-    helpMessage: PropTypes.string
+    helpMessage: PropTypes.string,
+    bg: PropTypes.string
 };

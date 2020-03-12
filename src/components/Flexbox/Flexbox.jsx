@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { space, colour } from '../../utils';
+import { space, colour, borders } from '../../utils';
 
 const isTruthyOrZero = value => value || value === 0;
 
@@ -23,6 +23,8 @@ const Flexbox = styled(({
     ${props => (props.justifyContent ? `justify-content: ${props.justifyContent};` : '')}
     ${ props => space(props) };
     ${ props => colour(props) };
+    ${ props => borders(props) };
+    ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colours[props.borderBottom] }` : '' };
 `;
 
 Flexbox.propTypes = {

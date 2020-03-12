@@ -36,19 +36,23 @@ const StyledLink = styled.p`
 
 export default class TextLink extends Component {
     render() {
-        const { onClick, href, text, colour, active, disabled, ...rest } = this.props;
+        const { onClick, href, text, colour, active, disabled, icon, iconPosition, iconType, ...rest } = this.props;
 
         return (
             <StyledLink
                 onClick={ onClick }
                 href={ href }
-                colour={ colour }
+                color={ colour }
                 disabled={ disabled }
                 active={ active }
                 role={ (onClick) ? 'button' : null }
                 { ...rest }>
+
+                { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
                 
                 { text }
+
+                { (icon && iconPosition === 'right') && <Icon margin={ [0,0,0,1] } icon={ icon } type={ iconType } /> }
                 
             </StyledLink>
         )
@@ -69,5 +73,8 @@ TextLink.propTypes = {
     colour: PropTypes.string,
     onClick: PropTypes.func,
     href: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    icon: PropTypes.string,
+    iconType: PropTypes.string,
+    iconPosition: PropTypes.string
 };

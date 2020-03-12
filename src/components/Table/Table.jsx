@@ -11,7 +11,9 @@ import OptionsList from '../OptionsList/OptionsList.jsx';
 const StyledTable = styled.table`
     border-spacing: 0;
     position: relative;
+    border-radius: 8px;
     border-collapse: collapse;
+    border: 1px solid ${ props => props.theme.colours.accentTwo };
     ${ props => space(props) };
 `;
 
@@ -23,16 +25,21 @@ const StyledTableCaption = styled.caption`
 `;
 
 const StyledTableHead = styled.thead`
-    background: ${ props => props.theme.colours.accentTwo };
+    background: #f5f8fa;
+    border-bottom: 1px solid ${ props => props.theme.colours.accentTwo };
 `;
 
 const StyledTableRow = styled.tr`
-    border-bottom: 2px solid ${ props => props.theme.colours.accentTwo };
+    border-bottom: 1px solid ${ props => props.theme.colours.accentTwo };
     transition: ${ props => props.theme.transitions.default };
     cursor: pointer;
     position: relative;
     color: ${ props => props.selected ? props.theme.colours.textInverted : props.theme.colours.text };
     background: ${ props => props.selected ? props.theme.colours.primary : props.theme.colours.white };
+
+    &:nth-of-type(2n) {
+        background: ${ props => props.selected ? props.theme.colours.primary : 'rgba(230,234,238,.2)' };
+    }
 
     &:hover {
         background: ${ props => props.selected ? hexToRgb(props.theme.colours.primary, .85) : props.theme.colours.accent };
@@ -50,6 +57,11 @@ const StyledTableAction = styled.td`
     }
 `;
 
+const TableHeadings = styled.tr`
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+`;
+
 export default class Table extends Component {
     constructor(props) {
         super(props);
@@ -65,15 +77,17 @@ export default class Table extends Component {
         const { columns, sortColIndex, fixedFirstCol, actions } = this.props;
 
         return (
-            <tr key={ 'headings' }>
+            <TableHeadings key={ 'headings' }>
                 { columns && columns.map((_column, columnIndex) => (
-                    <Cell
-                        key={ `heading-${columnIndex}` }
-                        content={ columns[columnIndex] }
-                        header={ true }
-                        fixed={ columnIndex === 0 && fixedFirstCol }
-                        sorted={ sortColIndex === columnIndex }
-                    />
+                    (columns[columnIndex] && columns[columnIndex].length > 0) && (
+                        <Cell
+                            key={ `heading-${columnIndex}` }
+                            content={ columns[columnIndex] }
+                            header={ true }
+                            fixed={ columnIndex === 0 && fixedFirstCol }
+                            sorted={ sortColIndex === columnIndex }
+                        />
+                    )
                 )) }
 
                 { (actions && actions.length > 0) && (
@@ -83,12 +97,12 @@ export default class Table extends Component {
                         header={ true }
                     />
                 ) }
-            </tr>
+            </TableHeadings>
         );
     }
 
     renderBodyRow(row, rowIndex) {
-        const { data, fixedFirstCol, actions, onRowClick, selectedRows } = this.props;
+        const { data, fixedFirstCol, actions, onRowClick, selectedRows, sortColIndex } = this.props;
         const { showActions } = this.state;
 
         const objRow = row.find(col => typeof col === 'object');
@@ -103,6 +117,7 @@ export default class Table extends Component {
                                 key={ `${rowIndex}-${cellIndex}` }
                                 content={ data[rowIndex][cellIndex] }
                                 fixed={ cellIndex === 0 && fixedFirstCol }
+                                sorted={ sortColIndex === cellIndex }
                             />
                         )
                     }
@@ -142,7 +157,7 @@ export default class Table extends Component {
 
         return (
             <StyledTable { ...rest }>
-                <StyledTableCaption>{ title }</StyledTableCaption>
+                { title && <StyledTableCaption>{ title }</StyledTableCaption> }
                 <StyledTableHead>{ this.renderHeadings() }</StyledTableHead>
                 <tbody>{ data && data.map((row, rowIndex) => this.renderBodyRow(row, rowIndex)) }</tbody>
             </StyledTable>

@@ -52,8 +52,9 @@ export default class Dropdown extends Component {
         this.selectItem = this.selectItem.bind(this);
     }
     
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         const { listOpen } = this.state;
+        const { list } = this.props;
 
         setTimeout(() => {
             if (listOpen) {
@@ -62,6 +63,12 @@ export default class Dropdown extends Component {
                 window.removeEventListener('click', this.close);
             }
         }, 0);
+
+        if (list && prevProps.list !== list && list.find(item => item.selected) && prevProps.list.find(item => item.selected) !== list.find(item => item.selected)) {
+            this.setState({
+                headerTitle: list.find((item) => item.selected).title
+            });
+        }
     }
     
     componentWillUnmount() {
