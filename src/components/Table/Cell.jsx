@@ -8,7 +8,7 @@ const StyledTableHeader = styled.th`
     line-height: 30px;
     text-transform: uppercase;
     text-align: left;
-    padding: 0.5rem;
+    padding: .5rem 1rem;
     font-size: .7rem;
     font-weight: ${ props => props.sorted ? '700' : '600' };
     color: ${ props => props.sorted ? props.theme.colors.text : props.theme.colors.textSecondary };
