@@ -28,7 +28,7 @@ const DropdownListItem = styled.li`
     line-height: normal;
     cursor: pointer;
     display: inline-block;
-    white-space: nowrap;
+    white-space: pre-wrap;
     text-overflow: ellipsis;
     font-size: ${ props => props.theme.fontSizes.p };
     color: ${ props => props.selected ? props.theme.colors.white : props.theme.colors.text };

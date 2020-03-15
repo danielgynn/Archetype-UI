@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { hexToRgb } from '../../utils';
+
+import { hexToRgb, space } from '../../utils';
 
 const CheckboxWrapper = styled.label`
+    ${ props => space(props) };
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -57,10 +59,10 @@ const StyledCheckbox = styled.div`
 
 export default class Checkbox extends Component {
     render() {
-        const { className, checked, label, ...props } = this.props;
+        const { className, checked, label, margin, ...props } = this.props;
 
         return (
-            <CheckboxWrapper>
+            <CheckboxWrapper margin={ margin }>
                 <CheckboxContainer className={className}>
                     <HiddenCheckbox checked={checked} {...props} />
                     <StyledCheckbox checked={checked}>
@@ -79,11 +81,13 @@ export default class Checkbox extends Component {
 }
 
 Checkbox.defaultProps = {
-    checked: false
+    checked: false,
+    margin: [0,0,0,0]
 };
 
 Checkbox.propTypes = {
     checked: PropTypes.bool,
     className: PropTypes.string,
-    label: PropTypes.string
+    label: PropTypes.string,
+    margin: PropTypes.array
 }

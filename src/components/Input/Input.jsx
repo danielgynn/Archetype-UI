@@ -83,7 +83,7 @@ export default class Input extends Component {
     render() {
         const {
             margin, className, id, label, type, placeholder, value, onChange, onKeyUp, onKeyDown, disabled, forceFocus, error,
-            errorMessage, success, successMessage, helpMessage, required, bg, ...rest
+            errorMessage, success, successMessage, helpMessage, required, bg, readonly, ...rest
         } = this.props;
 
         return (
@@ -102,6 +102,7 @@ export default class Input extends Component {
                     onKeyUp={ onKeyUp }
                     onKeyDown={ onKeyDown }
                     disabled={ disabled }
+                    readOnly={ readonly }
                     error={ error }
                     success={ success }
                     bg={ bg }
@@ -124,7 +125,9 @@ Input.defaultProps = {
     margin: [0,0,0,0],
     type: 'text',
     forceFocus: false,
-    required: false
+    required: false,
+    readonly: false,
+    disabled: false
 };
 
 Input.propTypes = {
@@ -139,6 +142,7 @@ Input.propTypes = {
     onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func,
     disabled: PropTypes.bool,
+    readonly: PropTypes.bool,
     margin: PropTypes.array,
     className: PropTypes.string,
     label: PropTypes.string,

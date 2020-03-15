@@ -10,7 +10,7 @@ const StyledJumbo = styled.div`
     display: flex;
     align-items: center;
     justify-content-space-between;
-    padding: 2rem 4rem;
+    padding: ${ props => props.padding ? props.padding : '2rem 4rem' };
     background-color: ${ props => hexToRgb(props.theme.colors[props.color], .1) };
     ${ props => space(props) };
 
