@@ -5,7 +5,7 @@ import { getMarginProperties, getPaddingProperties } from '../../utils';
 
 const StyledText = styled.p`
     color: ${ props => props.theme.colors[props.color || 'text'] };
-    font-size: ${ props => props.small ? props.theme.fontSizes.pSmall : 'inherit' };
+    font-size: ${ props => props.fontSize ? props.fontSize : props.small ? props.theme.fontSizes.pSmall : 'inherit' };
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
