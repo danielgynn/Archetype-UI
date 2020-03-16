@@ -2,6 +2,7 @@ import AutocompleteInput from './AutocompleteInput/AutocompleteInput.jsx';
 import Box from './Box/Box.jsx';
 import Button from './Button/Button.jsx';
 import Checkbox from './Checkbox/Checkbox.jsx';
+import DatePicker from './DatePicker/DatePicker.jsx';
 import Dropdown from './Dropdown/Dropdown.jsx';
 import Flexbox from './Flexbox/Flexbox.jsx';
 import GridBox from './GridBox/GridBox.jsx';
@@ -30,6 +31,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
 export {
-    AutocompleteInput, Box, Button, Checkbox, Dropdown, Flexbox, GridBox, Header, Jumbo, Icon, Image, ImageUpload, Input, Label, 
+    AutocompleteInput, Box, Button, Checkbox, DatePicker, Dropdown, Flexbox, GridBox, Header, Jumbo, Icon, Image, ImageUpload, Input, Label, 
     Modal, OptionsList, PageHeader, Pagination, RichTextInput, SearchInput, Table, Text, TextButton, TextLink, Toast
 };

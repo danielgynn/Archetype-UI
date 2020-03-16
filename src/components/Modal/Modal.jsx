@@ -28,8 +28,29 @@ const ModalMain = Styled(Box)`
 `;
 
 export default class Modal extends Component {
+    constructor(props){
+        super(props);
+
+        this.escFunction = this.escFunction.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.escFunction, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.escFunction, false);
+    }
+
+    escFunction(event) {
+        const { handleClose } = this.props;
+
+        if (event && event.keyCode === 27) {
+            handleClose();
+        }
+    }
     render() {
-        const { handleClose, header, text, action, children } = this.props;
+        const { handleClose, header, text, action, secondaryAction, children } = this.props;
 
         return (
             <ModalWrapper>
@@ -48,9 +69,12 @@ export default class Modal extends Component {
 
                     <Flexbox margin={ [3,0,0,0] } alignItems={ 'center' } justifyContent={ 'space-between' }>
                         { (action && action.handleAction) && (
-                            <Button color={ action.type } width={ 48 } onClick={ action.handleAction } text={ action.text } />
+                            <Button color={ action.type } width={ secondaryAction ? 32 : 48 } onClick={ action.handleAction } text={ action.text } />
                         ) }
-                        <Button color={ 'primary' } width={ 48 } inverted onClick={ handleClose } text={ 'Cancel' } />
+                        { (secondaryAction && secondaryAction.handleAction) && (
+                            <Button color={ secondaryAction.type } width={ 32 } onClick={ secondaryAction.handleAction } text={ secondaryAction.text } />
+                        ) }
+                        <Button color={ 'primary' } width={ secondaryAction ? 32 : 48 } inverted onClick={ handleClose } text={ 'Cancel' } />
                     </Flexbox>
                 </ModalMain>
             </ModalWrapper>
@@ -65,6 +89,7 @@ Modal.defaultProps = {
 Modal.propTypes = {
     handleClose: PropTypes.func,
     action: PropTypes.object,
+    secondaryAction: PropTypes.object,
     header: PropTypes.string,
     text: PropTypes.string
 };

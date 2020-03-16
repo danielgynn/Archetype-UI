@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { color, space, hexToRgb } from '../../utils';
+import { Icon } from '../..';
 
 const StyledLink = styled.p`
     ${ props => color(props) };
