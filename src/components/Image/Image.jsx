@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { space } from '../../utils';
+import { space, borders } from '../../utils';
 
 const StyledImage = styled.img`
     width: ${ props => props.width };
     height: ${ props => props.height };
     ${ props => space(props) };
+    ${ props => borders(props) };
 `;
 
 export default class Image extends Component {
