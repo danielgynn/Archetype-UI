@@ -31,6 +31,14 @@ const DropdownHeader = styled.div`
     cursor: pointer;
     position: relative;
     background-color: #fff;
+
+    &.disabled,
+    &[disabled] {
+        background-color: ${ props => props.theme.colors.accentTwo };
+        pointer-events: none;
+        opacity: .4;
+        border: 0;
+    }
 `;
 
 const DropdownHeaderTitle = styled.div`
@@ -54,7 +62,7 @@ export default class Dropdown extends Component {
     
     componentDidUpdate(prevProps) {
         const { listOpen } = this.state;
-        const { list } = this.props;
+        const { list, title } = this.props;
 
         setTimeout(() => {
             if (listOpen) {
@@ -64,9 +72,9 @@ export default class Dropdown extends Component {
             }
         }, 0);
 
-        if (list && prevProps.list !== list && list.find(item => item.selected) && prevProps.list.find(item => item.selected) !== list.find(item => item.selected)) {
+        if (list && prevProps.list !== list && (list.length === 0 || !list.find(item => item.selected) || (list.find(item => item.selected) && prevProps.list.find(item => item.selected) !== list.find(item => item.selected)))) {
             this.setState({
-                headerTitle: list.find((item) => item.selected).title
+                headerTitle: (list.length === 0 || !list.find(item => item.selected)) ? title : list.find((item) => item.selected).title
             });
         }
     }
@@ -93,13 +101,17 @@ export default class Dropdown extends Component {
     }
     
     toggleList() {
-        this.setState(prevState => ({
-            listOpen: !prevState.listOpen
-        }));
+        const { disabled } = this.props;
+
+        if (!disabled) {
+            this.setState(prevState => ({
+                listOpen: !prevState.listOpen
+            }));
+        }
     }
 
     render() {
-        const { id, list, label, required, ...rest } = this.props;
+        const { id, list, label, required, disabled, ...rest } = this.props;
         const { listOpen, headerTitle } = this.state;
 
         return (
@@ -108,7 +120,10 @@ export default class Dropdown extends Component {
                     <DropdownLabel htmlFor={ id }>{ label } { required && '*' }</DropdownLabel>
                  ) }
 
-                <DropdownHeader onClick={ () => this.toggleList() }>
+                <DropdownHeader 
+                    disabled={ disabled }
+                    onClick={ () => this.toggleList() }
+                >
                     <DropdownHeaderTitle>
                         { headerTitle }
                     </DropdownHeaderTitle>
@@ -136,12 +151,14 @@ export default class Dropdown extends Component {
 }
 
 Dropdown.defaultProps = {
-    required: false
+    required: false,
+    disabled: false
 };
 
 Dropdown.propTypes = {
     id: PropTypes.string,
     label: PropTypes.string,
     list: PropTypes.array.isRequired,
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    disabled: PropTypes.bool
 };

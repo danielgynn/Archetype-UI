@@ -40,6 +40,21 @@ const DropdownListItem = styled.li`
     }
 `;
 
+const DropdownEmptyItem = styled.li`
+    width: 100%;
+    font-size: 1.5rem;
+    padding: .75rem;
+    line-height: normal;
+    cursor: pointer;
+    display: inline-block;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    font-size: ${ props => props.theme.fontSizes.p };
+    color: ${ props => props.theme.colors.textSecondary };
+    background-color: ${ props => props.theme.colors.white };
+`;
+
 const DropdownItemText = styled.p`
     display: block;
 `;
@@ -70,6 +85,12 @@ export default class OptionsList extends Component {
                         </DropdownItemDescription>
                     </DropdownListItem>
                 )) }
+
+                { !list || list.length === 0 && (
+                    <DropdownEmptyItem>
+                        No items available
+                    </DropdownEmptyItem>
+                ) }
             </DropdownList>
         )
     }

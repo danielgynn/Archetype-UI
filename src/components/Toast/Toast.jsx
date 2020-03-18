@@ -16,6 +16,7 @@ const ToastPosition = styled.div`
     position: fixed;
     bottom: 35px;
     right: 35px;
+    background: ${ props => props.theme.colors.white };
 `;
 
 const ToastWrapper = styled.div`

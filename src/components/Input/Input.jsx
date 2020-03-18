@@ -51,7 +51,7 @@ const StyledInput = styled.input`
         pointer-events: none;
         opacity: .4;
         border: 0;
-      }  
+    }  
 `;
 
 const StyledHelpText = styled.span`
