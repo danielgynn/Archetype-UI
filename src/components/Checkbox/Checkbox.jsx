@@ -13,7 +13,8 @@ const CheckboxWrapper = styled.label`
 
 const CheckboxLabel = styled.span`
     color: ${ props => props.theme.colors.textSecondary };
-    margin-left: 1rem;
+    margin-left: .5rem;
+    font-size: .85rem;
 `;
 
 const CheckboxContainer = styled.div`
@@ -63,9 +64,9 @@ export default class Checkbox extends Component {
 
         return (
             <CheckboxWrapper margin={ margin }>
-                <CheckboxContainer className={className}>
-                    <HiddenCheckbox checked={checked} {...props} />
-                    <StyledCheckbox checked={checked}>
+                <CheckboxContainer>
+                    <HiddenCheckbox checked={ checked } { ...props } />
+                    <StyledCheckbox checked={ checked }>
 
                     <Icon viewBox="0 0 24 24">
                         <polyline points="20 6 9 17 4 12" />
