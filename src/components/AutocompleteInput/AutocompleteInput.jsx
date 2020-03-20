@@ -31,7 +31,7 @@ const SuggestionsList = Styled.ul`
     background-color: ${ props => props.theme.colors.white };
     position: absolute;
     width: 100%;
-    top: 80px;
+    top: ${ props => props.hasLabel ? '80px' : '50px' };
 `;
 
 const SuggestionsListItem = Styled.li`
@@ -161,7 +161,7 @@ class AutocompleteInput extends Component {
     if (showSuggestions && value) {
       if (filteredSuggestions.length) {
         suggestionsListComponent = (
-          <SuggestionsList>
+          <SuggestionsList hasLabel={ label }>
             {filteredSuggestions.map((suggestion, index) => {
               return (
                 <SuggestionsListItem activeItem={ index === activeSuggestion } key={suggestion} onClick={onClick}>
