@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FlipMove from 'react-flip-move';
 import styled from 'styled-components';
+import FileDrop from 'react-file-drop';
 
 import { Icon, Box, Text, Button } from '../..';
 import { hexToRgb } from '../../utils';
@@ -18,17 +19,20 @@ const StyledLabel = styled.label`
     margin-bottom: .5rem;
 `;
 
-const FileContainer = styled.div`
-    background: ${ props => hexToRgb(props.theme.colors.white, 1) };
-    border: 1px solid ${ props => props.theme.colors.accentTwo };
+const FileContainer = styled(FileDrop)`
+    background: ${ props => props.drag ? props.theme.colors.accentTwo : hexToRgb(props.theme.colors.white, 1) };
+    border: 1px solid ${ props => props.drag ? props.theme.colors.primary : props.theme.colors.accentTwo };
 	position: relative;
 	border-radius: 8px;
 	padding: 20px 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+    
+    > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
 `;
 
 const PreviewWrapper = styled.div`
@@ -105,11 +109,13 @@ class ImageUpload extends Component {
         this.state = {
             pictures: [...props.defaultImages],
             files: [],
-            fileErrors: []
+            fileErrors: [],
+            drag: false
         };
 
         this.inputElement = '';
 
+        this.handleDrop = this.handleDrop.bind(this);
         this.onDropFile = this.onDropFile.bind(this);
         this.onUploadClick = this.onUploadClick.bind(this);
         this.triggerFileUpload = this.triggerFileUpload.bind(this);
@@ -140,15 +146,25 @@ class ImageUpload extends Component {
         return new RegExp(pattern, 'i').test(fileName);
     }
 
-    onDropFile(e) {
+    handleDrop(files, e) {
+        this.setState({
+            drag: false
+        });
+
+        this.onDropFile(e, files);
+    }
+
+    onDropFile(e, fullFiles) {
         const { maxFileSize, singleImage } = this.props;
         const { pictures, files } = this.state;
     
-        const droppedFiles = e.target.files;
+        const droppedFiles = fullFiles ? [...fullFiles] : e.target.files;
         const allFilePromises = [];
         const fileErrors = [];
 
-        for (let i = 0; i < droppedFiles.length; i++) {
+        const total = singleImage ? 1 : droppedFiles.length;
+
+        for (let i = 0; i < total; i++) {
             let file = droppedFiles[i];
             let fileError = {
                 name: file.name,
@@ -298,11 +314,18 @@ class ImageUpload extends Component {
 
     render() {
         const { id, withPreview, buttonType, buttonText, name, singleImage, accept, label } = this.props;
+        const { drag } = this.state;
 
         return (
             <Wrapper>
                 { (label) && <StyledLabel htmlFor={ id }>{ label }</StyledLabel> }
-                <FileContainer id={ id }>
+                <FileContainer
+                    drag={ drag }
+                    id={ id }
+                    onDrop={ this.handleDrop }
+                    onDragOver={ () => this.setState({drag: true}) }
+                    onDragLeave={ () => this.setState({drag: false}) }
+                >
                     { this.renderIcon() }
                     { this.renderLabel() }
                     { this.renderErrors() }
