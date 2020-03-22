@@ -46,7 +46,7 @@ export default class Jumbo extends Component {
                         { close && <JumboIcon size={ '2x' } color={ color } onClick={ close } margin={ [0,1,0,1] } icon={ 'times' } type={ 'solid' } /> }
                     </Flexbox>
                         
-                    <Text margin={ [2,0,0,0] }>{ text }</Text>
+                    <Text margin={ [2,0,0,0] } html={ text } />
                 </JumboSection>
 
                 { (action) && (

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Styled from 'styled-components';
 import DatePickerComponent from 'react-datepicker';
 
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 import { space } from '../../utils';
