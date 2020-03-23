@@ -5,6 +5,7 @@
 	"author": "Daniel Gynn <danielgynn94@gmail.com>",
 	"license": "ISC",
 	"main": "dist/index.js",
+	"style": "dist/styles.css",
 	"module": "dist/index.es.js",
 	"jsnext:main": "dist/index.es.js",
 	"engines": {
@@ -22,7 +23,8 @@
 		"prepare": "npm run build"
 	},
 	"dependencies": {
-		"draft-js": "^0.10.5"
+		"draft-js": "^0.10.5",
+		"video.js": "^7.4.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.8.3",
@@ -43,7 +45,9 @@
 		"nock": "^10.0.6",
 		"npm": "^6.13.6",
 		"postcss-import": "^12.0.1",
+		"postcss-modules": "^1.5.0",
 		"prop-types": "^15.7.2",
+		"raw-loader": "^4.0.0",
 		"react": "^16.12.0",
 		"react-circular-progressbar": "^2.0.0",
 		"react-datepicker": "^2.14.0",
@@ -56,8 +60,10 @@
 		"rollup-plugin-node-resolve": "^3.3.0",
 		"rollup-plugin-peer-deps-external": "^2.2.2",
 		"rollup-plugin-postcss": "^1.6.2",
+		"rollup-plugin-scss": "^2.1.0",
 		"rollup-plugin-url": "^1.4.0",
-		"sinon": "^7.5.0"
+		"sinon": "^7.5.0",
+		"video.js": "^7.4.1"
 	},
 	"eslintConfig": {
 		"extends": "react-app"

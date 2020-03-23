@@ -10,7 +10,7 @@ const ROUND_PRECISION = 1000;
 const ProgressWrapper = Styled(Box)`
     height: 1rem;
     font-size: .75rem;
-    background-color: #e9ecef;
+    background-color: ${ props => props.theme.colors[props.background] };
     border-radius: 8px;
     ${ props => space(props) };
 `;
@@ -54,6 +54,7 @@ export default class ProgressBar extends Component {
             style,
             bsPrefix,
             color,
+            background,
             ...props
         }
     ) {
@@ -62,6 +63,7 @@ export default class ProgressBar extends Component {
                 {...props}
                 role="progressbar"
                 color={ color }
+                background={ background }
                 striped={ striped }
                 style={{ width: `${this.getPercentage(now, min, max)}%`, ...style }}
                 aria-valuenow={now}
@@ -85,6 +87,7 @@ export default class ProgressBar extends Component {
             bsPrefix,
             className,
             color,
+            background,
             ...wrapperProps
         } = this.props;
         
@@ -102,7 +105,8 @@ export default class ProgressBar extends Component {
                     striped,
                     animated,
                     bsPrefix,
-                    color
+                    color,
+                    background
                 }
             ) }
             </ProgressWrapper>
@@ -117,7 +121,8 @@ ProgressBar.defaultProps = {
     srOnly: false,
     striped: false,
     margin: [1,0,0,0],
-    color: 'primary'
+    color: 'primary',
+    background: 'accent'
 };
 
 ProgressBar.propTypes = {
@@ -126,6 +131,8 @@ ProgressBar.propTypes = {
     max: PropTypes.number,
     label: PropTypes.node,
     srOnly: PropTypes.bool,
+    background: PropTypes.string,
+    color: PropTypes.string,
     striped: PropTypes.bool,
     animated: PropTypes.bool,
     bsPrefix: PropTypes.string

@@ -6,7 +6,7 @@ import { getMarginProperties, getPaddingProperties } from '../../utils';
 
 const StyledHeader = styled.h1`
     color: ${ props => props.theme.colors[props.color || 'text'] };
-    font-size: ${ props => props.theme.fontSizes[`h${ props.level }`] };
+    font-size: ${ props => props.fontSize ? props.fontSize : props.theme.fontSizes[`h${ props.level }`] };
     ${props => (props.textAlign ? `text-align: ${props.textAlign};` : '')}
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };

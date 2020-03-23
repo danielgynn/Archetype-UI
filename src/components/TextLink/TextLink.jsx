@@ -9,6 +9,7 @@ const StyledLink = styled.p`
     ${ props => color(props) };
     ${ props => space(props) };
     font-size: ${ props => props.theme.fontSizes.p };
+    font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
     text-decoration: none;
     display: inline-block;
     cursor: pointer;

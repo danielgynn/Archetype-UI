@@ -6,9 +6,11 @@ import resolve from 'rollup-plugin-node-resolve';
 import url from 'rollup-plugin-url';
 import svgr from '@svgr/rollup';
 import path from 'path';
-import postcssImport from 'postcss-import';
+import postcssModules from 'postcss-modules';
 
 import pkg from './package.json';
+
+const cssExportMap = {};
 
 export default {
     onwarn: function (warning, warn) {
@@ -36,8 +38,18 @@ export default {
     plugins: [
         external(),
         postcss({
-            modules: true,
-            plugins: [postcssImport()]
+            plugins: [
+                postcssModules({
+                    getJSON (id, exportTokens) {
+                        cssExportMap[id] = exportTokens;
+                    }
+                })
+            ],
+            getExportNamed: false,
+            getExport (id) {
+                return cssExportMap[id];
+            },
+            extract: 'dist/styles.css',
         }),
         url(),
         svgr(),

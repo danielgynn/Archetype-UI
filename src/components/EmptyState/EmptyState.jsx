@@ -26,18 +26,19 @@ const IconWrapper = Styled(Icon)`
 
 export default class EmptyState extends Component {
     render() {
-        const { header, text, icon, button, ...rest } = this.props;
+        const { header, text, icon, button, hideIcon, level, ...rest } = this.props;
 
         return (
             <Wrapper
                 alignItems={ 'center' }
+                justifyContent={ 'center' }
                 flexDirection={ 'column' }
                 { ...rest }
             >
 
-                <IconWrapper size={ '2x' } margin={ [1,0,0,0] } icon={ icon } />
-                <Header margin={ [1,0,0,0] } level={ 2 }>{ header }</Header>
-                <Text>{ text } </Text>
+                { !hideIcon && <IconWrapper size={ '2x' } margin={ [1,0,0,0] } icon={ icon } /> }
+                <Header margin={ [1,0,0,0] } weight={ 700 } level={ level }>{ header }</Header>
+                <Text align={ 'center' }>{ text } </Text>
 
                 { button && (
                     <Button margin={ [2,0,0,0] } { ...button } />
@@ -52,12 +53,16 @@ EmptyState.defaultProps = {
     width: '100%',
     header: 'No Matching Results',
     text: `Try adjusting your filters to bring back more results`,
-    icon: 'search'
+    icon: 'search',
+    hideIcon: false,
+    level: 2
 };
 
 EmptyState.propTypes = {
     header: PropTypes.string,
     text: PropTypes.string,
     icon: PropTypes.string,
-    button: PropTypes.object
+    button: PropTypes.object,
+    hideIcon: PropTypes.bool,
+    level: PropTypes.number
 };

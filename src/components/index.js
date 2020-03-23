@@ -27,6 +27,7 @@ import Text from './Text/Text.jsx';
 import TextButton from './TextButton/TextButton.jsx';
 import TextLink from './TextLink/TextLink.jsx';
 import Toast from './Toast/Toast.jsx';
+import Video from './Video/Video.jsx';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -35,5 +36,5 @@ library.add(fas);
 
 export {
     AutocompleteInput, Box, Button, Checkbox, CircleProgressBar, DatePicker, Dropdown, EmptyState, Flexbox, GridBox, Header, Jumbo, Icon, Image, ImageUpload, Input, Label, 
-    Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, Table, Text, TextButton, TextLink, Toast
+    Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, Table, Text, TextButton, TextLink, Toast, Video
 };

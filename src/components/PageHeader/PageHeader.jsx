@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Flexbox, Box, Header, Text, Button, TextLink } from '../..';
+import { Flexbox, Box, Header, Text, Button, TextLink, Label } from '../..';
 
 export default class PageHeader extends Component {
     render() {
-        const { title, subtitle, margin, button, textLink } = this.props;
+        const { title, subtitle, margin, button, textLink, label } = this.props;
 
         return (
             <Box margin={ margin }>
@@ -15,6 +15,7 @@ export default class PageHeader extends Component {
                     element={ 'section' }
                 >
                     <Box>
+                        { label && <Label { ...label } /> }
                         <Header
                             margin={ 0 }
                             level={ 1 }
@@ -47,5 +48,6 @@ PageHeader.propTypes = {
     subtitle: PropTypes.string,
     margin: PropTypes.array,
     button: PropTypes.object,
-    textLink: PropTypes.object
+    textLink: PropTypes.object,
+    label: PropTypes.object
 };

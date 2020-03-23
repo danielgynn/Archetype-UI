@@ -11,8 +11,6 @@ import Text from '../Text/Text.jsx';
 import Header from '../Header/Header.jsx';
 
 const ProgressWrapper = Styled(Box)`
-    min-width: 110px;
-    max-width: 110px;
     ${ props => space(props) };
 `;
 
@@ -21,19 +19,19 @@ const StyledCircularProgressbar = Styled(CircularProgressbarWithChildren)`
     vertical-align: middle;
 
     > path:first-child {
-        stroke: #d6d6d6;
+        stroke: ${ props => props.theme.colors.accentTwo };
         stroke-linecap: round;
     }
 
     > path:nth-child(2) {
-        stroke: ${ props => props.theme.colors.primary };
+        stroke: ${ props => props.theme.colors[props.color] };
         stroke-linecap: round;
         -webkit-transition: stroke-dashoffset 0.5s ease 0s;
         transition: stroke-dashoffset 0.5s ease 0s;
     }
 
     > text {
-        fill: ${ props => props.theme.colors.primary };
+        fill: ${ props => props.theme.colors[props.color] };
         font-size: 20px;
         dominant-baseline: middle;
         text-anchor: middle;
@@ -44,31 +42,29 @@ const PercentageWrapper = Styled(Flexbox)`
     position: relative;
 `;
 
-const Percentage = Styled(Text)`
-    top: 0;
-    position: absolute;
-    right: -15px;
-    font-size: 16px;
-`;
+const circleRatioStyles = {
+    rotation: 1 / 2 + 1 / 8,
+    strokeLinecap: "butt",
+    strokeWidth: 20
+};
 
 export default class CircleProgressBar extends Component {
     render() {
-        const { percentage, width } = this.props;
+        const { percentage, color, circleRatio, fontSize, strokeWidth } = this.props;
     
         return (
             <ProgressWrapper
             >
                 <StyledCircularProgressbar
-                    value={percentage}
-                    styles={buildStyles({
-                        textColor: '#f88',
-                        strokeWidth: 15
-                    }) }
+                    value={ percentage }
+                    color={ color }
+                    styles={ buildStyles(circleRatio ? circleRatioStyles : {}) }
+                    circleRatio={ circleRatio }
+                    strokeWidth={ strokeWidth }
                 >
                     <Box>
                         <PercentageWrapper alignItems={ 'center' } justifyContent={ 'center' }>
-                            <Header level={ 3 } weight={ 900 }>{ percentage }</Header>
-                            <Percentage small color={ 'textSecondary' }>%</Percentage>
+                            <Header level={ 4 } fontSize={ fontSize } weight={ 700 }>{ percentage }%</Header>
                         </PercentageWrapper>
                     </Box>
                 </StyledCircularProgressbar>
@@ -80,9 +76,15 @@ export default class CircleProgressBar extends Component {
 CircleProgressBar.defaultProps = {
     margin: [1,0,1,0],
     percentage: 0,
-    width: 12
+    width: '120px',
+    strokeWidth: 10,
+    fontSize: '18px',
+    color: 'primary'
 };
 
 CircleProgressBar.propTypes = {
-    percentage: PropTypes.number
+    percentage: PropTypes.number,
+    strokeWidth: PropTypes.number,
+    width: PropTypes.string,
+    color: PropTypes.string
 };
