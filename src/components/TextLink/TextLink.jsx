@@ -8,10 +8,11 @@ import { Icon } from '../..';
 const StyledLink = styled.p`
     ${ props => color(props) };
     ${ props => space(props) };
-    font-size: ${ props => props.theme.fontSizes.p };
+    font-size: ${ props => props.fontSize ? props.fontSize : props.theme.fontSizes.p };
     font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
     text-decoration: none;
-    display: inline-block;
+    text-align: ${ props => props.align ? props.align : 'left' };
+    display: ${ props => props.display ? props.display : 'inline-block' };
     cursor: pointer;
     border-bottom: ${ props => props.active ? `1px solid ${ props.theme.colors[props.color || 'textInverted'] }` : '1px solid transparent' };
     user-select: none;

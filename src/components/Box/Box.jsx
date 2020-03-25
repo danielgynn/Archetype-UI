@@ -9,7 +9,9 @@ const StyledBox = styled.div`
     ${ props => color(props) };
     ${ props => borders(props) };
     ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colors[props.borderBottom] }` : '' };
-    ${ props => props.position && `position: ${ props.position }` }
+    ${ props => props.borderRight ? `border-right: 1px solid ${ props.theme.colors[props.borderRight] }` : '' };
+    ${ props => props.position && `position: ${ props.position }` };
+    ${ props => props.cursor && `cursor: ${ props.cursor }` };
 `;
 
 export default class Box extends Component {

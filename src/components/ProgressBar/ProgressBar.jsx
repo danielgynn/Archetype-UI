@@ -8,17 +8,18 @@ import Box from '../Box/Box.jsx';
 const ROUND_PRECISION = 1000;
 
 const ProgressWrapper = Styled(Box)`
-    height: 1rem;
+    height: 1.25rem;
     font-size: .75rem;
     background-color: ${ props => props.theme.colors[props.background] };
     border-radius: 8px;
+    position: relative;
     ${ props => space(props) };
 `;
 
 const Progress = Styled(Box)`
     flex-direction: column;
+    height: 1.25rem;
     justify-content: center;
-    color: #fff;
     border-radius: 8px;
     text-align: center;
     white-space: nowrap;
@@ -32,6 +33,11 @@ const Progress = Styled(Box)`
 
 const ProgressLabel = Styled.label`
     font-weight: 700;
+    position: absolute;
+    top: 2px;
+    left: 45%;
+    right: 45%;
+    color: ${ props => props.now < 48 ? props.theme.colors.text : props.theme.colors.white };
 `;
 
 export default class ProgressBar extends Component {
@@ -46,8 +52,6 @@ export default class ProgressBar extends Component {
             min,
             now,
             max,
-            label,
-            srOnly,
             striped,
             animated,
             className,
@@ -69,9 +73,7 @@ export default class ProgressBar extends Component {
                 aria-valuenow={now}
                 aria-valuemin={min}
                 aria-valuemax={max}
-            >
-                {srOnly ? <ProgressLabel className="sr-only">{label}</ProgressLabel> : label}
-            </Progress>
+            />
         );
     }
     
@@ -81,7 +83,6 @@ export default class ProgressBar extends Component {
             now,
             max,
             label,
-            srOnly,
             striped,
             animated,
             bsPrefix,
@@ -93,22 +94,22 @@ export default class ProgressBar extends Component {
         
         return (
             <ProgressWrapper
+                background={ background }
                 { ...wrapperProps }
             >
-            { this.renderProgressBar(
-                {
-                    min,
-                    now,
-                    max,
-                    label,
-                    srOnly,
-                    striped,
-                    animated,
-                    bsPrefix,
-                    color,
-                    background
-                }
-            ) }
+                { this.renderProgressBar(
+                    {
+                        min,
+                        now,
+                        max,
+                        striped,
+                        animated,
+                        bsPrefix,
+                        color,
+                        background
+                    }
+                ) }
+                <ProgressLabel now={ now }>{label}</ProgressLabel>
             </ProgressWrapper>
         )
     }
@@ -118,11 +119,10 @@ ProgressBar.defaultProps = {
     min: 0,
     max: 100,
     animated: false,
-    srOnly: false,
     striped: false,
     margin: [1,0,0,0],
     color: 'primary',
-    background: 'accent'
+    background: 'accentTwo'
 };
 
 ProgressBar.propTypes = {
@@ -130,7 +130,6 @@ ProgressBar.propTypes = {
     now: PropTypes.number,
     max: PropTypes.number,
     label: PropTypes.node,
-    srOnly: PropTypes.bool,
     background: PropTypes.string,
     color: PropTypes.string,
     striped: PropTypes.bool,

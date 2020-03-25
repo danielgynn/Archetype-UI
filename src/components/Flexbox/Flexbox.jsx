@@ -24,7 +24,9 @@ const Flexbox = styled(({
     ${ props => space(props) };
     ${ props => color(props) };
     ${ props => borders(props) };
+    ${ props => props.cursor && `cursor: ${ props.cursor }` };
     ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colors[props.borderBottom] }` : '' };
+    ${ props => props.borderRight ? `border-right: 1px solid ${ props.theme.colors[props.borderRight] }` : '' };
 `;
 
 Flexbox.propTypes = {

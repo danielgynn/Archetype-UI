@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Flexbox, Box, Header, Text, Button, TextLink, Label } from '../..';
+import { Flexbox, Box, Header, Text, Button, TextLink, Label, Breadcrumbs } from '../..';
 
 export default class PageHeader extends Component {
     render() {
-        const { title, subtitle, margin, button, textLink, label } = this.props;
+        const { title, subtitle, margin, button, textLink, label, breadcrumbs, titleLevel } = this.props;
 
         return (
             <Box margin={ margin }>
+                { breadcrumbs && <Breadcrumbs breadcrumbs={ breadcrumbs } /> }
+
                 <Flexbox
                     alignItems={ 'flex-start' }
                     justifyContent={ 'space-between' }
@@ -18,7 +20,8 @@ export default class PageHeader extends Component {
                         { label && <Label { ...label } /> }
                         <Header
                             margin={ 0 }
-                            level={ 1 }
+                            level={ titleLevel }
+                            weight={ 900 }
                         >
                             { title }
                         </Header>
@@ -33,14 +36,15 @@ export default class PageHeader extends Component {
                     { (button) && <Button { ...button } /> }
                 </Flexbox>
 
-                { (textLink) && <TextLink { ...textLink } /> }
+                { textLink && <TextLink { ...textLink } /> }
             </Box>
         )
     }
 }
 
 PageHeader.defaultProps = {
-    margin: [0,0,0,0]
+    margin: [0,0,0,0],
+    titleLevel: 1
 };
 
 PageHeader.propTypes = {
@@ -49,5 +53,7 @@ PageHeader.propTypes = {
     margin: PropTypes.array,
     button: PropTypes.object,
     textLink: PropTypes.object,
-    label: PropTypes.object
+    label: PropTypes.object,
+    breadcrumbs: PropTypes.array,
+    titleLevel: PropTypes.number
 };
