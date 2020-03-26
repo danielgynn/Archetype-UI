@@ -27,6 +27,7 @@ class Breadcrumbs extends Component {
             <BreadcrumbsWrapper
                 alignItems={ 'center' }
                 justifyContent={ 'flex-start' }
+                flexWrap={ 'wrap' }
                 { ...rest }
             >
                 { breadcrumbs && breadcrumbs.map((crumb, crumbIndex) => (

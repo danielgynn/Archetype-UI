@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 
 import { Icon } from '../..';
-import { hexToRgb, getWidthProperty, space } from '../../utils';
+import { hexToRgb, space, hide } from '../../utils';
 
 const StyledButton = styled.button`
+    ${ props => space(props, 2) };
+    ${ props => props.hide && hide(props, 2) };
     border-radius: 8px;
     display: inline-block;
     text-align: center;
     outline: none;
     vertical-align: middle;
     line-height: normal;
-    width: ${ props => getWidthProperty(props.width) };
     font-size: ${ props => props.theme.fontSizes.p };
     touch-action: manipulation;
     cursor: pointer;
@@ -26,7 +28,6 @@ const StyledButton = styled.button`
     border: 1px solid ${props => props.theme.colors[props.color || 'primary'] };
     color: ${ props => (props.inverted ? props.theme.colors[props.color || 'primary'] : props.theme.colors.textInverted) };
     transition: ${ props => props.theme.transitions.default };
-    ${ props => space(props) };
 
     &:hover {
         box-shadow: 0 1px 4px rgba(0,0,0,0.15), 0 3px 8px rgba(0,0,0,0.1), 0 6px 16px rgba(0,0,0,0.1);
@@ -44,6 +45,16 @@ const StyledButton = styled.button`
         opacity: .4;
         box-shadow: none;
     }
+
+    ${ breakpoint('md') `
+        ${ props => space(props, 1) };
+        ${ props => props.hide && hide(props, 1) };
+    ` }
+    
+    ${ breakpoint('lg') `
+        ${ props => space(props, 0) };
+        ${ props => props.hide && hide(props, 0) };
+    ` }
 `;
 
 export default class Button extends Component {
@@ -81,7 +92,7 @@ export default class Button extends Component {
     }
 
     render() {
-        const { id, className, type, text, color, disabled, inverted, width, margin, icon, iconPosition, iconType } = this.props;
+        const { id, className, type, text, color, disabled, inverted, width, margin, icon, iconPosition, iconType, ...rest } = this.props;
 
         return (
             <StyledButton
@@ -93,7 +104,8 @@ export default class Button extends Component {
                 margin={ margin }
                 disabled={ disabled }
                 inverted={ inverted }
-                onClick={ this.onClick }>
+                onClick={ this.onClick }
+                { ...rest }>
 
                 { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
 

@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 
 import { space, borders } from '../../utils';
 
 const StyledImage = styled.img`
     width: ${ props => props.width };
     height: ${ props => props.height };
-    ${ props => space(props) };
+    ${ props => space(props, 2) };
     ${ props => borders(props) };
+
+    ${ breakpoint('md') `${ props => space(props, 1) };` }
+    ${ breakpoint('lg') `${ props => space(props, 0) };` }
 `;
 
 export default class Image extends Component {
@@ -36,7 +40,7 @@ Image.defaultProps = {
 Image.propTypes = {
     src: PropTypes.string,
     alt: PropTypes.string.isRequired,
-    width: PropTypes.string,
-    height: PropTypes.string,
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object
 };

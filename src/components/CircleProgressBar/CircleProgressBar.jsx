@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-import { space } from '../../utils';
+import { space, hide } from '../../utils';
 import Box from '../Box/Box.jsx';
 import Flexbox from '../Flexbox/Flexbox.jsx';
-import Text from '../Text/Text.jsx';
 import Header from '../Header/Header.jsx';
 
 const ProgressWrapper = Styled(Box)`
-    ${ props => space(props) };
+    ${ props => space(props, 2) };
+    ${ props => props.hide && hide(props, 2) };
+
+    ${ breakpoint('md') `
+        ${ props => space(props, 1) };
+        ${ props => props.hide && hide(props, 1) };
+    ` }
+    
+    ${ breakpoint('lg') `
+        ${ props => space(props, 0) };
+        ${ props => props.hide && hide(props, 0) };
+    ` }
 `;
 
 const StyledCircularProgressbar = Styled(CircularProgressbarWithChildren)`
@@ -50,10 +61,11 @@ const circleRatioStyles = {
 
 export default class CircleProgressBar extends Component {
     render() {
-        const { percentage, color, circleRatio, fontSize, strokeWidth } = this.props;
+        const { percentage, color, circleRatio, fontSize, strokeWidth, hide } = this.props;
     
         return (
             <ProgressWrapper
+                hide={ hide }
             >
                 <StyledCircularProgressbar
                     value={ percentage }

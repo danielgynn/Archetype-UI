@@ -5,6 +5,7 @@ import Styled from 'styled-components';
 import Button from '../Button/Button.jsx';
 import Flexbox from '../Flexbox/Flexbox.jsx';
 import Icon from '../Icon/Icon.jsx';
+import Image from '../Image/Image.jsx';
 import Header from '../Header/Header.jsx';
 import Text from '../Text/Text.jsx';
 import { space } from '../../utils';
@@ -26,7 +27,7 @@ const IconWrapper = Styled(Icon)`
 
 export default class EmptyState extends Component {
     render() {
-        const { header, text, icon, button, hideIcon, level, ...rest } = this.props;
+        const { header, text, icon, button, hideIcon, level, image, ...rest } = this.props;
 
         return (
             <Wrapper
@@ -37,8 +38,18 @@ export default class EmptyState extends Component {
             >
 
                 { !hideIcon && <IconWrapper size={ '2x' } margin={ [1,0,0,0] } icon={ icon } /> }
-                <Header margin={ [1,0,0,0] } weight={ 700 } level={ level }>{ header }</Header>
-                <Text align={ 'center' }>{ text } </Text>
+
+                { image && image.src && (
+                    <Image
+                        src={ image.src }
+                        alt={ image.alt }
+                        width={ [image.width || 50, 65, 75] }
+                        margin={ [2,0,2,0] }
+                    />
+                ) }
+
+                <Header align={ 'center' } margin={ [1,0,0,0] } weight={ 700 } level={ level }>{ header }</Header>
+                <Text align={ 'center' }>{ text }</Text>
 
                 { button && (
                     <Button margin={ [2,0,0,0] } { ...button } />
@@ -55,7 +66,8 @@ EmptyState.defaultProps = {
     text: `Try adjusting your filters to bring back more results`,
     icon: 'search',
     hideIcon: false,
-    level: 2
+    level: 2,
+    image: null
 };
 
 EmptyState.propTypes = {
@@ -64,5 +76,6 @@ EmptyState.propTypes = {
     icon: PropTypes.string,
     button: PropTypes.object,
     hideIcon: PropTypes.bool,
-    level: PropTypes.number
+    level: PropTypes.number,
+    image: PropTypes.object
 };

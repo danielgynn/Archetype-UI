@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 
 import { getMarginProperties, getPaddingProperties } from '../../utils';
 
 const StyledHeader = styled.h1`
     color: ${ props => props.theme.colors[props.color || 'text'] };
-    font-size: ${ props => props.fontSize ? props.fontSize : props.theme.fontSizes[`h${ props.level }`] };
+    font-size: ${ props => props.theme.fontSizesSm[`h${ props.level }`] };
     ${props => (props.textAlign ? `text-align: ${props.textAlign};` : '')}
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.weight || props.theme.fontWeights[`h${ props.level }`] };
     display: flex;
     align-items: center;
+    text-align: ${ props => props.align ? props.align : 'left' };
+
+    ${ breakpoint('md')`
+        font-size: ${ props => props.theme.fontSizesMed[`h${ props.level }`] };
+    ` }
+
+    ${ breakpoint('xl')`
+        font-size: ${ props => props.fontSize ? props.fontSize : props.theme.fontSizes[`h${ props.level }`] };
+    ` }
 `;
 
 export default class Header extends Component {

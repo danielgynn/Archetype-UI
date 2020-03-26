@@ -63,6 +63,7 @@
 		"rollup-plugin-scss": "^2.1.0",
 		"rollup-plugin-url": "^1.4.0",
 		"sinon": "^7.5.0",
+		"styled-components-breakpoint": "^3.0.0-preview.20",
 		"video.js": "^7.4.1"
 	},
 	"eslintConfig": {

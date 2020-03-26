@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Styled from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 
 import { space } from '../../utils';
 import Box from '../Box/Box.jsx';
@@ -11,9 +12,17 @@ const IframeWrapper = Styled(Box)`
 
 const IframeComponent = Styled.iframe`
     width: ${ props => props.width };
-    height: ${ props => props.height };
+    ${ props => space(props, 2) };
     border: none;
     padding: 2px;
+
+    ${ breakpoint('md')`
+        ${ props => space(props, 1) };
+    ` }
+
+    ${ breakpoint('xl')`
+        ${ props => space(props, 0) };
+    ` }
 `;
 
 class Iframe extends Component {

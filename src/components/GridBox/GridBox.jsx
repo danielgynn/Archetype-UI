@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 
-import { space, color } from '../../utils';
+import { space, color, getBreakpointValue } from '../../utils';
 
 const GridWrapper = styled.div`
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(${ props => props.colWidth }%, 2fr));
+    grid-template-columns: repeat(auto-fill, minmax(${ props => getBreakpointValue(props.colWidth, 2) }%, 2fr));
     grid-row-gap: ${ props => props.rowGap }rem;
     grid-column-gap: ${ props => props.colGap }rem;
     ${ props => space(props) };
     ${ props => color(props) };
+
+    ${ breakpoint('md')`
+        grid-template-columns: repeat(auto-fill, minmax(${ props => getBreakpointValue(props.colWidth, 1) }%, 2fr));
+    ` }
+ 
+    ${ breakpoint('xl')`
+        grid-template-columns: repeat(auto-fill, minmax(${ props => getBreakpointValue(props.colWidth, 0) }%, 2fr));
+    ` }
 `;
 
 export default class GridBox extends Component {
@@ -40,7 +49,7 @@ GridBox.defaultProps = {
 
 GridBox.propTypes = {
     element: PropTypes.string,
-    colWidth: PropTypes.number,
+    colWidth: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
     rowGap: PropTypes.number,
     colGap: PropTypes.number
 };

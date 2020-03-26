@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 
-import { space, color, borders } from '../../utils';
+import { space, color, borders, getBreakpointValue } from '../../utils';
 
 const isTruthyOrZero = value => value || value === 0;
 
@@ -12,21 +13,37 @@ const Flexbox = styled(({
 }) => React.createElement(element, props, children))`
     ${props => (props.alignContent ? `align-content: ${props.alignContent};` : '')}
     ${props => (props.alignSelf ? `align-self: ${props.alignSelf};` : '')}
-    ${props => (props.alignItems ? `align-items: ${props.alignItems};` : '')}
+    ${props => (props.alignItems ? `align-items: ${ getBreakpointValue(props.alignItems, 2) };` : '')}
     ${props => (props.display ? `display: ${props.display};` : '')}
     ${props => (isTruthyOrZero(props.flex) ? `flex: ${props.flex};` : '')}
     ${props => (isTruthyOrZero(props.flexBasis) ? `flex-basis: ${props.flexBasis};` : '')}
-    ${props => (props.flexDirection ? `flex-direction: ${props.flexDirection};` : '')}
+    ${props => (props.flexDirection ? `flex-direction: ${ getBreakpointValue(props.flexDirection, 2) };` : '')}
     ${props => (isTruthyOrZero(props.flexGrow) ? `flex-grow: ${props.flexGrow};` : '')}
     ${props => (isTruthyOrZero(props.flexShrink) ? `flex-shrink: ${props.flexShrink};` : '')}
     ${props => (props.flexWrap ? `flex-wrap: ${props.flexWrap};` : '')}
-    ${props => (props.justifyContent ? `justify-content: ${props.justifyContent};` : '')}
-    ${ props => space(props) };
+    ${props => (props.justifyContent ? `justify-content: ${ getBreakpointValue(props.justifyContent, 1) };` : '')}
+    ${ props => space(props, 2) };
     ${ props => color(props) };
-    ${ props => borders(props) };
+    ${ props => borders(props, 2) };
     ${ props => props.cursor && `cursor: ${ props.cursor }` };
     ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colors[props.borderBottom] }` : '' };
     ${ props => props.borderRight ? `border-right: 1px solid ${ props.theme.colors[props.borderRight] }` : '' };
+
+    ${ breakpoint('md')`
+        ${ props => space(props, 1) };
+        ${ props => borders(props, 1) };
+        ${props => (props.flexDirection ? `flex-direction: ${ getBreakpointValue(props.flexDirection, 1) };` : '')};
+        ${props => (props.alignItems ? `align-items: ${ getBreakpointValue(props.alignItems, 1) };` : '')};
+        ${props => (props.alignItems ? `justify-content: ${ getBreakpointValue(props.justifyContent, 1) };` : '')};
+    ` }
+
+    ${ breakpoint('xl')`
+        ${ props => space(props, 0) };
+        ${ props => borders(props, 0) };
+        ${props => (props.flexDirection ? `flex-direction: ${ getBreakpointValue(props.flexDirection, 0) };` : '')};
+        ${props => (props.alignItems ? `align-items: ${ getBreakpointValue(props.alignItems, 0) };` : '')};
+        ${props => (props.alignItems ? `justify-content: ${ getBreakpointValue(props.justifyContent, 0) };` : '')};
+    ` }
 `;
 
 Flexbox.propTypes = {
