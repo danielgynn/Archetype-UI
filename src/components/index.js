@@ -11,6 +11,7 @@ import Flexbox from './Flexbox/Flexbox.jsx';
 import GridBox from './GridBox/GridBox.jsx';
 import Header from './Header/Header.jsx';
 import Icon from './Icon/Icon.jsx';
+import Iframe from './Iframe/Iframe.jsx';
 import Image from './Image/Image.jsx';
 import ImageUpload from './ImageUpload/ImageUpload.jsx';
 import Input from './Input/Input.jsx';
@@ -36,6 +37,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
 export {
-    AutocompleteInput, Box, Breadcrumbs, Button, Checkbox, CircleProgressBar, DatePicker, Dropdown, EmptyState, Flexbox, GridBox, Header, Jumbo, Icon, Image, ImageUpload, Input, Label, 
-    Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, Table, Text, TextButton, TextLink, Toast, Video
+    AutocompleteInput, Box, Breadcrumbs, Button, Checkbox, CircleProgressBar, DatePicker, Dropdown, EmptyState, Flexbox, GridBox, Header, Jumbo, Icon, Iframe,
+    Image, ImageUpload, Input, Label, Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, Table, Text, TextButton, TextLink,
+    Toast, Video
 };
