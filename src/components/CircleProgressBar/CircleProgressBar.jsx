@@ -43,9 +43,17 @@ const StyledCircularProgressbar = Styled(CircularProgressbarWithChildren)`
 
     > text {
         fill: ${ props => props.theme.colors[props.color] };
-        font-size: 20px;
+        font-size: 16px;
         dominant-baseline: middle;
         text-anchor: middle;
+
+        ${ breakpoint('md') `
+            font-size: 18px;
+        ` }
+    
+        ${ breakpoint('lg') `
+            font-size: 20px;
+        ` }
     }
 `;
 
@@ -76,7 +84,7 @@ export default class CircleProgressBar extends Component {
                 >
                     <Box>
                         <PercentageWrapper alignItems={ 'center' } justifyContent={ 'center' }>
-                            <Header level={ 4 } fontSize={ fontSize } weight={ 700 }>{ percentage }%</Header>
+                            <Header level={ 5 } fontSize={ fontSize } weight={ 700 }>{ percentage }%</Header>
                         </PercentageWrapper>
                     </Box>
                 </StyledCircularProgressbar>
@@ -90,7 +98,7 @@ CircleProgressBar.defaultProps = {
     percentage: 0,
     width: '120px',
     strokeWidth: 10,
-    fontSize: '18px',
+    fontSize: ['18px','16px','14px'],
     color: 'primary'
 };
 

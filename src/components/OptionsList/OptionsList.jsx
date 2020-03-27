@@ -16,7 +16,7 @@ const DropdownList = styled.ul`
     border-radius: 8px;
     background-color: ${ props => props.theme.colors.white };
     font-weight: 700;
-    max-height: 215px;
+    max-height: ${ props => props.height ? props.height : '215px' };
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 `;

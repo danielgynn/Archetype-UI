@@ -19,12 +19,12 @@ const ContentsWrapper = Styled(Box)`
 
     ${ breakpoint('md')`
         ${ props => space(props, 1) };
-        ${ props => hide(props, 1, 'block') };
+        ${ props => hide(props, 1, props.open ? 'block' : 'flex') };
     ` }
 
     ${ breakpoint('xl')`
         ${ props => space(props, 0) };
-        ${ props => hide(props, 0, 'block') };
+        ${ props => hide(props, 0, props.open ? 'block' : 'flex') };
     ` }
 `;
 

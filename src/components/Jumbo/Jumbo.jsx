@@ -59,7 +59,7 @@ export default class Jumbo extends Component {
                 { (action) && (
                     <Button
                         { ...action }
-                        width={ [action.width,55,75] }
+                        width={ [action.width || 30,55,75] }
                         color={ color }
                     />
                 ) }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 
-import { space, color, borders, getBreakpointValue } from '../../utils';
+import { space, color, borders, getBreakpointValue, hide } from '../../utils';
 
 const isTruthyOrZero = value => value || value === 0;
 
@@ -24,6 +24,7 @@ const Flexbox = styled(({
     ${props => (props.justifyContent ? `justify-content: ${ getBreakpointValue(props.justifyContent, 1) };` : '')}
     ${ props => space(props, 2) };
     ${ props => color(props) };
+    ${ props => props.hide && hide(props, 2) };
     ${ props => borders(props, 2) };
     ${ props => props.cursor && `cursor: ${ props.cursor }` };
     ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colors[props.borderBottom] }` : '' };
@@ -31,6 +32,7 @@ const Flexbox = styled(({
 
     ${ breakpoint('md')`
         ${ props => space(props, 1) };
+        ${ props => props.hide && hide(props, 1) };
         ${ props => borders(props, 1) };
         ${props => (props.flexDirection ? `flex-direction: ${ getBreakpointValue(props.flexDirection, 1) };` : '')};
         ${props => (props.alignItems ? `align-items: ${ getBreakpointValue(props.alignItems, 1) };` : '')};
@@ -39,6 +41,7 @@ const Flexbox = styled(({
 
     ${ breakpoint('xl')`
         ${ props => space(props, 0) };
+        ${ props => props.hide && hide(props, 0) };
         ${ props => borders(props, 0) };
         ${props => (props.flexDirection ? `flex-direction: ${ getBreakpointValue(props.flexDirection, 0) };` : '')};
         ${props => (props.alignItems ? `align-items: ${ getBreakpointValue(props.alignItems, 0) };` : '')};
