@@ -55,7 +55,7 @@ export default class ContentsTable extends Component {
                 <Flexbox
                     alignItems={ 'center' }
                     justifyContent={ 'space-between' }
-                    borderBottom={ showContents ? 'accentTwo' : '' }
+                    bb={ showContents ? 'accentTwo' : '' }
                     padding={ showContents ? [0,0,1,0] : 0 }
                     margin={ showContents ? [0,0,2,0] : 0 }
                 >

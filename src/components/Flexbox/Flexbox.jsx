@@ -27,8 +27,6 @@ const Flexbox = styled(({
     ${ props => props.hide && hide(props, 2) };
     ${ props => borders(props, 2) };
     ${ props => props.cursor && `cursor: ${ props.cursor }` };
-    ${ props => props.borderBottom ? `border-bottom: 1px solid ${ props.theme.colors[props.borderBottom] }` : '' };
-    ${ props => props.borderRight ? `border-right: 1px solid ${ props.theme.colors[props.borderRight] }` : '' };
 
     ${ breakpoint('md')`
         ${ props => space(props, 1) };
@@ -58,7 +56,10 @@ Flexbox.propTypes = {
         'space-between',
         'stretch',
     ]),
-    alignItems: PropTypes.oneOf(['baseline', 'center', 'flex-end', 'flex-start', 'stretch']),
+    alignItems: PropTypes.oneOfType([
+        PropTypes.oneOf(['baseline', 'center', 'flex-end', 'flex-start', 'stretch']),
+        PropTypes.array
+    ]),
     alignSelf: PropTypes.oneOf(['baseline', 'center', 'flex-end', 'flex-start', 'stretch']),
     children: PropTypes.node,
     display: PropTypes.oneOf(['flex', 'inline-flex']),
@@ -76,16 +77,22 @@ Flexbox.propTypes = {
     ]),
     flex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     flexBasis: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    flexDirection: PropTypes.oneOf(['column-reverse', 'column', 'row-reverse', 'row']),
+    flexDirection: PropTypes.oneOfType([
+        PropTypes.oneOf(['column-reverse', 'column', 'row-reverse', 'row']),
+        PropTypes.array
+    ]),
     flexGrow: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     flexShrink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     flexWrap: PropTypes.oneOf(['nowrap', 'wrap-reverse', 'wrap']),
-    justifyContent: PropTypes.oneOf([
-        'center',
-        'flex-end',
-        'flex-start',
-        'space-around',
-        'space-between',
+    justifyContent: PropTypes.oneOfType([
+        PropTypes.oneOf([
+            'center',
+            'flex-end',
+            'flex-start',
+            'space-around',
+            'space-between',
+        ]),
+        PropTypes.array
     ])
 };
 

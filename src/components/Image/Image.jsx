@@ -40,7 +40,7 @@ Image.defaultProps = {
 Image.propTypes = {
     src: PropTypes.string,
     alt: PropTypes.string.isRequired,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     style: PropTypes.object
 };
