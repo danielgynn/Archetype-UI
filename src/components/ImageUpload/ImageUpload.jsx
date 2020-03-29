@@ -52,7 +52,8 @@ const PictureContainer = styled.div`
 	justify-content: center;
 	height: inherit;
 	box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.1);
-	position: relative;
+    position: relative;
+    flex-direction: ${ props => props.hasCaption ? 'column' : 'row' };
 `;
 
 const StyledFlipMove = styled(FlipMove)`
@@ -65,6 +66,14 @@ const StyledFlipMove = styled(FlipMove)`
 
 const Picture = styled.img`
     width: 100%;
+`;
+
+const Caption = styled.textarea`
+    width: 100%;
+    overflow: visible;
+    margin: 10px 0 5px;
+    border: none;
+    border-bottom: 1px solid ${ props => props.theme.colors.textSecondary };
 `;
 
 const DeletePicture = styled.div`
@@ -109,6 +118,7 @@ class ImageUpload extends Component {
         this.state = {
             pictures: [...props.defaultImages],
             files: [],
+            captions: [],
             fileErrors: [],
             drag: false
         };
@@ -122,11 +132,11 @@ class ImageUpload extends Component {
     }
 
     componentDidUpdate(_prevProps, prevState, _snapshot) {
-        const { files, pictures } = this.state;
-        const { onChange } = this.props;
+        const { files, pictures, captions } = this.state;
+        const { onChange, allowCaption } = this.props;
     
         if (prevState.files !== files) {
-            onChange(files, pictures);
+            onChange(files, pictures, allowCaption ? captions : null);
         }
     }
 
@@ -135,7 +145,8 @@ class ImageUpload extends Component {
     
         if (nextProps.defaultImages !== defaultImages) {
             this.setState({
-                pictures: nextProps.defaultImages
+                pictures: nextProps.defaultImages,
+                captions: []
             });
         }
     }
@@ -155,8 +166,8 @@ class ImageUpload extends Component {
     }
 
     onDropFile(e, fullFiles) {
-        const { maxFileSize, singleImage } = this.props;
-        const { pictures, files } = this.state;
+        const { maxFileSize, singleImage, allowCaption } = this.props;
+        const { pictures, files, captions } = this.state;
     
         const droppedFiles = fullFiles ? [...fullFiles] : e.target.files;
         const allFilePromises = [];
@@ -204,11 +215,16 @@ class ImageUpload extends Component {
             newFilesData.forEach(newFileData => {
                 dataURLs.push(newFileData.dataURL);
                 updatedFiles.push(newFileData.file);
+
+                if (allowCaption) {
+                    captions.push('');
+                }
             });
 
             this.setState({
                 pictures: dataURLs,
-                files: updatedFiles
+                files: updatedFiles,
+                captions
             });
         });
   }
@@ -235,18 +251,20 @@ class ImageUpload extends Component {
     }
 
     removeImage(picture) {
-        const { onChange } = this.props;
-        const { pictures, files } = this.state;
+        const { onChange, allowCaption } = this.props;
+        const { pictures, files, captions } = this.state;
         
         const removeIndex = pictures.findIndex(e => e === picture);
         const filteredPictures = pictures.filter((e, index) => index !== removeIndex);
+        const filteredCaptions = allowCaption ? captions.filter((e, index) => index !== removeIndex) : captions;
         const filteredFiles = files.filter((e, index) => index !== removeIndex);
 
         this.setState({
             pictures: filteredPictures,
-            files: filteredFiles
+            files: filteredFiles,
+            captions: filteredCaptions
         }, () => {
-            onChange(files, pictures);
+            onChange(files, pictures, allowCaption ? captions : null);
         });
     }
 
@@ -290,15 +308,40 @@ class ImageUpload extends Component {
     }
 
     renderPreviewPictures() {
-        const { pictures } = this.state;
+        const { pictures, captions } = this.state;
+        const { allowCaption } = this.props;
 
         return pictures.map((picture, index) => {
             return (
-                <PictureContainer key={ index }>
+                <PictureContainer hasCaption={ allowCaption && captions && captions.length } key={ index }>
                     <DeletePicture onClick={ () => this.removeImage(picture) }>X</DeletePicture>
-                    <Picture src={ picture } alt="preview" />
+                    <Picture src={ picture }  alt="preview" />
+                    { allowCaption && captions && captions.length && (
+                        <Caption
+                            value={ captions[index] }
+                            placeholder={ 'Enter a caption...' }
+                            onChange={ (e) => this.updatePictureCaption(index, e) }
+                            type={ 'text' }
+                            rows={ 3 }
+                            id={ `caption${ captions[index] }`}
+                        />
+                    ) }
+                    
                 </PictureContainer>
             );
+        });
+    }
+
+    updatePictureCaption(index, e) {
+        const { files, pictures, captions } = this.state;
+        const { onChange } = this.props;
+
+        captions[index] = e.target.value;
+    
+        this.setState({
+            captions
+        }, () => {
+            onChange(files, pictures, captions);
         });
     }
 
@@ -308,7 +351,8 @@ class ImageUpload extends Component {
 
     clearPictures() {
         this.setState({
-            pictures: []
+            pictures: [],
+            captions: []
         });
     }
 
@@ -367,7 +411,8 @@ ImageUpload.defaultProps = {
     fileTypeError: " is not a supported file extension",
     singleImage: false,
     onChange: () => {},
-    defaultImages: []
+    defaultImages: [],
+    allowCaption: false
 };
 
 ImageUpload.propTypes = {
@@ -388,7 +433,8 @@ ImageUpload.propTypes = {
     fileSizeError: PropTypes.string,
     fileTypeError: PropTypes.string,
     singleImage: PropTypes.bool,
-    defaultImages: PropTypes.array
+    defaultImages: PropTypes.array,
+    allowCaption: PropTypes.bool
 };
 
 export default ImageUpload;
