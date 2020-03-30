@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import { Flexbox, Box, Header, Text, Button, TextLink, Label, Breadcrumbs } from '../..';
+import { Flexbox, Box, Header, Text, Button, TextLink, Label, Breadcrumbs, Icon } from '../..';
+
+const SectionIcon = styled(Box)`
+    margin-right: .5rem;
+    padding: 10px;
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: ${ props => props.theme.colors.accentTwo };
+
+    svg {
+        width: 1.2rem !important;
+    }
+`;
 
 export default class PageHeader extends Component {
     render() {
-        const { title, subtitle, margin, button, textLink, label, breadcrumbs, titleLevel } = this.props;
+        const { title, subtitle, margin, button, textLink, label, breadcrumbs, icon, titleLevel } = this.props;
 
         return (
             <Box margin={ margin }>
@@ -23,6 +40,7 @@ export default class PageHeader extends Component {
                             level={ titleLevel }
                             weight={ 900 }
                         >
+                            { icon && <SectionIcon><Icon icon={ icon } /></SectionIcon> }
                             { title }
                         </Header>
                         <Text
@@ -55,5 +73,6 @@ PageHeader.propTypes = {
     textLink: PropTypes.object,
     label: PropTypes.object,
     breadcrumbs: PropTypes.array,
+    icon: PropTypes.string,
     titleLevel: PropTypes.number
 };
