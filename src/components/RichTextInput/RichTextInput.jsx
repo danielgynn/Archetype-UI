@@ -5,7 +5,7 @@ import Styled from 'styled-components';
 import PropTypes from 'prop-types';
 import 'draft-js/dist/Draft.css';
 
-import { Box } from '../..';
+import { Box, Button, Flexbox } from '../..';
 import { space } from '../../utils';
 
 const EditorBox = Styled(Box)`
@@ -51,9 +51,16 @@ const EditorButton = Styled.span`
     display: inline-block;
 `;
 
+const FileInput = Styled.input`
+    opacity: 0;
+	position: absolute;
+	z-index: -1;
+`;
+
 class StyleButton extends React.Component {
     constructor() {
         super();
+
         this.onToggle = (e) => {
             e.preventDefault();
             this.props.onToggle(this.props.style);
@@ -83,13 +90,13 @@ const BLOCK_TYPES = [
 ];
 
 const BlockStyleControls = (props) => {
-    const {editorState} = props;
+    const { editorState } = props;
     const selection = editorState.getSelection();
     const blockType = editorState
         .getCurrentContent()
         .getBlockForKey(selection.getStartKey())
         .getType();
-  
+
     return (
         <EditorControls>
             {BLOCK_TYPES.map((type) =>
@@ -159,6 +166,8 @@ export default class RichTextInput extends Component {
         this.state = {
             editorState: (props.content) ? EditorState.createWithContent(state) : EditorState.createEmpty()
         };
+
+        this.inputElement = '';
     
         this.focus = () => this.editor.focus();
         this.onChange = (editorState) => this.updateEditorState(editorState);
@@ -167,6 +176,9 @@ export default class RichTextInput extends Component {
         this.onTab = (e) => this._onTab(e);
         this.toggleBlockType = (type) => this._toggleBlockType(type);
         this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
+        this.triggerFileUpload = this.triggerFileUpload.bind(this);
+        this.onDropFile = this.onDropFile.bind(this);
+        this.onUploadClick = this.onUploadClick.bind(this);
     }
 
     _handleKeyCommand(command) {
@@ -179,6 +191,26 @@ export default class RichTextInput extends Component {
         }
 
         return false;
+    }
+
+    triggerFileUpload() {
+        this.inputElement.click();
+    }
+
+    onUploadClick(e) {
+        if (e) {
+            e.target.value = null;
+        }
+    }
+
+    onDropFile(e, fullFiles) {
+        const { onImageUpload } = this.props;
+
+        const droppedFiles = fullFiles ? [...fullFiles] : [...e.target.files];
+
+        if (onImageUpload && droppedFiles && droppedFiles.length) {
+            onImageUpload(droppedFiles);
+        }
     }
     
     _onTab(e) {
@@ -216,7 +248,7 @@ export default class RichTextInput extends Component {
     
     render() {
         const { editorState } = this.state;
-        const { label, placeholder, required, ...rest } = this.props;
+        const { label, placeholder, required, allowImages, ...rest } = this.props;
     
         // If the user changes block type before entering any text, we can
         // either style the placeholder or hide it. Let's just hide it now.
@@ -233,10 +265,35 @@ export default class RichTextInput extends Component {
             <EditorBox>
                 { (label) && <StyledLabel>{ label } { required && '*' }</StyledLabel> }
                 <EditorWrapper { ...rest }>
-                    <BlockStyleControls
-                        editorState={editorState}
-                        onToggle={this.toggleBlockType}
-                    />
+                    <Flexbox
+                        alignItems={ 'center' }
+                        justifyContent={ 'space-between' }
+                    >
+                        <BlockStyleControls
+                            editorState={ editorState }
+                            onToggle={ this.toggleBlockType }
+                        />
+                        { allowImages && (
+                            <Box>
+                                <Button
+                                    margin={ [0,0,0,0] }
+                                    type={ 'button' }
+                                    onClick={ this.triggerFileUpload }
+                                    text={ 'Add Image' }
+                                />
+                                <FileInput
+                                    type="file"
+                                    ref={ input => this.inputElement = input }
+                                    name={ 'Add Image' }
+                                    multiple={ true }
+                                    onChange={ this.onDropFile }
+                                    onClick={ this.onUploadClick }
+                                    accept={ 'image/*' }
+                                />
+                            </Box>
+                        ) }
+                    </Flexbox>
+                        
                     <InlineStyleControls
                         editorState={editorState}
                         onToggle={this.toggleInlineStyle}

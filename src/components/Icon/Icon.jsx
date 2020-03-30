@@ -14,13 +14,14 @@ const IconWrapper = styled.span`
 
 export default class Icon extends Component {
     render() {
-        const { icon, size, color, onClick, cursor, ...rest } = this.props;
+        const { icon, size, color, onClick, cursor, spin, ...rest } = this.props;
 
         return (
             <IconWrapper color={ color } cursor={ cursor } onClick={ onClick } { ...rest }>
                 <FontAwesomeIcon
                     icon={ icon }
                     size={ size }
+                    spin={ spin }
                 />
             </IconWrapper>
         )
@@ -28,7 +29,8 @@ export default class Icon extends Component {
 }
 
 Icon.defaultProps = {
-    size: '1x'
+    size: '1x',
+    spin: false
 };
 
 Icon.propTypes = {
@@ -36,5 +38,6 @@ Icon.propTypes = {
     onClick: PropTypes.func,
     size: PropTypes.string,
     color: PropTypes.string,
-    cursor: PropTypes.string
+    cursor: PropTypes.string,
+    spin: PropTypes.bool
 };
