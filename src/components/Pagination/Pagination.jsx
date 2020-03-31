@@ -4,12 +4,9 @@ import Styled from 'styled-components';
 
 import { Button, Input, Flexbox } from '../..';
 
-const PaginationWrapper = Styled.div`
+const PaginationWrapper = Styled(Flexbox)`
     padding: 1rem 0;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 `;
 
 const PaginationButton = Styled(Button)`
@@ -82,13 +79,18 @@ export default class Pagination extends Component {
         } = this.props;
 
         return (
-            <PaginationWrapper>
+            <PaginationWrapper
+                alignItems={ 'center' }
+                justifyContent={ ['space-between', 'center', 'center'] }
+                flexDirection={ ['row', 'column', 'column'] }
+            >
 
                 <Flexbox alignItems={ 'center' } justifyContent={ 'flex-start' }>
                     { (allowFirstPage || allowEndPages) && (
                         <PaginationButton
                             margin={ [0,1,0,0] }
                             color={ 'primary' }
+                            hide={ [false, true, true] }
                             disabled={ currentPage === 1 }
                             onClick={ () => this.setPage(1) }
                             icon={ 'angle-double-left' }
@@ -146,6 +148,7 @@ export default class Pagination extends Component {
                             onClick={ () => this.setPage(totalPages) }
                             icon={ 'angle-double-right' }
                             iconPosition={ 'right' }
+                            hide={ [false, true, true] }
                             text={ 'Last Page' }
                         />
                     ) }

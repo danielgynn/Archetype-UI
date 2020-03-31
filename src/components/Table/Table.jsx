@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 
 import { space, hexToRgb } from '../../utils';
 import Cell from './Cell.jsx';
-import { Box } from '../..';
-import Icon from '../Icon/Icon.jsx';
-import OptionsList from '../OptionsList/OptionsList.jsx';
 
 const StyledTable = styled.table`
     border-spacing: 0;
     position: relative;
     border-radius: 8px;
     border-collapse: collapse;
+    display: block;
+    overflow-x: scroll;
+    max-width: 100%;
     border: 1px solid ${ props => props.theme.colors.accentTwo };
     ${ props => space(props) };
+
+    ${ breakpoint('md')`
+        display: block;
+    ` }
+
+    ${ breakpoint('xl')`
+        display: table;
+    ` }
 `;
 
 const StyledTableCaption = styled.caption`
@@ -46,17 +55,6 @@ const StyledTableRow = styled.tr`
     }
 `;
 
-const StyledTableAction = styled.td`
-    padding: 0 .5rem;
-    align-items: center;
-    color: ${ props => props.theme.colors.textSecondary };
-    transition: ${ props => props.theme.transitions.default };
-
-    &:hover {
-        color: ${ props => props.theme.colors.text };   
-    }
-`;
-
 const TableHeadings = styled.tr`
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -66,15 +64,19 @@ export default class Table extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            showActions: null
-        };
+        this.runSort = this.runSort.bind(this);
+    }
 
-        this.toggleShowActions = this.toggleShowActions.bind(this);
+    runSort(columnIndex) {
+        const { sortCallback, sorts } = this.props;
+
+        if (sorts && sorts[columnIndex] && sortCallback) {
+            sortCallback(columnIndex, 'desc');
+        }
     }
 
     renderHeadings() {
-        const { columns, sortColIndex, fixedFirstCol, actions } = this.props;
+        const { columns, sortColIndex, fixedFirstCol, sorts, sortDirection } = this.props;
 
         return (
             <TableHeadings key={ 'headings' }>
@@ -85,25 +87,17 @@ export default class Table extends Component {
                             content={ columns[columnIndex] }
                             header={ true }
                             fixed={ columnIndex === 0 && fixedFirstCol }
-                            sorted={ sortColIndex === columnIndex }
+                            sorted={ sortColIndex === columnIndex && sortDirection ? sortDirection : null }
+                            onClick={ sorts && sorts[columnIndex] ? () => this.runSort(columnIndex) : null }
                         />
                     )
                 )) }
-
-                { (actions && actions.length > 0) && (
-                    <Cell
-                        key={ `heading-actions` }
-                        content={ '' }
-                        header={ true }
-                    />
-                ) }
             </TableHeadings>
         );
     }
 
     renderBodyRow(row, rowIndex) {
-        const { data, fixedFirstCol, actions, onRowClick, selectedRows, sortColIndex } = this.props;
-        const { showActions } = this.state;
+        const { data, fixedFirstCol, onRowClick, selectedRows, sortColIndex } = this.props;
 
         const objRow = row.find(col => typeof col === 'object');
         const selected = ((objRow && objRow.selected) || (selectedRows && selectedRows.includes(rowIndex))) ? true : false;
@@ -122,34 +116,8 @@ export default class Table extends Component {
                         )
                     }
                 }) }
-
-                { (actions && actions.length > 0) && (
-                    <StyledTableAction id={ `actions${ rowIndex }` }>
-                        <Icon onClick={ () => this.toggleShowActions(rowIndex) } icon={ 'ellipsis-h' } />
-                    </StyledTableAction>
-                ) }
-
-                { (showActions !== null && rowIndex === showActions) && (
-                    <Box element={ 'td' } position={ 'relative' } id={ '' }>
-                        <OptionsList
-                            id={ 'tableOptionsList' }
-                            list={ actions }
-                            selectItem={ (title, id, key) => console.log(title, id, key, row) }
-                            top={ '40px' }
-                            right={ '10px' }
-                            width={ '225px' }
-                        />
-                    </Box>
-                        
-                ) }
             </StyledTableRow>
         );
-    }
-
-    toggleShowActions(rowIndex) {
-        this.setState((prevState) => ({
-            showActions: (prevState.showActions !== rowIndex) ? rowIndex : null
-        }));
     }
 
     render() {
@@ -176,5 +144,6 @@ Table.propTypes = {
     columns: PropTypes.array,
     data: PropTypes.array,
     onRowClick: PropTypes.func,
-    selectedRows: PropTypes.array
+    selectedRows: PropTypes.array,
+    sortCallback: PropTypes.func
 };
