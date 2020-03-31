@@ -37,6 +37,18 @@ export const getMarginProperties = (themeSpace, margin, breakpoint) => {
     ` : '';
 }
 
+export const getSpaceProperty = (themeSpace, value, breakpoint) => {
+    const space = themeSpace || defaultSpace;
+
+    if (breakpoint !== undefined && value) {
+        value = getBreakpointValue(value, breakpoint);
+    }
+
+    const propValue = value ? value : null;
+
+    return (propValue) ? `${ space[propValue] }px` : '';
+}
+
 export const getPaddingProperties = (themeSpace, padding, breakpoint) => {
     const space = themeSpace || defaultSpace;
 
@@ -62,5 +74,13 @@ export const space = (props, breakpoint) => `
     min-height: ${ getHeightProperty(props.minHeight) };
     max-height: ${ getHeightProperty(props.maxHeight) };
     margin: ${ getMarginProperties(props.theme.space, props.margin, breakpoint) };
+    ${ props.mt ? `margin-top: ${ getSpaceProperty(props.theme.space, props.mt, breakpoint) }` : '' };
+    ${ props.mr ? `margin-right: ${ getSpaceProperty(props.theme.space, props.mr, breakpoint) }` : '' };
+    ${ props.mb ? `margin-bottom: ${ getSpaceProperty(props.theme.space, props.mb, breakpoint) }` : '' };
+    ${ props.ml ? `margin-left: ${ getSpaceProperty(props.theme.space, props.ml, breakpoint) }` : '' };
     padding: ${ getPaddingProperties(props.theme.space, props.padding, breakpoint) };
+    ${ props.pt ? `padding-top: ${ getSpaceProperty(props.theme.space, props.pt, breakpoint) }` : '' };
+    ${ props.pr ? `padding-right: ${ getSpaceProperty(props.theme.space, props.pr, breakpoint) }` : '' };
+    ${ props.pb ? `padding-bottom: ${ getSpaceProperty(props.theme.space, props.pb, breakpoint) }` : '' };
+    ${ props.pl ? `padding-left: ${ getSpaceProperty(props.theme.space, props.pl, breakpoint) }` : '' };
 `;

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Flexbox, Box, Header, Text, Button, TextLink, Label, Breadcrumbs, Icon } from '../..';
 
 const SectionIcon = styled(Box)`
-    margin-right: .5rem;
+    margin-right: .75rem;
     padding: 10px;
     height: 55px;
     width: 55px;

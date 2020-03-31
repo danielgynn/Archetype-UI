@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import breakpoint from 'styled-components-breakpoint';
 
 import { getMarginProperties, getPaddingProperties, hide } from '../../utils';
@@ -12,6 +13,7 @@ const StyledText = styled.p`
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
     text-align: ${ props => props.align ? props.align : 'left' };
+    ${ props => props.fontStyle ? `font-style: ${ props.fontStyle }` : '' };
 
     ${ ({ clamp }) => clamp && `
         overflow: hidden;
@@ -48,3 +50,13 @@ export default class Text extends Component {
         )
     }
 }
+
+Text.defaultProps = {
+    fontStyle: 'normal'
+};
+
+Text.propTypes = {
+    clamp: PropTypes.bool,
+    html: PropTypes.string,
+    fontStyle: PropTypes.string
+};
