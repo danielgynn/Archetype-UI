@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Styled from 'styled-components';
 
-import { Button, Input, Flexbox } from '../..';
+import { Button, Input, Flexbox, Box } from '../..';
 
-const PaginationWrapper = Styled(Flexbox)`
+const PaginationWrapper = Styled(Box)`
     padding: 1rem 0;
     text-align: center;
 `;
@@ -79,79 +79,87 @@ export default class Pagination extends Component {
         } = this.props;
 
         return (
-            <PaginationWrapper
-                alignItems={ 'center' }
-                justifyContent={ ['space-between', 'center', 'center'] }
-                flexDirection={ ['row', 'column', 'column'] }
-            >
+            <PaginationWrapper>
+                <Box
+                    hide={ [true,true,false] }
+                    bt={ 'accentTwo' }
+                    pt={ 1 }
+                    mb={ 1 }
+                >
+                    <PaginationLabel>Page { currentPage } of { totalPages }</PaginationLabel>
+                </Box>
+                <Flexbox
+                    alignItems={ 'center' }
+                    justifyContent={ ['space-between', 'space-between', 'space-between'] }
+                >
+                    <Flexbox alignItems={ 'center' } justifyContent={ 'flex-start' } width={ [30,30,49] }>
+                        { (allowFirstPage || allowEndPages) && (
+                            <PaginationButton
+                                mr={ [1,1,0] }
+                                color={ 'primary' }
+                                hide={ [false, true, true] }
+                                disabled={ currentPage === 1 }
+                                onClick={ () => this.setPage(1) }
+                                icon={ 'angle-double-left' }
+                                iconPosition={ 'left' }
+                                text={ 'First Page' }
+                            />
+                        ) }
 
-                <Flexbox alignItems={ 'center' } justifyContent={ 'flex-start' }>
-                    { (allowFirstPage || allowEndPages) && (
                         <PaginationButton
-                            margin={ [0,1,0,0] }
                             color={ 'primary' }
-                            hide={ [false, true, true] }
+                            mr={ [2,2,0] }
+                            inverted
                             disabled={ currentPage === 1 }
-                            onClick={ () => this.setPage(1) }
-                            icon={ 'angle-double-left' }
+                            onClick={ () => this.setPage(currentPage - 1) }
+                            icon={ 'angle-left' }
                             iconPosition={ 'left' }
-                            text={ 'First Page' }
+                            text={ 'Prev Page' }
                         />
-                    ) }
+                    </Flexbox>
 
-                    <PaginationButton
-                        color={ 'primary' }
-                        margin={ [0,2,0,0] }
-                        inverted
-                        disabled={ currentPage === 1 }
-                        onClick={ () => this.setPage(currentPage - 1) }
-                        icon={ 'angle-left' }
-                        iconPosition={ 'left' }
-                        text={ 'Prev Page' }
-                    />
-                </Flexbox>
+                    <Flexbox alignItems={ 'center' } justifyContent={ 'space-between' } hide={ [false,false,true] }>
+                        Page 
+                    
+                        { (allowPageInput) ? (
+                            <PaginationInput
+                                value={ currentPage.toString() }
+                                inputId={ `currentPageInput` }
+                                type={ 'number' }
+                                onChange={ (e) => this.setPageInput(e.target.value) }
+                            />
+                        ) : (
+                            <PaginationLabel>{ currentPage }</PaginationLabel>
+                        ) }
 
-                <Flexbox alignItems={ 'center' } justifyContent={ 'space-between' }>
-                    Page 
-                
-                    { (allowPageInput) ? (
-                        <PaginationInput
-                            value={ currentPage.toString() }
-                            inputId={ `currentPageInput` }
-                            type={ 'number' }
-                            onChange={ (e) => this.setPageInput(e.target.value) }
-                        />
-                    ) : (
-                        <PaginationLabel>{ currentPage }</PaginationLabel>
-                     ) }
+                        of <PaginationLabel>{ totalPages }</PaginationLabel>
+                    </Flexbox>
 
-                    of <PaginationLabel>{ totalPages }</PaginationLabel>
-                </Flexbox>
-
-                <Flexbox alignItems={ 'center' } justifyContent={ 'flex-end' }>
-                    <PaginationButton
-                        color={ 'primary' }
-                        margin={ [0,0,0,2] }
-                        inverted
-                        disabled={ currentPage === totalPages }
-                        onClick={ () => this.setPage(currentPage + 1) }
-                        icon={ 'angle-right' }
-                        iconPosition={ 'right' }
-                        text={ 'Next Page' }
-                    />
-
-                    { (allowLastPage || allowEndPages) && (
+                    <Flexbox alignItems={ 'center' } justifyContent={ 'flex-end' } width={ [30,30,49] }>
                         <PaginationButton
-                            margin={ [0,0,0,1] }
                             color={ 'primary' }
+                            ml={ [2,2,0] }
+                            inverted
                             disabled={ currentPage === totalPages }
-                            onClick={ () => this.setPage(totalPages) }
-                            icon={ 'angle-double-right' }
+                            onClick={ () => this.setPage(currentPage + 1) }
+                            icon={ 'angle-right' }
                             iconPosition={ 'right' }
-                            hide={ [false, true, true] }
-                            text={ 'Last Page' }
+                            text={ 'Next Page' }
                         />
-                    ) }
+
+                        { (allowLastPage || allowEndPages) && (
+                            <PaginationButton
+                                ml={ [1,1,0] }
+                                color={ 'primary' }
+                                disabled={ currentPage === totalPages }
+                                onClick={ () => this.setPage(totalPages) }
+                                icon={ 'angle-double-right' }
+                                iconPosition={ 'right' }
+                                hide={ [false, true, true] }
+                                text={ 'Last Page' }
+                            />
+                        ) }
+                    </Flexbox>
                 </Flexbox>
             </PaginationWrapper>
         )

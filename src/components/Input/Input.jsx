@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 
 import { Box } from '../..';
 import { space, color } from '../../utils';
 
 const InputWrapper = styled(Box)`
     position: relative;
-    ${ props => space(props) };
+
+    ${ props => space(props, 2) };
+
+    ${ breakpoint('md')`
+        ${ props => space(props, 1) };
+    ` }
+
+    ${ breakpoint('xl')`
+        ${ props => space(props, 0) };
+    ` }
 `;
 
 const StyledLabel = styled.label`

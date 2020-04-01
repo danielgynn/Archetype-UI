@@ -8,7 +8,8 @@ import { getMarginProperties, getPaddingProperties } from '../../utils';
 const StyledHeader = styled.h1`
     color: ${ props => props.theme.colors[props.color || 'text'] };
     font-size: ${ props => props.theme.fontSizesSm[`h${ props.level }`] };
-    ${props => (props.textAlign ? `text-align: ${props.textAlign};` : '')}
+    line-height: ${ props => props.theme.fontSizesSm.lineHeight };
+    ${props => (props.textAlign ? `text-align: ${props.textAlign};` : '') };
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.weight || props.theme.fontWeights[`h${ props.level }`] };
@@ -17,11 +18,13 @@ const StyledHeader = styled.h1`
     text-align: ${ props => props.align ? props.align : 'left' };
 
     ${ breakpoint('md')`
-        font-size: ${ props => props.theme.fontSizesMed[`h${ props.level }`] };
+        ${ props => `line-height: ${ props.theme.fontSizesMed.lineHeight };` };
+        ${ props => `font-size: ${ props.fontSize ? props.fontSize : props.theme.fontSizesMed[`h${ props.level }`] };` };
     ` }
 
     ${ breakpoint('xl')`
-        font-size: ${ props => props.fontSize ? props.fontSize : props.theme.fontSizes[`h${ props.level }`] };
+        ${ props => `line-height: ${ props.theme.fontSizes.lineHeight };` };
+        ${ props => `font-size: ${ props.fontSize ? props.fontSize : props.theme.fontSizes[`h${ props.level }`] };` };
     ` }
 `;
 

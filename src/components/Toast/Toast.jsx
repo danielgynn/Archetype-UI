@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
+import breakpoint from 'styled-components-breakpoint';
 
 import { Icon } from '../..';
 
@@ -14,9 +15,22 @@ const ICON_TYPES = Object.freeze({
 
 const ToastPosition = styled.div`
     position: fixed;
-    bottom: 35px;
-    right: 35px;
+    bottom: 15px;
+    right: 15px;
+    max-width: 92%;
     background: ${ props => props.theme.colors.white };
+
+    ${ breakpoint('md')`
+        bottom: 35px;
+        right: 35px;
+        max-width: 100%;
+    ` }
+
+    ${ breakpoint('md')`
+        bottom: 35px;
+        right: 35px;
+        max-width: 100%;
+    ` }
 `;
 
 const ToastWrapper = styled.div`
@@ -54,19 +68,43 @@ const ToastMessage = styled.div`
 `;
 
 const ToastMessageType = styled.p`
-    font-size: 1rem;
+    font-size: .8rem;
     font-weight: 700;
     color: ${ props => props.theme.colors.text };
+
+    ${ breakpoint('md')`
+        font-size: 1rem;
+    ` }
+
+    ${ breakpoint('md')`
+        font-size: 1rem;
+    ` }
 `;
 
 const ToastMessageText = styled.p`
-    font-size: .95rem;
+    font-size: .75rem;
     color: ${ props => props.theme.colors.textSecondary };
+
+    ${ breakpoint('md')`
+        font-size: .95rem;
+    ` }
+
+    ${ breakpoint('md')`
+        font-size: .95rem;
+    ` }
 `;
 
 const ToastTime = styled.p`
-    font-size: .85rem;
+    font-size: .7rem;
     color: ${ props => props.theme.colors.textTertiary };
+
+    ${ breakpoint('md')`
+        font-size: .85rem;
+    ` }
+
+    ${ breakpoint('md')`
+        font-size: .85rem;
+    ` }
 `;
 
 export default class Toast extends Component {
@@ -128,7 +166,7 @@ export default class Toast extends Component {
 }
 
 Toast.defaultProps = {
-    timeout: 5000
+    timeout: 50000
 };
 
 Toast.propTypes = {

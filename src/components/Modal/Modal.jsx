@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 
 import { Box, Flexbox, Button, Header, Text } from '../..';
 
@@ -18,13 +19,21 @@ const ModalWrapper = Styled(Box)`
 const ModalMain = Styled(Box)`
     position:fixed;
     background: white;
-    width: 45%;
+    width: 85%;
     height: auto;
     top:50%;
     left:50%;
     padding: 1.5rem;
     border-radius: 8px;
     transform: translate(-50%,-50%);
+
+    ${ breakpoint('md')`
+        width: 65%;
+    ` }
+
+    ${ breakpoint('xl')`
+        width: 45%;
+    ` }
 `;
 
 export default class Modal extends Component {
@@ -57,7 +66,7 @@ export default class Modal extends Component {
                 <ModalMain>
                     <Flexbox flexDirection={ 'column' } alignItems={ 'center' } justifyContent={ 'center' }>
                         { (header) && (
-                            <Header level={ 2 }>{ header }</Header> 
+                            <Header align={ 'center' } level={ 2 }>{ header }</Header> 
                         ) }
 
                         { (text) && (
@@ -67,14 +76,14 @@ export default class Modal extends Component {
 
                     { children }
 
-                    <Flexbox margin={ [3,0,0,0] } alignItems={ 'center' } justifyContent={ 'space-between' }>
+                    <Flexbox margin={ [3,0,0,0] } alignItems={ 'center' } justifyContent={ 'space-between' } flexDirection={ ['row','row','column'] }>
                         { (action && action.handleAction) && (
-                            <Button color={ action.type } width={ secondaryAction ? 32 : 48 } onClick={ action.handleAction } text={ action.text } />
+                            <Button color={ action.type } width={ secondaryAction ? [32,32,100] : [48,48,100] } mb={ [0,0,1] } onClick={ action.handleAction } text={ action.text } />
                         ) }
                         { (secondaryAction && secondaryAction.handleAction) && (
-                            <Button color={ secondaryAction.type } width={ 32 } onClick={ secondaryAction.handleAction } text={ secondaryAction.text } />
+                            <Button color={ secondaryAction.type } width={ [32,32,100] } mb={ [0,0,1] } onClick={ secondaryAction.handleAction } text={ secondaryAction.text } />
                         ) }
-                        <Button color={ 'primary' } width={ secondaryAction ? 32 : 48 } inverted onClick={ handleClose } text={ 'Cancel' } />
+                        <Button color={ 'primary' } width={ secondaryAction ? [32,32,100] : [48,48,100] } mb={ [0,0,1] } inverted onClick={ handleClose } text={ 'Cancel' } />
                     </Flexbox>
                 </ModalMain>
             </ModalWrapper>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 
 import { Box, Icon, Flexbox, OptionsList } from '../..';
 import { space } from '../../utils';
@@ -9,7 +10,15 @@ const DropdownWrapper = styled(Box)`
     user-select: none;
     position: relative;
     width: 222px;
-    ${ props => space(props) };
+    ${ props => space(props, 2) };
+
+    ${ breakpoint('md')`
+        ${ props => space(props, 1) };
+    ` }
+
+    ${ breakpoint('xl')`
+        ${ props => space(props, 0) };
+    ` }
 `;
 
 const DropdownLabel = styled.label`

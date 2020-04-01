@@ -92,7 +92,7 @@ export default class Button extends Component {
     }
 
     render() {
-        const { id, className, type, text, color, disabled, inverted, width, margin, icon, iconPosition, iconType, ...rest } = this.props;
+        const { id, className, type, text, color, disabled, inverted, width, margin, icon, iconPosition, iconType, mt, ...rest } = this.props;
 
         return (
             <StyledButton
@@ -105,6 +105,7 @@ export default class Button extends Component {
                 disabled={ disabled }
                 inverted={ inverted }
                 onClick={ this.onClick }
+                mt={ mt }
                 { ...rest }>
 
                 { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }

@@ -32,6 +32,7 @@ export default class PageHeader extends Component {
                     alignItems={ 'flex-start' }
                     justifyContent={ 'space-between' }
                     element={ 'section' }
+                    flexDirection={ ['row','row','column'] }
                 >
                     <Box>
                         { label && <Label { ...label } /> }
@@ -51,7 +52,13 @@ export default class PageHeader extends Component {
                         </Text>
                     </Box>
 
-                    { (button) && <Button { ...button } /> }
+                    { (button) && (
+                        <Button
+                            { ...button }
+                            width={ [button.width || 30, button.width || 30, 100] }
+                            mt={ [0,0,2] }
+                        />
+                    ) }
                 </Flexbox>
 
                 { textLink && <TextLink { ...textLink } /> }

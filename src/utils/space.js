@@ -44,9 +44,9 @@ export const getSpaceProperty = (themeSpace, value, breakpoint) => {
         value = getBreakpointValue(value, breakpoint);
     }
 
-    const propValue = value ? value : null;
+    const propValue = value !== undefined ? value : null;
 
-    return (propValue) ? `${ space[propValue] }px` : '';
+    return (propValue !== null) ? `${ space[propValue] }px` : '';
 }
 
 export const getPaddingProperties = (themeSpace, padding, breakpoint) => {
