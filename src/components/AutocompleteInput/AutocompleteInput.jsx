@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Styled from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 
 import { Input } from '../..';
 import { hexToRgb, space } from "../../utils";
@@ -15,7 +16,15 @@ const StyledLabel = Styled.label`
 
 const SuggestionsWrapper = Styled.div`
     position: relative;
-    ${ props => space(props) };
+    ${ props => space(props, 2) };
+
+    ${ breakpoint('md')`
+        ${ props => space(props, 1) };
+    ` }
+
+    ${ breakpoint('xl')`
+        ${ props => space(props, 0) };
+    ` }
 `;
 
 const SuggestionsList = Styled.ul`
@@ -152,7 +161,8 @@ class AutocompleteInput extends Component {
           placeholder,
           required,
           label,
-          value
+          value,
+          mt, mb, mr, ml, margin
       }
     } = this;
 
@@ -175,7 +185,7 @@ class AutocompleteInput extends Component {
     }
 
     return (
-      <SuggestionsWrapper width={ width }>
+      <SuggestionsWrapper width={ width } mt={ mt } mb={ mb } mr={ mr } ml={ ml } margin={ margin }>
         { (label) && <StyledLabel>{ label } { required && '*' }</StyledLabel> }
         <Input
           type="text"

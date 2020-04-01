@@ -26,6 +26,7 @@ const EditorWrapper = Styled.div`
     border-radius: 8px;
     font-size: 14px;
     padding: 15px;
+    min-height: 200px;
 `;
 
 const EditorContainer = Styled.div`

@@ -43,7 +43,7 @@ export default class Jumbo extends Component {
 
         return (
             <StyledJumbo flexDirection={ ['row','row','column'] } color={ color } { ...rest }>
-                <JumboSection margin={ [[0,1,0,0],[0,1,0,0],[0,1,2,0]] }>
+                <JumboSection margin={ [[0,1,0,0],[0,1,0,0],[0,1,action ? 2 : 0,0]] }>
                     <Flexbox width={ 100 } alignItems={ 'flex-start' } justifyContent={ 'space-between' }>
                         <Header level={ 4 } weight={ 900 } margin={ [0] }>
                             { icon && <Icon margin={ [0,1,0,0] } icon={ icon } type={ 'solid' } /> }
