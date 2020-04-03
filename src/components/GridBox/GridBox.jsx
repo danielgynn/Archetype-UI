@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import breakpoint from 'styled-components-breakpoint';
 
-import { space, color, getBreakpointValue } from '../../utils';
+import { space, color, borders, getBreakpointValue } from '../../utils';
 
 const GridWrapper = styled.div`
     display: grid !important;
@@ -11,16 +11,19 @@ const GridWrapper = styled.div`
     grid-row-gap: ${ props => props.rowGap }rem;
     grid-column-gap: ${ props => props.colGap }rem;
     ${ props => space(props, 2) };
+    ${ props => borders(props, 2) };
     ${ props => color(props) };
 
     ${ breakpoint('md')`
         ${ props => props.colWidth ? `grid-template-columns: repeat(auto-fill, minmax(${ getBreakpointValue(props.colWidth, 1) }%, 2fr));` : '' };
         ${ props => space(props, 1) };
+        ${ props => borders(props, 1) };
     ` }
  
     ${ breakpoint('xl')`
-    ${ props => props.colWidth ? `grid-template-columns: repeat(auto-fill, minmax(${ getBreakpointValue(props.colWidth, 0) }%, 2fr));` : '' };
-    ${ props => space(props, 0) };
+        ${ props => props.colWidth ? `grid-template-columns: repeat(auto-fill, minmax(${ getBreakpointValue(props.colWidth, 0) }%, 2fr));` : '' };
+        ${ props => space(props, 0) };
+        ${ props => borders(props, 0) };
     ` }
 `;
 

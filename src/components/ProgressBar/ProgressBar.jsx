@@ -8,7 +8,7 @@ import Box from '../Box/Box.jsx';
 const ROUND_PRECISION = 1000;
 
 const ProgressWrapper = Styled(Box)`
-    height: 1.25rem;
+    height: ${ props => props.height };
     font-size: .75rem;
     background-color: ${ props => props.theme.colors[props.background] };
     border-radius: 8px;
@@ -18,7 +18,7 @@ const ProgressWrapper = Styled(Box)`
 
 const Progress = Styled(Box)`
     flex-direction: column;
-    height: 1.25rem;
+    height: ${ props => props.height };
     justify-content: center;
     border-radius: 8px;
     text-align: center;
@@ -59,6 +59,7 @@ export default class ProgressBar extends Component {
             bsPrefix,
             color,
             background,
+            height,
             ...props
         }
     ) {
@@ -69,6 +70,7 @@ export default class ProgressBar extends Component {
                 color={ color }
                 background={ background }
                 striped={ striped }
+                height={ height }
                 style={{ width: `${this.getPercentage(now, min, max)}%`, ...style }}
                 aria-valuenow={now}
                 aria-valuemin={min}
@@ -89,6 +91,7 @@ export default class ProgressBar extends Component {
             className,
             color,
             background,
+            height,
             ...wrapperProps
         } = this.props;
         
@@ -106,7 +109,8 @@ export default class ProgressBar extends Component {
                         animated,
                         bsPrefix,
                         color,
-                        background
+                        background,
+                        height
                     }
                 ) }
                 <ProgressLabel now={ now }>{label}</ProgressLabel>
@@ -122,6 +126,7 @@ ProgressBar.defaultProps = {
     striped: false,
     margin: [1,0,0,0],
     color: 'primary',
+    height: '1.25rem',
     background: 'accentTwo'
 };
 

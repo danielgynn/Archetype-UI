@@ -10,12 +10,19 @@ const StyledJumbo = styled(Flexbox)`
     ${ props => space(props, 2) };
     border-radius: 16px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content-space-between;
     background-color: ${ props => hexToRgb(props.theme.colors[props.color], .1) };
+    ${ props => props.onClick ? `cursor: pointer` : '' };
+    transition: ${ props => props.theme.transitions.default };
 
     h4 {
         color: ${ props => hexToRgb(props.theme.colors[props.color], 1) };
+    }
+
+    &:hover {
+        ${ props => props.onClick ? `border-color: ${ props => props.onClick ? props.theme.colors.accentTwo : 'auto' }` : '' };
+        ${ props => props.onClick ? `box-shadow: 0 2px 8px rgba(0,0,0,0.15)` : '' };
     }
 
     ${ breakpoint('md') `${ props => space(props, 1) };` }
@@ -39,10 +46,10 @@ const JumboIcon = styled(Icon)`
 
 export default class Jumbo extends Component {
     render() {
-        const { header, text, action, color, icon, close, ...rest } = this.props;
+        const { header, text, action, color, icon, close, onClick, ...rest } = this.props;
 
         return (
-            <StyledJumbo flexDirection={ ['row','row','column'] } color={ color } { ...rest }>
+            <StyledJumbo flexDirection={ ['row','row','column'] } onClick={ onClick ? onClick : null }color={ color } { ...rest }>
                 <JumboSection margin={ [[0,1,0,0],[0,1,0,0],[0,1,action ? 2 : 0,0]] }>
                     <Flexbox width={ 100 } alignItems={ 'flex-start' } justifyContent={ 'space-between' }>
                         <Header level={ 4 } weight={ 900 } margin={ [0] }>
@@ -53,7 +60,7 @@ export default class Jumbo extends Component {
                         { close && <JumboIcon size={ '2x' } color={ color } onClick={ close } margin={ [0,1,0,1] } icon={ 'times' } type={ 'solid' } /> }
                     </Flexbox>
                         
-                    <Text margin={ [2,0,0,0] } html={ text } />
+                    <Text margin={ [1,0,0,0] } html={ text } />
                 </JumboSection>
 
                 { (action) && (
@@ -71,7 +78,7 @@ export default class Jumbo extends Component {
 Jumbo.defaultProps = {
     color: 'labelThree',
     margin: [2,0,2,0],
-    padding: [[3,5,3,5], [2,4,2,4], [2,3,2,3]]
+    padding: [[3,4,3,4], [2,3,2,3], [2,3,2,3]]
 };
 
 Jumbo.propTypes = {
