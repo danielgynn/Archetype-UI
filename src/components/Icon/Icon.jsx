@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { space, color } from '../../utils';
@@ -9,7 +10,15 @@ const IconWrapper = styled.span`
     display: ${ props => props.display ? props.display : 'inline-block' };
     cursor: ${ props => props.cursor ? props.cursor : props.onClick ? 'pointer' : 'auto' };
     ${ props => color(props) };
-    ${ props => space(props) };
+    ${ props => space(props, 2) };
+
+    ${ breakpoint('md')`
+        ${ props => space(props, 1) };
+    ` }
+
+    ${ breakpoint('xl')`
+        ${ props => space(props, 0) };
+    ` }
 `;
 
 export default class Icon extends Component {

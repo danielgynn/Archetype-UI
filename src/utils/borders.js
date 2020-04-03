@@ -24,6 +24,11 @@ export const getBorderProperty = (border, breakpoint) => {
 
 export const borders = (props, breakpoint) => `
     border-radius: ${ getBorderRadiusProperty(props.theme.radius, props.radius, breakpoint) };
+    ${ props.border ? `border: 1px solid ${ props.theme.colors[getBorderProperty(props.border, breakpoint)] }` : '' };
+    ${ props.btr ? `border-top-right-radius: ${ getBorderRadiusProperty(props.theme.radius, props.btr, breakpoint) }` : ''};
+    ${ props.bbl ? `border-bottom-left-radius: ${ getBorderRadiusProperty(props.theme.radius, props.bbl, breakpoint) }` : ''};
+    ${ props.bbr ? `border-bottom-right-radius: ${ getBorderRadiusProperty(props.theme.radius, props.bbr, breakpoint) }` : ''};
+    ${ props.btl ? `border-top-left-radius: ${ getBorderRadiusProperty(props.theme.radius, props.btl, breakpoint) }` : ''};
     ${ props.bt ? `border-top: 1px solid ${ props.theme.colors[getBorderProperty(props.bt, breakpoint)] }` : '' };
     ${ props.br ? `border-right: 1px solid ${ props.theme.colors[getBorderProperty(props.br, breakpoint)] }` : '' };
     ${ props.bb ? `border-bottom: 1px solid ${ props.theme.colors[getBorderProperty(props.bb, breakpoint)] }` : '' };

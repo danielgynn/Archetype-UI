@@ -10,15 +10,17 @@ const GridWrapper = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(${ props => getBreakpointValue(props.colWidth, 2) }%, 2fr));
     grid-row-gap: ${ props => props.rowGap }rem;
     grid-column-gap: ${ props => props.colGap }rem;
-    ${ props => space(props) };
+    ${ props => space(props, 2) };
     ${ props => color(props) };
 
     ${ breakpoint('md')`
-        grid-template-columns: repeat(auto-fill, minmax(${ props => getBreakpointValue(props.colWidth, 1) }%, 2fr));
+        ${ props => props.colWidth ? `grid-template-columns: repeat(auto-fill, minmax(${ getBreakpointValue(props.colWidth, 1) }%, 2fr));` : '' };
+        ${ props => space(props, 1) };
     ` }
  
     ${ breakpoint('xl')`
-        grid-template-columns: repeat(auto-fill, minmax(${ props => getBreakpointValue(props.colWidth, 0) }%, 2fr));
+    ${ props => props.colWidth ? `grid-template-columns: repeat(auto-fill, minmax(${ getBreakpointValue(props.colWidth, 0) }%, 2fr));` : '' };
+    ${ props => space(props, 0) };
     ` }
 `;
 

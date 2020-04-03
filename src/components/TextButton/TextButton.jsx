@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
 import PropTypes from 'prop-types';
+import breakpoint from 'styled-components-breakpoint';
 
 import { Text, Icon } from '../..';
 import { space } from '../../utils';
@@ -13,7 +14,15 @@ const TextButtonWrapper = Styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    ${ props => space(props) };
+    ${ props => space(props, 2) };
+
+    ${ breakpoint('md')`
+        ${ props => space(props, 1) };
+    ` }
+
+    ${ breakpoint('xl')`
+        ${ props => space(props, 0) };
+    ` }
 
     &:hover {
         opacity: 1;

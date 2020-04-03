@@ -13,15 +13,15 @@ const Flexbox = styled(({
 }) => React.createElement(element, props, children))`
     ${props => (props.alignContent ? `align-content: ${props.alignContent};` : '')}
     ${props => (props.alignSelf ? `align-self: ${props.alignSelf};` : '')}
-    ${props => (props.alignItems ? `align-items: ${ getBreakpointValue(props.alignItems, 2) };` : '')}
+    ${props => (props.alignItems || props.ai ? `align-items: ${ getBreakpointValue(props.alignItems || props.ai, 2) };` : '')}
     ${props => (props.display ? `display: ${props.display};` : '')}
     ${props => (isTruthyOrZero(props.flex) ? `flex: ${props.flex};` : '')}
     ${props => (isTruthyOrZero(props.flexBasis) ? `flex-basis: ${props.flexBasis};` : '')}
-    ${props => (props.flexDirection ? `flex-direction: ${ getBreakpointValue(props.flexDirection, 2) };` : '')}
+    ${props => (props.flexDirection || props.fd ? `flex-direction: ${ getBreakpointValue(props.flexDirection || props.fd, 2) };` : '')}
     ${props => (isTruthyOrZero(props.flexGrow) ? `flex-grow: ${props.flexGrow};` : '')}
     ${props => (isTruthyOrZero(props.flexShrink) ? `flex-shrink: ${props.flexShrink};` : '')}
     ${props => (props.flexWrap ? `flex-wrap: ${props.flexWrap};` : '')}
-    ${props => (props.justifyContent ? `justify-content: ${ getBreakpointValue(props.justifyContent, 1) };` : '')}
+    ${props => (props.justifyContent || props.jc ? `justify-content: ${ getBreakpointValue(props.justifyContent || props.jc, 1) };` : '')}
     ${ props => space(props, 2) };
     ${ props => color(props) };
     ${ props => props.hide && hide(props, 2) };
@@ -32,18 +32,18 @@ const Flexbox = styled(({
         ${ props => space(props, 1) };
         ${ props => props.hide && hide(props, 1) };
         ${ props => borders(props, 1) };
-        ${props => (props.flexDirection ? `flex-direction: ${ getBreakpointValue(props.flexDirection, 1) };` : '')};
-        ${props => (props.alignItems ? `align-items: ${ getBreakpointValue(props.alignItems, 1) };` : '')};
-        ${props => (props.alignItems ? `justify-content: ${ getBreakpointValue(props.justifyContent, 1) };` : '')};
+        ${props => (props.flexDirection || props.fd ? `flex-direction: ${ getBreakpointValue(props.flexDirection || props.fd, 1) };` : '')};
+        ${props => (props.alignItems || props.ai ? `align-items: ${ getBreakpointValue(props.alignItems || props.ai, 1) };` : '')};
+        ${props => (props.justifyContent || props.jc ? `justify-content: ${ getBreakpointValue(props.justifyContent || props.jc, 1) };` : '')};
     ` }
 
     ${ breakpoint('xl')`
         ${ props => space(props, 0) };
         ${ props => props.hide && hide(props, 0) };
         ${ props => borders(props, 0) };
-        ${props => (props.flexDirection ? `flex-direction: ${ getBreakpointValue(props.flexDirection, 0) };` : '')};
-        ${props => (props.alignItems ? `align-items: ${ getBreakpointValue(props.alignItems, 0) };` : '')};
-        ${props => (props.alignItems ? `justify-content: ${ getBreakpointValue(props.justifyContent, 0) };` : '')};
+        ${props => (props.flexDirection || props.fd ? `flex-direction: ${ getBreakpointValue(props.flexDirection || props.fd, 0) };` : '')};
+        ${props => (props.alignItems || props.ai ? `align-items: ${ getBreakpointValue(props.alignItems || props.ai, 0) };` : '')};
+        ${props => (props.justifyContent || props.jc ? `justify-content: ${ getBreakpointValue(props.justifyContent || props.jc, 0) };` : '')};
     ` }
 `;
 
