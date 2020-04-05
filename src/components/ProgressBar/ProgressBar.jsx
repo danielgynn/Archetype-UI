@@ -11,7 +11,7 @@ const ProgressWrapper = Styled(Box)`
     height: ${ props => props.height };
     font-size: .75rem;
     background-color: ${ props => props.theme.colors[props.background] };
-    border-radius: 8px;
+    border-radius: ${ props => props.radius };
     position: relative;
     ${ props => space(props) };
 `;
@@ -20,7 +20,7 @@ const Progress = Styled(Box)`
     flex-direction: column;
     height: ${ props => props.height };
     justify-content: center;
-    border-radius: 8px;
+    border-radius: ${ props => props.radius };
     text-align: center;
     white-space: nowrap;
     background-color: ${ props => props.theme.colors[props.color] };
@@ -60,6 +60,7 @@ export default class ProgressBar extends Component {
             color,
             background,
             height,
+            radius,
             ...props
         }
     ) {
@@ -71,6 +72,7 @@ export default class ProgressBar extends Component {
                 background={ background }
                 striped={ striped }
                 height={ height }
+                radius={ radius }
                 style={{ width: `${this.getPercentage(now, min, max)}%`, ...style }}
                 aria-valuenow={now}
                 aria-valuemin={min}
@@ -92,12 +94,14 @@ export default class ProgressBar extends Component {
             color,
             background,
             height,
+            radius,
             ...wrapperProps
         } = this.props;
         
         return (
             <ProgressWrapper
                 background={ background }
+                radius={ radius }
                 { ...wrapperProps }
             >
                 { this.renderProgressBar(
@@ -110,7 +114,8 @@ export default class ProgressBar extends Component {
                         bsPrefix,
                         color,
                         background,
-                        height
+                        height,
+                        radius
                     }
                 ) }
                 <ProgressLabel now={ now }>{label}</ProgressLabel>
@@ -127,7 +132,8 @@ ProgressBar.defaultProps = {
     margin: [1,0,0,0],
     color: 'primary',
     height: '1.25rem',
-    background: 'accentTwo'
+    background: 'accentTwo',
+    radius: '8px'
 };
 
 ProgressBar.propTypes = {

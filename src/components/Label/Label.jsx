@@ -8,7 +8,7 @@ const StyledLabel = styled.div`
     background-color: ${ props => props.color && props.color.includes('#') ? props.color : props.theme.colors[props.color || 'primary'] };
     color: ${ props => props.theme.colors[props.textcolor || 'textInverted'] };
     font-size: ${ props => props.small ? props.theme.fontSizes.labelSmall : props.theme.fontSizes.label };
-    padding: ${ props => props.theme.labels.padding || '6px' };
+    padding: ${ props => props.padding ? props.padding : props.theme.labels.padding || '6px' };
     font-weight: ${ props => props.theme.fontWeights.label };
     border-radius: ${ props => props.theme.labels.radius };
     display: inline-block;
@@ -30,7 +30,7 @@ const StyledLabel = styled.div`
 
 export default class Label extends Component {
     render() {
-        const { text, className, color, textcolor, onClick, small, ...rest } = this.props;
+        const { text, className, color, textcolor, onClick, small, padding, ...rest } = this.props;
 
         return (
             <StyledLabel
@@ -39,6 +39,7 @@ export default class Label extends Component {
                 textcolor={ textcolor }
                 onClick={ onClick }
                 small={ small }
+                padding={ padding }
                 { ...rest }
             >
 

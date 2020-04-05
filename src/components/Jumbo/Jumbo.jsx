@@ -10,7 +10,6 @@ const StyledJumbo = styled(Flexbox)`
     ${ props => space(props, 2) };
     border-radius: 16px;
     display: flex;
-    align-items: flex-start;
     justify-content-space-between;
     background-color: ${ props => hexToRgb(props.theme.colors[props.color], .1) };
     ${ props => props.onClick ? `cursor: pointer` : '' };
@@ -49,7 +48,7 @@ export default class Jumbo extends Component {
         const { header, text, action, color, icon, close, onClick, ...rest } = this.props;
 
         return (
-            <StyledJumbo flexDirection={ ['row','row','column'] } onClick={ onClick ? onClick : null }color={ color } { ...rest }>
+            <StyledJumbo ai={ 'center' } flexDirection={ ['row','row','column'] } onClick={ onClick ? onClick : null } color={ color } { ...rest }>
                 <JumboSection margin={ [[0,1,0,0],[0,1,0,0],[0,1,action ? 2 : 0,0]] }>
                     <Flexbox width={ 100 } alignItems={ 'flex-start' } justifyContent={ 'space-between' }>
                         <Header level={ 4 } weight={ 900 } margin={ [0] }>
