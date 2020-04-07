@@ -10,7 +10,7 @@ const StyledJumbo = styled(Flexbox)`
     ${ props => space(props, 2) };
     border-radius: 16px;
     display: flex;
-    justify-content-space-between;
+    justify-content: space-between;
     background-color: ${ props => hexToRgb(props.theme.colors[props.color], .1) };
     ${ props => props.onClick ? `cursor: pointer` : '' };
     transition: ${ props => props.theme.transitions.default };
@@ -45,7 +45,7 @@ const JumboIcon = styled(Icon)`
 
 export default class Jumbo extends Component {
     render() {
-        const { header, text, action, color, icon, close, onClick, ...rest } = this.props;
+        const { header, text, action, color, icon, close, onClick, textLabel, ...rest } = this.props;
 
         return (
             <StyledJumbo ai={ 'center' } flexDirection={ ['row','row','column'] } onClick={ onClick ? onClick : null } color={ color } { ...rest }>
@@ -59,7 +59,13 @@ export default class Jumbo extends Component {
                         { close && <JumboIcon size={ '2x' } color={ color } onClick={ close } margin={ [0,1,0,1] } icon={ 'times' } type={ 'solid' } /> }
                     </Flexbox>
                         
-                    <Text margin={ [1,0,0,0] } html={ text } />
+                    <Text
+                        margin={ [1,0,0,0] }
+                        html={ text }
+                        weight={ textLabel ? '700' : 'normal' }
+                        transform={ textLabel ? 'uppercase' : 'none' }
+                        spacing={ textLabel ? '.75px' : 'normal' }
+                    />
                 </JumboSection>
 
                 { (action) && (

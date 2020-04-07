@@ -13,6 +13,8 @@ const StyledText = styled.p`
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
     text-align: ${ props => props.align ? props.align : 'left' };
+    text-transform: ${ props => props.transform ? props.transform : 'none' };
+    letter-spacing: ${ props => props.spacing ? props.spacing : 'normal' };
     ${ props => props.fontStyle ? `font-style: ${ props.fontStyle }` : '' };
 
     ${ ({ clamp }) => clamp && `
