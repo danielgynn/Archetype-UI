@@ -26,14 +26,14 @@ const DropdownLabel = styled.label`
     font-weight: 400;
     font-size: .9rem;
     display: inline-block;
-    margin-bottom: .5rem;
+    margin-bottom: ${ props => props.small ? '0' : '.5rem' };
 `;
 
 const DropdownHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: ${ props => props.theme.sizes.inputHeight };
+    height: ${ props => props.small ? props.theme.sizes.inputHeightSmall : props.theme.sizes.inputHeight };
     line-height: normal;
     border: 1px solid ${ props => props.theme.colors.accentTwo };;
     border-radius: 8px;
@@ -120,17 +120,18 @@ export default class Dropdown extends Component {
     }
 
     render() {
-        const { id, list, label, required, disabled, ...rest } = this.props;
+        const { id, list, label, required, disabled, small, ...rest } = this.props;
         const { listOpen, headerTitle } = this.state;
 
         return (
             <DropdownWrapper { ...rest }>
                 { (label) && (
-                    <DropdownLabel htmlFor={ id }>{ label } { required && '*' }</DropdownLabel>
+                    <DropdownLabel htmlFor={ id } small={ small }>{ label } { required && '*' }</DropdownLabel>
                  ) }
 
                 <DropdownHeader 
                     disabled={ disabled }
+                    small={ small }
                     onClick={ () => this.toggleList() }
                 >
                     <DropdownHeaderTitle>
@@ -150,8 +151,10 @@ export default class Dropdown extends Component {
                     <OptionsList
                         id={ id }
                         list={ list }
+                        small={ small }
                         hasLabel={ label }
                         selectItem={ this.selectItem }
+                        top={ small ? '40px' : null }
                     />
                 ) }
             </DropdownWrapper>
@@ -161,7 +164,8 @@ export default class Dropdown extends Component {
 
 Dropdown.defaultProps = {
     required: false,
-    disabled: false
+    disabled: false,
+    small: false
 };
 
 Dropdown.propTypes = {
@@ -169,5 +173,6 @@ Dropdown.propTypes = {
     label: PropTypes.string,
     list: PropTypes.array.isRequired,
     required: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    small: PropTypes.bool
 };

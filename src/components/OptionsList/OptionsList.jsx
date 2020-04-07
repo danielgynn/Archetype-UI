@@ -24,8 +24,9 @@ const DropdownList = styled.ul`
 const DropdownListItem = styled.li`
     width: 100%;
     font-size: 1.5rem;
-    padding: .75rem;
-    line-height: normal;
+    padding: ${ props => props.small ? '0 .75rem' : '.75rem' };
+    line-height: ${ props => props.small ? props.theme.sizes.inputHeightSmall : 'normal' };
+    ${ props => props.small ? `height: ${ props.theme.sizes.inputHeightSmall }` : '' };
     cursor: pointer;
     display: inline-block;
     white-space: pre-wrap;
@@ -67,13 +68,14 @@ const DropdownItemDescription = styled.p`
 
 export default class OptionsList extends Component {
     render() {
-        const { id, list, selectItem, ...rest } = this.props;
+        const { id, list, selectItem, small, ...rest } = this.props;
 
         return (
             <DropdownList id={ id } onClick={ e => e.stopPropagation() } { ...rest }>
                 { list && list.map((item)=> (
                     <DropdownListItem
                         selected={ item.selected }
+                        small={ small }
                         key={ item.id }
                         onClick={ () => selectItem(item.title, item.id, item.key) }
                     >
@@ -97,11 +99,12 @@ export default class OptionsList extends Component {
 }
 
 OptionsList.defaultProps = {
-
+    small: false
 };
 
 OptionsList.propTypes = {
     id: PropTypes.string,
     list: PropTypes.array.isRequired,
-    selectItem: PropTypes.func.isRequired
+    selectItem: PropTypes.func.isRequired,
+    small: PropTypes.bool
 };

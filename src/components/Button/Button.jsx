@@ -14,16 +14,16 @@ const StyledButton = styled.button`
     text-align: center;
     outline: none;
     vertical-align: middle;
-    line-height: normal;
+    line-height: ${ props => props.small ? props.theme.sizes.inputHeightSmall : 'normal' };
     font-size: ${ props => props.theme.fontSizes.p };
     touch-action: manipulation;
     cursor: pointer;
     letter-spacing: 1x;
-    padding: .5rem 1rem;
+    padding: ${ props => props.small ? '0 1rem' : '.5rem 1rem' };
     font-weight: 600;
     white-space: nowrap;
     border: none;
-    height: ${ props => props.theme.sizes.inputHeight };
+    height: ${ props => props.small ? props.theme.sizes.inputHeightSmall : props.theme.sizes.inputHeight };
     background-color: ${props => (props.inverted ? props.theme.colors.white : props.theme.colors[props.color || 'primary']) };
     border: 1px solid ${props => props.theme.colors[props.color || 'primary'] };
     color: ${ props => (props.inverted ? props.theme.colors[props.color || 'primary'] : props.theme.colors.textInverted) };
@@ -120,7 +120,8 @@ export default class Button extends Component {
 }
 
 Button.defaultProps = {
-    type: 'submit'
+    type: 'submit',
+    small: false
 };
 
 Button.propTypes = {
@@ -133,5 +134,6 @@ Button.propTypes = {
     inverted: PropTypes.bool,
     icon: PropTypes.string,
     iconType: PropTypes.string,
-    iconPosition: PropTypes.string
+    iconPosition: PropTypes.string,
+    small: PropTypes.bool
 };
