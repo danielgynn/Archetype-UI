@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import Icon from '../Icon/Icon.jsx';
 import { space } from '../../utils';
 
 const StyledLabel = styled.div`
@@ -30,7 +31,7 @@ const StyledLabel = styled.div`
 
 export default class Label extends Component {
     render() {
-        const { text, className, color, textcolor, onClick, small, padding, ...rest } = this.props;
+        const { text, className, color, textcolor, onClick, small, padding, icon, iconPosition, iconType, ...rest } = this.props;
 
         return (
             <StyledLabel
@@ -43,7 +44,11 @@ export default class Label extends Component {
                 { ...rest }
             >
 
+                { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
+
                 { text }
+
+                { (icon && iconPosition === 'right') && <Icon margin={ [0,0,0,1] } icon={ icon } type={ iconType } /> }
 
             </StyledLabel>
         )
@@ -56,5 +61,8 @@ Label.propTypes = {
     color: PropTypes.string,
     textcolor: PropTypes.string,
     onClick: PropTypes.func,
-    small: PropTypes.bool
+    small: PropTypes.bool,
+    icon: PropTypes.string,
+    iconType: PropTypes.string,
+    iconPosition: PropTypes.string,
 }
