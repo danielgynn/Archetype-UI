@@ -12,6 +12,13 @@ const StyledBox = styled.div`
     ${ props => borders(props, 2) };
     ${ props => props.position && `position: ${ props.position }` };
     ${ props => props.cursor && `cursor: ${ props.cursor }` };
+    ${ props => props.bgImage ? (`
+        background-image: url(${ props.bgImage });
+        height: 100%; 
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    `) : '' };
 
     ${ breakpoint('md')`
         ${ props => space(props, 1) };
@@ -28,12 +35,13 @@ const StyledBox = styled.div`
 
 export default class Box extends Component {
     render() {
-        const { children, id, element, ...rest } = this.props;
+        const { children, id, element, bgImage, ...rest } = this.props;
 
         return (
             <StyledBox
                 as={ element }
                 id={ id }
+                bgImage={ bgImage }
                 { ...rest }>
 
                 { children }
@@ -45,5 +53,6 @@ export default class Box extends Component {
 
 Box.propTypes = {
     element: PropTypes.string,
-    id: PropTypes.string
+    id: PropTypes.string,
+    bgImage: PropTypes.string
 };
