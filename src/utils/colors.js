@@ -41,14 +41,17 @@ const isValidColor = (color) => {
 	return s.color !== '';
 }
 
-const getcolorProperty = (themecolors, color) => {
+const getcolorProperty = (themecolors, colorValue) => {
+	const color = Array.isArray(colorValue) ? colorValue[0] : colorValue;
+	const alpha = Array.isArray(colorValue) ? colorValue[1] : null;
+	
 	if (!color) {
 		return '';
 	} else if ((!themecolors || !themecolors[color]) && isValidColor(color)) {
-		return color;
+		return alpha ? hexToRgb(color, alpha) : color;
 	}
 
-	return themecolors[color];
+	return alpha ? hexToRgb(themecolors[color], alpha) : themecolors[color];
 };
 
 export const color = (props) => `
