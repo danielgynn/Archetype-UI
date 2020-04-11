@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import breakpoint from 'styled-components-breakpoint';
 
-import { getMarginProperties, getPaddingProperties, hide } from '../../utils';
+import { getMarginProperties, getPaddingProperties, hide, space } from '../../utils';
 
 const StyledText = styled.p`
     ${ props => props.hide && hide(props, 2) };
+    ${ props => space(props, 2) };
     color: ${ props => props.theme.colors[props.color || 'text'] };
     font-size: ${ props => props.fontSize ? props.fontSize : props.small ? props.theme.fontSizesSm.pSmall : props.theme.fontSizesSm.p };
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
@@ -26,11 +27,13 @@ const StyledText = styled.p`
 
     ${ breakpoint('md')`
         ${ props => props.hide && hide(props, 1) };
+        ${ props => space(props, 1) };
         font-size: ${ props => props.small ? props.theme.fontSizesMed.pSmall : props.theme.fontSizesMed.p };
     ` }
 
     ${ breakpoint('xl')`
         ${ props => props.hide && hide(props, 0) };
+        ${ props => space(props, 0) };
         font-size: ${ props => props.small ? props.theme.fontSizes.pSmall : props.theme.fontSizes.p };
     ` }
 `;
