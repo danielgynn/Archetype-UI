@@ -25,6 +25,7 @@ import Pagination from './Pagination/Pagination.jsx';
 import ProgressBar from './ProgressBar/ProgressBar.jsx';
 import RichTextInput from './RichTextInput/RichTextInput.jsx';
 import SearchInput from './SearchInput/SearchInput.jsx';
+import SelectList from './SelectList/SelectList.jsx';
 import StatHighlight from './StatHighlight/StatHighlight.jsx';
 import Table from './Table/Table.jsx';
 import Text from './Text/Text.jsx';
@@ -40,6 +41,6 @@ library.add(fas);
 
 export {
     AutocompleteInput, Box, Breadcrumbs, Button, Checkbox, CircleProgressBar, ContentsTable, DatePicker, Dropdown, EmptyState, Flexbox, GridBox, Header, Jumbo, Icon, Iframe,
-    Image, ImageUpload, Input, Label, Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, StatHighlight, Table, Text, TextButton, TextLink,
+    Image, ImageUpload, Input, Label, Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, SelectList, StatHighlight, Table, Text, TextButton, TextLink,
     Toast, Video
 };
