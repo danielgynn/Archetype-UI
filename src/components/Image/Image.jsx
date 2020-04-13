@@ -17,13 +17,14 @@ const ImageContainer = styled.div`
 const StyledImage = styled.img`
     width: ${ props => props.width };
     height: ${ props => props.height };
+    max-width: 100%;
 `;
 
 const Caption = styled.figcaption`
     color: ${ props => props.theme.colors.textSecondary };
     font-weight: 400;
     font-size: .75rem;
-    display: inline-block;
+    display: block;
     margin-top: 5px;
 `;
 
