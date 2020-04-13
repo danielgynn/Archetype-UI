@@ -21,6 +21,7 @@ const StyledLabel = Styled.label`
 `;
 
 const EditorWrapper = Styled.div`
+    ${ props => space(props) };
     background: #fff;
     border: 1px solid ${ props => props.theme.colors.accentTwo };
     border-radius: 8px;
@@ -263,9 +264,9 @@ export default class RichTextInput extends Component {
         }
 
         return (
-            <EditorBox>
+            <EditorBox { ...rest }>
                 { (label) && <StyledLabel>{ label } { required && '*' }</StyledLabel> }
-                <EditorWrapper { ...rest }>
+                <EditorWrapper>
                     <Flexbox
                         alignItems={ 'center' }
                         justifyContent={ 'space-between' }
