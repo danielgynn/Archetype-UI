@@ -31,7 +31,7 @@ const Caption = styled.figcaption`
 
 export default class Image extends Component {
     render() {
-        const { src, alt, width, height, style, caption, ...rest } = this.props;
+        const { src, alt, width, height, style, caption, imageWidth, ...rest } = this.props;
 
         return (
             <ImageContainer
@@ -41,7 +41,7 @@ export default class Image extends Component {
                 <StyledImage
                     src={ src }
                     alt={ alt }
-                    width={ '100%' }
+                    width={ imageWidth }
                     height={ height }
                     style={ style }
                 />
@@ -53,13 +53,15 @@ export default class Image extends Component {
 
 Image.defaultProps = {
     alt: 'Image',
-    width: '150px'
+    width: '150px',
+    imageWidth: '100%'
 };
 
 Image.propTypes = {
     src: PropTypes.string,
     alt: PropTypes.string.isRequired,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
+    imageWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     style: PropTypes.object
 };
