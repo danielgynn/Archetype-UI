@@ -6,6 +6,7 @@ import breakpoint from 'styled-components-breakpoint';
 import { space, borders, hide } from '../../utils';
 
 const ImageContainer = styled.div`
+    width: ${ props => props.width };
     ${ props => space(props, 2) };
     ${ props => borders(props) };
     ${ props => props.hide && hide(props, 2) };
@@ -34,12 +35,13 @@ export default class Image extends Component {
 
         return (
             <ImageContainer
+                width={ width }
                 { ...rest }
             >
                 <StyledImage
                     src={ src }
                     alt={ alt }
-                    width={ width }
+                    width={ '100%' }
                     height={ height }
                     style={ style }
                 />
