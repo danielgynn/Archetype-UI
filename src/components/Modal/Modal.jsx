@@ -8,8 +8,10 @@ import { Box, Flexbox, Button, Header, Text } from '../..';
 const ModalWrapper = Styled(Box)`
     position: fixed;
     top: 0;
-    display: block;
     left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width:100%;
     height: 100%;
     z-index: 10000;
@@ -17,15 +19,11 @@ const ModalWrapper = Styled(Box)`
 `;
 
 const ModalMain = Styled(Box)`
-    position:fixed;
-    background: white;
-    width: 85%;
+    background: ${ props => props.theme.colors[props.bg] };
+    width: ${ props => props.width };
     height: auto;
-    top:50%;
-    left:50%;
     padding: 1.5rem;
-    border-radius: 8px;
-    transform: translate(-50%,-50%);
+    border-radius: ${ props => props.radius };
 
     ${ breakpoint('md')`
         width: 65%;
@@ -59,11 +57,11 @@ export default class Modal extends Component {
         }
     }
     render() {
-        const { handleClose, header, text, action, secondaryAction, children } = this.props;
+        const { handleClose, header, text, action, secondaryAction, children, ...rest } = this.props;
 
         return (
             <ModalWrapper>
-                <ModalMain>
+                <ModalMain { ...rest }>
                     <Flexbox flexDirection={ 'column' } alignItems={ 'center' } justifyContent={ 'center' }>
                         { (header) && (
                             <Header align={ 'center' } level={ 2 }>{ header }</Header> 
@@ -92,7 +90,9 @@ export default class Modal extends Component {
 }
 
 Modal.defaultProps = {
-
+    bg: 'white',
+    width: '85%',
+    radius: '8px'
 };
 
 Modal.propTypes = {
