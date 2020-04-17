@@ -108,11 +108,11 @@ export default class Button extends Component {
                 mt={ mt }
                 { ...rest }>
 
-                { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
+                { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,text && 1,0,0] } icon={ icon } type={ iconType } /> }
 
                 { text }
 
-                { (icon && iconPosition === 'right') && <Icon margin={ [0,0,0,1] } icon={ icon } type={ iconType } /> }
+                { (icon && iconPosition === 'right') && <Icon margin={ [0,0,0,text && 1] } icon={ icon } type={ iconType } /> }
 
             </StyledButton> 
         )
@@ -127,7 +127,7 @@ Button.defaultProps = {
 Button.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
     color: PropTypes.string,
     onClick: PropTypes.func.isRequired,
     disabled: PropTypes.bool,

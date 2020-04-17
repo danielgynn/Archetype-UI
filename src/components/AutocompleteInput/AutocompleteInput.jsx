@@ -100,7 +100,9 @@ class AutocompleteInput extends Component {
       showSuggestions: true
     });
 
-    onChange(userInput);
+    if (userInput) {
+      onChange(userInput);
+    }
   };
 
   onClick = e => {
@@ -112,7 +114,9 @@ class AutocompleteInput extends Component {
       showSuggestions: false
     });
 
-    onChange(e.currentTarget.innerText);
+    if (e && e.currentTarget.innerText) {
+      onChange(e.currentTarget.innerText);
+    }
   };
 
   onKeyDown = e => {
@@ -126,7 +130,9 @@ class AutocompleteInput extends Component {
         showSuggestions: false
       });
 
-      onChange(filteredSuggestions[activeSuggestion]);
+      if (filteredSuggestions[activeSuggestion]) {
+        onChange(filteredSuggestions[activeSuggestion]);
+      }
     }
     // User pressed the up arrow
     else if (e.keyCode === 38) {
@@ -162,6 +168,7 @@ class AutocompleteInput extends Component {
           required,
           label,
           value,
+          disabled,
           mt, mb, mr, ml, margin
       }
     } = this;
@@ -193,6 +200,7 @@ class AutocompleteInput extends Component {
           onKeyDown={onKeyDown}
           placeholder={ placeholder }
           value={value}
+          disabled={ disabled }
         />
         {suggestionsListComponent}
       </SuggestionsWrapper>

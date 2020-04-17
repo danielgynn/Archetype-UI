@@ -80,6 +80,7 @@ export default class OptionsList extends Component {
                         onClick={ () => selectItem(item.title, item.id, item.key) }
                     >
                         <DropdownItemText>
+                            { item.icon && <Icon icon={ item.icon } mr={ 1 } /> }
                             { item.title } { item.selected && <Icon icon="check"/> }
                         </DropdownItemText>
                         <DropdownItemDescription selected={ item.selected }>

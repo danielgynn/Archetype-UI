@@ -18,6 +18,7 @@ const ImageContainer = styled.div`
 const StyledImage = styled.img`
     width: ${ props => props.width };
     height: ${ props => props.height };
+    ${ props => borders(props) };
     max-width: 100%;
 `;
 
