@@ -2,6 +2,7 @@ import AutocompleteInput from './AutocompleteInput/AutocompleteInput.jsx';
 import Box from './Box/Box.jsx';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs.jsx';
 import Button from './Button/Button.jsx';
+import Callout from './Callout/Callout.jsx';
 import Checkbox from './Checkbox/Checkbox.jsx';
 import CircleProgressBar from './CircleProgressBar/CircleProgressBar.jsx';
 import ContentsTable from './ContentsTable/ContentsTable.jsx';
@@ -40,7 +41,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
 export {
-    AutocompleteInput, Box, Breadcrumbs, Button, Checkbox, CircleProgressBar, ContentsTable, DatePicker, Dropdown, EmptyState, Flexbox, GridBox, Header, Jumbo, Icon, Iframe,
+    AutocompleteInput, Box, Breadcrumbs, Button, Callout, Checkbox, CircleProgressBar, ContentsTable, DatePicker, Dropdown, EmptyState, Flexbox, GridBox, Header, Jumbo, Icon, Iframe,
     Image, ImageUpload, Input, Label, Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, SelectList, StatHighlight, Table, Text, TextButton, TextLink,
     Toast, Video
 };
