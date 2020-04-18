@@ -76,10 +76,10 @@ export default class Modal extends Component {
 
                     <Flexbox margin={ [3,0,0,0] } alignItems={ 'center' } justifyContent={ 'space-between' } flexDirection={ ['row','row','column'] }>
                         { (action && action.handleAction) && (
-                            <Button color={ action.type } width={ secondaryAction ? [32,32,100] : [48,48,100] } mb={ [0,0,1] } onClick={ action.handleAction } text={ action.text } />
+                            <Button color={ action.type } width={ secondaryAction ? [32,32,100] : [48,48,100] } mb={ [0,0,1] } onClick={ action.handleAction } text={ action.text } { ...action } />
                         ) }
                         { (secondaryAction && secondaryAction.handleAction) && (
-                            <Button color={ secondaryAction.type } width={ [32,32,100] } mb={ [0,0,1] } onClick={ secondaryAction.handleAction } text={ secondaryAction.text } />
+                            <Button color={ secondaryAction.type } width={ [32,32,100] } mb={ [0,0,1] } onClick={ secondaryAction.handleAction } text={ secondaryAction.text } { ...secondaryAction } />
                         ) }
                         <Button color={ 'primary' } width={ secondaryAction ? [32,32,100] : [48,48,100] } mb={ [0,0,1] } inverted onClick={ handleClose } text={ 'Cancel' } />
                     </Flexbox>

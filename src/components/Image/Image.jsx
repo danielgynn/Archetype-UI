@@ -31,8 +31,14 @@ const Caption = styled.figcaption`
 `;
 
 export default class Image extends Component {
+    addFallbackImage(e) {
+        const { fallback } = this.props;
+
+        e.target.src = fallback;
+    }
+
     render() {
-        const { src, alt, width, height, style, caption, imageWidth, ...rest } = this.props;
+        const { src, alt, width, height, style, caption, imageWidth, radius, fallback, onError, ...rest } = this.props;
 
         return (
             <ImageContainer
@@ -45,6 +51,8 @@ export default class Image extends Component {
                     width={ imageWidth }
                     height={ height }
                     style={ style }
+                    radius={ radius }
+                    onError={ onError ? (e) => onError(e) : fallback ? (e) => this.addFallbackImage(e) : null }
                 />
                 { (caption) && <Caption>{ caption } </Caption> }
             </ImageContainer>
@@ -60,7 +68,9 @@ Image.defaultProps = {
 
 Image.propTypes = {
     src: PropTypes.string,
+    fallback: PropTypes.string,
     alt: PropTypes.string.isRequired,
+    onError: PropTypes.func,
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     imageWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),

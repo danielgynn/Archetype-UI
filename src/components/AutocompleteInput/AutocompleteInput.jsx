@@ -100,7 +100,7 @@ class AutocompleteInput extends Component {
       showSuggestions: true
     });
 
-    if (userInput) {
+    if (userInput !== undefined) {
       onChange(userInput);
     }
   };
@@ -114,7 +114,7 @@ class AutocompleteInput extends Component {
       showSuggestions: false
     });
 
-    if (e && e.currentTarget.innerText) {
+    if (e && e.currentTarget.innerText !== undefined) {
       onChange(e.currentTarget.innerText);
     }
   };
@@ -130,7 +130,7 @@ class AutocompleteInput extends Component {
         showSuggestions: false
       });
 
-      if (filteredSuggestions[activeSuggestion]) {
+      if (filteredSuggestions[activeSuggestion] !== undefined) {
         onChange(filteredSuggestions[activeSuggestion]);
       }
     }
