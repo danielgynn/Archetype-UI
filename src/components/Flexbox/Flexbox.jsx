@@ -20,8 +20,8 @@ const Flexbox = styled(({
     ${props => (props.flexDirection || props.fd ? `flex-direction: ${ getBreakpointValue(props.flexDirection || props.fd, 2) };` : '')}
     ${props => (isTruthyOrZero(props.flexGrow) ? `flex-grow: ${props.flexGrow};` : '')}
     ${props => (isTruthyOrZero(props.flexShrink) ? `flex-shrink: ${props.flexShrink};` : '')}
-    ${props => (props.flexWrap ? `flex-wrap: ${props.flexWrap};` : '')}
-    ${props => (props.justifyContent || props.jc ? `justify-content: ${ getBreakpointValue(props.justifyContent || props.jc, 1) };` : '')}
+    ${props => (props.flexWrap || props.fw ? `flex-wrap: ${ getBreakpointValue(props.flexWrap || props.fw, 2) };` : '')}
+    ${props => (props.justifyContent || props.jc ? `justify-content: ${ getBreakpointValue(props.justifyContent || props.jc, 2) };` : '')}
     ${ props => space(props, 2) };
     ${ props => color(props) };
     ${ props => props.hide && hide(props, 2) };
@@ -35,6 +35,7 @@ const Flexbox = styled(({
         ${props => (props.flexDirection || props.fd ? `flex-direction: ${ getBreakpointValue(props.flexDirection || props.fd, 1) };` : '')};
         ${props => (props.alignItems || props.ai ? `align-items: ${ getBreakpointValue(props.alignItems || props.ai, 1) };` : '')};
         ${props => (props.justifyContent || props.jc ? `justify-content: ${ getBreakpointValue(props.justifyContent || props.jc, 1) };` : '')};
+        ${props => (props.flexWrap || props.fw ? `flex-wrap: ${ getBreakpointValue(props.flexWrap || props.fw, 1) };` : '')}
     ` }
 
     ${ breakpoint('xl')`
@@ -44,6 +45,7 @@ const Flexbox = styled(({
         ${props => (props.flexDirection || props.fd ? `flex-direction: ${ getBreakpointValue(props.flexDirection || props.fd, 0) };` : '')};
         ${props => (props.alignItems || props.ai ? `align-items: ${ getBreakpointValue(props.alignItems || props.ai, 0) };` : '')};
         ${props => (props.justifyContent || props.jc ? `justify-content: ${ getBreakpointValue(props.justifyContent || props.jc, 0) };` : '')};
+        ${props => (props.flexWrap || props.fw ? `flex-wrap: ${ getBreakpointValue(props.flexWrap || props.fw, 0) };` : '')}
     ` }
 `;
 

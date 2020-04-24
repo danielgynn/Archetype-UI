@@ -17,6 +17,7 @@ import Iframe from './Iframe/Iframe.jsx';
 import Image from './Image/Image.jsx';
 import ImageUpload from './ImageUpload/ImageUpload.jsx';
 import Input from './Input/Input.jsx';
+import InputLabel from './InputLabel/InputLabel.jsx';
 import Jumbo from './Jumbo/Jumbo.jsx';
 import Label from './Label/Label.jsx';
 import Modal from './Modal/Modal.jsx';
@@ -42,6 +43,6 @@ library.add(fas);
 
 export {
     AutocompleteInput, Box, Breadcrumbs, Button, Callout, Checkbox, CircleProgressBar, ContentsTable, DatePicker, Dropdown, EmptyState, Flexbox, GridBox, Header, Jumbo, Icon, Iframe,
-    Image, ImageUpload, Input, Label, Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, SelectList, StatHighlight, Table, Text, TextButton, TextLink,
+    Image, ImageUpload, Input, InputLabel, Label, Modal, OptionsList, PageHeader, Pagination, ProgressBar, RichTextInput, SearchInput, SelectList, StatHighlight, Table, Text, TextButton, TextLink,
     Toast, Video
 };
