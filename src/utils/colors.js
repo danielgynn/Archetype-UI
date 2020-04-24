@@ -41,7 +41,7 @@ const isValidColor = (color) => {
 	return s.color !== '';
 }
 
-const getcolorProperty = (themecolors, colorValue) => {
+export const getcolorProperty = (themecolors, colorValue) => {
 	const color = Array.isArray(colorValue) ? colorValue[0] : colorValue;
 	const alpha = Array.isArray(colorValue) ? colorValue[1] : null;
 	

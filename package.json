@@ -24,6 +24,7 @@
 	},
 	"dependencies": {
 		"draft-js": "^0.10.5",
+		"rc-slider": "^9.2.4",
 		"video.js": "^7.4.1"
 	},
 	"devDependencies": {
