@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 
-import { Box, Flexbox, Icon, Text } from '../..';
+import { Box, Flexbox, Icon, Text, TextLink } from '../..';
 import { space, hide, hexToRgb } from '../../utils';
 
 const SelectListContainer = Styled(Box)`
@@ -30,6 +30,9 @@ const ListItem = Styled(Flexbox)`
     }
 `;
 
+const TickIcon = Styled(Icon)`
+    color: ${ props => props.selected ? props.theme.colors.success : hexToRgb(props.theme.colors.primary, .5) };
+`;
 
 const StyledLabel = Styled.label`
     color: ${ props => props.theme.colors.textSecondary };
@@ -41,25 +44,36 @@ const StyledLabel = Styled.label`
 
 export default class SelectList extends Component {
     render() {
-        const { list, nameField, id, label, required, onClick, ...rest } = this.props;
+        const { list, nameField, id, label, required, onClick, selectType, onSelectAll, ...rest } = this.props;
 
         return (
             <SelectListContainer { ...rest }>
-                { (label) && <StyledLabel htmlFor={ id }>{ label } { required && '*' }</StyledLabel> }
+                <Flexbox ai={ 'center' } jc={ 'space-between' }>
+                    { (label) && <StyledLabel htmlFor={ id }>{ label } { required && '*' }</StyledLabel> }
+                    { onSelectAll && (
+                        <TextLink
+                            color={ 'primary' }
+                            margin={ 0 }
+                            text={ list.filter(i => i.selected).length !== list.length ? 'Select All' : 'Deselect All' }
+                            onClick={ onSelectAll }
+                        />
+                    ) }
+                </Flexbox>
 
                 { list.map((item, index) => (
-                    <ListItem selected={ item.selected } onClick={ () => onClick(item, index) } key={ index } padding={ 1 } ai={ ['center','center','flex-start'] } jc={ 'space-between' } bb={ 'accentTwo' } fd={ ['row','row','column'] }>
-                        { item.icon && <Icon icon={ item.icon } color={ item.selected ? 'white' : 'primary' } size={ '1x' } mr={ 2 } /> }
+                    <ListItem selected={ item.selected && selectType === 'bg' ? true : false } onClick={ () => onClick(item, index) } key={ index } padding={ 1 } ai={ ['center','center','flex-start'] } jc={ 'space-between' } bb={ 'accentTwo' } fd={ ['row','row','column'] }>
+                        { item.icon && <Icon icon={ item.icon } color={ item.selected && selectType === 'bg' ? 'white' : 'primary' } size={ '1x' } mr={ 2 } /> }
                         <Flexbox width={ 100 } ai={ ['center','center','flex-start'] } jc={ 'space-between' } fd={ ['row','row','column'] }>
                             <Flexbox ai={ 'center' }>
                                 <Box>
                                     <Flexbox ai={ ['center','center','flex-start'] } fd={ ['row','row','column'] }>
-                                        <Text weight={ 700 } color={ item.selected ? 'white' : 'text' }>{ item[nameField] }</Text>
+                                        <Text weight={ 700 } color={ item.selected && selectType === 'bg' ? 'white' : 'text' }>{ item[nameField] }</Text>
                                     </Flexbox>
-                                    { item.description && <Text small color={ item.selected ? 'white' : 'textSecondary' }>{ item.description }</Text> }
+                                    { item.description && <Text small color={ item.selected && selectType === 'bg' ? 'white' : 'textSecondary' }>{ item.description }</Text> }
                                 </Box>
                             </Flexbox>
                         </Flexbox>
+                        { selectType === 'tick' && <TickIcon selected={ item.selected } icon={ item.selected ? 'check-square' : 'square' } size={ '1x' } ml={ 1 } /> }
                     </ListItem>
                 )) }
             </SelectListContainer>
@@ -69,7 +83,8 @@ export default class SelectList extends Component {
 
 SelectList.defaultProps = {
     nameField: 'name',
-    required: false
+    required: false,
+    selectType: 'bg'
 };
 
 SelectList.propTypes = {
