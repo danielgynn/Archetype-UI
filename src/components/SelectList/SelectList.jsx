@@ -61,7 +61,7 @@ export default class SelectList extends Component {
                 </Flexbox>
 
                 { list.map((item, index) => (
-                    <ListItem selected={ item.selected && selectType === 'bg' ? true : false } onClick={ () => onClick(item, index) } key={ index } padding={ 1 } ai={ ['center','center','flex-start'] } jc={ 'space-between' } bb={ 'accentTwo' } fd={ ['row','row','column'] }>
+                    <ListItem selected={ item.selected && selectType === 'bg' ? true : false } onClick={ () => onClick(item, index) } key={ index } padding={ 1 } ai={ ['center','center','flex-start'] } jc={ 'space-between' } bb={ 'accentTwo' } fd={ ['row','row','row'] }>
                         { item.icon && <Icon icon={ item.icon } color={ item.selected && selectType === 'bg' ? 'white' : 'primary' } size={ '1x' } mr={ 2 } /> }
                         <Flexbox width={ 100 } ai={ ['center','center','flex-start'] } jc={ 'space-between' } fd={ ['row','row','column'] }>
                             <Flexbox ai={ 'center' }>

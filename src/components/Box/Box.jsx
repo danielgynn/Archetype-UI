@@ -12,6 +12,7 @@ const StyledBox = styled.div`
     ${ props => borders(props, 2) };
     ${ props => props.position && `position: ${ props.position }` };
     ${ props => props.cursor && `cursor: ${ props.cursor }` };
+    ${ props => props.display && `display: ${ props.display }` };
     ${ props => props.bgImage ? (`
         background-image: url(${ props.bgImage });
         height: 100%; 
