@@ -20,7 +20,9 @@ const Progress = Styled(Box)`
     flex-direction: column;
     height: ${ props => props.height };
     justify-content: center;
-    border-radius: ${ props => props.radius };
+    border-bottom-left-radius: ${ props => props.radius };
+    border-top-left-radius: ${ props => props.radius };
+    ${ props => props.now >= 90 ? `border-radius: ${ props.radius }` : '' };
     text-align: center;
     white-space: nowrap;
     background-color: ${ props => props.theme.colors[props.color] };
@@ -72,6 +74,7 @@ export default class ProgressBar extends Component {
                 background={ background }
                 striped={ striped }
                 height={ height }
+                now={ now }
                 radius={ radius }
                 style={{ width: `${this.getPercentage(now, min, max)}%`, ...style }}
                 aria-valuenow={now}
@@ -102,6 +105,7 @@ export default class ProgressBar extends Component {
             <ProgressWrapper
                 background={ background }
                 radius={ radius }
+                now={ now }
                 { ...wrapperProps }
             >
                 { this.renderProgressBar(
