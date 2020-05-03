@@ -62,7 +62,7 @@ const StatText = Styled(Text)`
 
 export default class StatHighlight extends Component {
     render() {
-        const { title, value, color, icon } = this.props;
+        const { title, value, color, icon, sub } = this.props;
 
         return (
             <Wrapper
@@ -88,6 +88,16 @@ export default class StatHighlight extends Component {
                         html={ value }
                         weight={ 900 }
                     />
+                    { !!sub && (
+                        <Text
+                            align={ 'right' }
+                            margin={ 0 }
+                            html={ sub }
+                            small
+                            color={ 'text' }
+                            weight={ 700 }
+                        />
+                    ) }
                 </Box>
                     
                     
@@ -103,5 +113,6 @@ StatHighlight.defaultProps = {
 StatHighlight.propTypes = {
     color: PropTypes.string,
     value: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    sub: PropTypes.string
 };
