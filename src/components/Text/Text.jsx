@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import breakpoint from 'styled-components-breakpoint';
 
-import { getMarginProperties, getPaddingProperties, hide, space } from '../../utils';
+import { getMarginProperties, getPaddingProperties, hide, space, color } from '../../utils';
 
 const StyledText = styled.p`
     ${ props => props.hide && hide(props, 2) };
     ${ props => space(props, 2) };
-    color: ${ props => props.theme.colors[props.color || 'text'] };
+    ${ props => color(props) };
     font-size: ${ props => props.fontSize ? props.fontSize : props.small ? props.theme.fontSizesSm.pSmall : props.theme.fontSizesSm.p };
     margin: ${ props => getMarginProperties(props.theme.space, props.margin) };
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
@@ -57,7 +57,8 @@ export default class Text extends Component {
 }
 
 Text.defaultProps = {
-    fontStyle: 'normal'
+    fontStyle: 'normal',
+    color: 'text'
 };
 
 Text.propTypes = {
