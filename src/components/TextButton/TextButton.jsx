@@ -78,7 +78,7 @@ export default class TextButton extends Component {
 
     render() {
         const {
-            className, style, name, id, disabled, icon, iconPosition, iconType, ...rest
+            className, style, name, id, disabled, icon, iconPosition, iconType, color, ...rest
         } = this.props;
 
         return (
@@ -88,14 +88,15 @@ export default class TextButton extends Component {
                 disabled={ disabled }
                 style={ style }
                 onClick={ this.onClick }
+                color={color}
                 { ...rest }
             >
                 
-                { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
+                { (icon && (!iconPosition || iconPosition === 'left')) && <Icon color={color} margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
 
-                <Text>{ name }</Text>
+                <Text color={color}>{ name }</Text>
 
-                { (icon && iconPosition === 'right') && <Icon margin={ [0,0,0,1] } icon={ icon } type={ iconType } /> }
+                { (icon && iconPosition === 'right') && <Icon color={color} margin={ [0,0,0,1] } icon={ icon } type={ iconType } /> }
 
             </TextButtonWrapper>
         )
@@ -104,13 +105,15 @@ export default class TextButton extends Component {
 
 TextButton.defaultProps = {
     name: 'Click Me',
-    disabled: false
+    disabled: false,
+    color: 'text'
 };
 
 TextButton.propTypes = {
     onClick: PropTypes.func.isRequired,
     name: PropTypes.string,
     className: PropTypes.string,
+    color: PropTypes.string,
     style: PropTypes.object,
     id: PropTypes.string,
     disabled: PropTypes.bool,

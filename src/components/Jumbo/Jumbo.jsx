@@ -15,10 +15,6 @@ const StyledJumbo = styled(Flexbox)`
     ${ props => props.onClick ? `cursor: pointer` : '' };
     transition: ${ props => props.theme.transitions.default };
 
-    h4 {
-        color: ${ props => hexToRgb(props.theme.colors[props.color], 1) };
-    }
-
     &:hover {
         ${ props => props.onClick ? `border-color: ${ props => props.onClick ? props.theme.colors.accentTwo : 'auto' }` : '' };
         ${ props => props.onClick ? `box-shadow: 0 2px 8px rgba(0,0,0,0.15)` : '' };
@@ -26,6 +22,10 @@ const StyledJumbo = styled(Flexbox)`
 
     ${ breakpoint('md') `${ props => space(props, 1) };` }
     ${ breakpoint('lg') `${ props => space(props, 0) };` }
+`;
+
+const StyledHeader = styled(Header)`
+    color: ${ props => hexToRgb(props.theme.colors[props.color], 1) };
 `;
 
 const JumboSection = styled.div`
@@ -45,22 +45,22 @@ const JumboIcon = styled(Icon)`
 
 export default class Jumbo extends Component {
     render() {
-        const { header, text, action, color, icon, close, onClick, textLabel, ...rest } = this.props;
+        const { header, small, text, action, color, icon, close, onClick, textLabel, ...rest } = this.props;
 
         return (
             <StyledJumbo ai={ 'center' } flexDirection={ ['row','row','column'] } onClick={ onClick ? onClick : null } color={ color } { ...rest }>
                 <JumboSection margin={ [[0,1,0,0],[0,1,0,0],[0,1,action ? 2 : 0,0]] }>
                     <Flexbox width={ 100 } alignItems={ 'flex-start' } justifyContent={ 'space-between' }>
-                        <Header level={ 4 } weight={ 900 } margin={ [0] }>
+                        <StyledHeader color={ color } level={ small ? 6 : 4 } weight={ 900 } margin={ [0] }>
                             { icon && <Icon margin={ [0,1,0,0] } icon={ icon } type={ 'solid' } /> }
                             { header }
-                        </Header>
+                        </StyledHeader>
 
                         { close && <JumboIcon size={ '2x' } color={ color } onClick={ close } margin={ [0,1,0,1] } icon={ 'times' } type={ 'solid' } /> }
                     </Flexbox>
                         
                     <Text
-                        margin={ [1,0,0,0] }
+                        margin={ [text ? 1 : 0,0,0,0] }
                         html={ text }
                         weight={ textLabel ? '700' : 'normal' }
                         transform={ textLabel ? 'uppercase' : 'none' }
@@ -83,7 +83,8 @@ export default class Jumbo extends Component {
 Jumbo.defaultProps = {
     color: 'labelThree',
     margin: [2,0,2,0],
-    padding: [[3,4,3,4], [2,3,2,3], [2,3,2,3]]
+    padding: [[3,4,3,4], [2,3,2,3], [2,3,2,3]],
+    small: false
 };
 
 Jumbo.propTypes = {
@@ -92,5 +93,6 @@ Jumbo.propTypes = {
     action: PropTypes.object,
     color: PropTypes.string,
     icon: PropTypes.string,
-    close: PropTypes.func
+    close: PropTypes.func,
+    small: PropTypes.bool
 };
