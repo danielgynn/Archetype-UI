@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import breakpoint from 'styled-components-breakpoint';
 
 import { Text, Icon } from '../..';
-import { space } from '../../utils';
+import { space, hexToRgb } from '../../utils';
 
 const TextButtonWrapper = Styled.div`
     padding: .5rem .75rem;
@@ -25,14 +25,14 @@ const TextButtonWrapper = Styled.div`
     ` }
 
     &:hover {
-        opacity: 1;
-        background: ${ props => props.theme.colors.accent };
+        opacity: .9;
+        background: ${ props => props.colorBackground ? hexToRgb(props.theme.colors[props.color], .2) : props.theme.colors.accent };
     }
 
     &:active,
     &:focus {
-        background: ${ props => props.theme.colors.accentTwo };
-        opacity: .9;
+        background: ${ props => props.colorBackground ? hexToRgb(props.theme.colors[props.color], .1) :props.theme.colors.accentTwo };
+        opacity: .8;
     }
 
     ${ ({ disabled }) => disabled && `
@@ -78,7 +78,7 @@ export default class TextButton extends Component {
 
     render() {
         const {
-            className, style, name, id, disabled, icon, iconPosition, iconType, color, ...rest
+            className, style, name, id, disabled, icon, iconPosition, iconType, color, colorBackground, ...rest
         } = this.props;
 
         return (
@@ -89,6 +89,7 @@ export default class TextButton extends Component {
                 style={ style }
                 onClick={ this.onClick }
                 color={color}
+                colorBackground={colorBackground}
                 { ...rest }
             >
                 
@@ -106,7 +107,8 @@ export default class TextButton extends Component {
 TextButton.defaultProps = {
     name: 'Click Me',
     disabled: false,
-    color: 'text'
+    color: 'text',
+    colorBackground: false
 };
 
 TextButton.propTypes = {
@@ -119,5 +121,6 @@ TextButton.propTypes = {
     disabled: PropTypes.bool,
     icon: PropTypes.string,
     iconType: PropTypes.string,
-    iconPosition: PropTypes.string
+    iconPosition: PropTypes.string,
+    colorBackground: PropTypes.bool
 };
