@@ -62,7 +62,7 @@ Text.defaultProps = {
 };
 
 Text.propTypes = {
-    clamp: PropTypes.bool,
+    clamp: PropTypes.number,
     html: PropTypes.string,
     fontStyle: PropTypes.string
 };
