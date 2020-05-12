@@ -20,6 +20,10 @@ const StyledBox = styled.div`
         background-repeat: no-repeat;
         background-size: cover;
     `) : '' };
+    ${ props => props.scrollHeight ? (`
+        max-height: ${props.scrollHeight};
+        overflow-y: scroll;
+    `) : '' };
 
     ${ breakpoint('md')`
         ${ props => space(props, 1) };
@@ -36,13 +40,14 @@ const StyledBox = styled.div`
 
 export default class Box extends Component {
     render() {
-        const { children, id, element, bgImage, ...rest } = this.props;
+        const { children, id, element, bgImage, scrollHeight, ...rest } = this.props;
 
         return (
             <StyledBox
                 as={ element }
                 id={ id }
                 bgImage={ bgImage }
+                scrollHeight={ scrollHeight }
                 { ...rest }>
 
                 { children }
@@ -55,5 +60,6 @@ export default class Box extends Component {
 Box.propTypes = {
     element: PropTypes.string,
     id: PropTypes.string,
-    bgImage: PropTypes.string
+    bgImage: PropTypes.string,
+    scrollHeight: PropTypes.string
 };
