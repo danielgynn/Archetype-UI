@@ -42,6 +42,7 @@ const StyledInput = styled.input`
     background-color: ${ props => props.theme.colors.white };
     background-clip: padding-box;
     box-shadow: none;
+    -webkit-appearance: unset;
     border: 1px solid ${ props => props.error ? props.theme.colors.error : props.success ? props.theme.colors.success : props.theme.colors.accentTwo };
     -webkit-transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
