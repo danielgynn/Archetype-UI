@@ -22,7 +22,7 @@ const SectionIcon = styled(Box)`
 
 export default class PageHeader extends Component {
     render() {
-        const { title, subtitle, margin, button, textLink, label, breadcrumbs, icon, titleLevel } = this.props;
+        const { title, subtitle, margin, button, buttons, textLink, label, breadcrumbs, icon, titleLevel } = this.props;
 
         return (
             <Box margin={ margin }>
@@ -59,6 +59,20 @@ export default class PageHeader extends Component {
                             mt={ [0,0,2] }
                         />
                     ) }
+
+                    {!!(buttons && buttons.length) && (
+                        <Flexbox ai='center' jc='flex-end' width={[50,50,100]}>
+                            {buttons.map((btn, buttonIndex) => (
+                                <Button
+                                    {...btn}
+                                    key={buttonIndex}
+                                    width={[btn.width || 30, btn.width || 30, 100]}
+                                    mt={[0,0,2]}
+                                    ml={1}
+                                />
+                            ))}
+                        </Flexbox>
+                    )}
                 </Flexbox>
 
                 { textLink && <TextLink { ...textLink } /> }
@@ -77,6 +91,7 @@ PageHeader.propTypes = {
     subtitle: PropTypes.string,
     margin: PropTypes.array,
     button: PropTypes.object,
+    buttons: PropTypes.arrayOf(PropTypes.object),
     textLink: PropTypes.object,
     label: PropTypes.object,
     breadcrumbs: PropTypes.array,

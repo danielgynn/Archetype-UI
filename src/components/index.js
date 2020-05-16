@@ -44,6 +44,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas);
 
+import '../styles/index.css';
+
 export {
     AutocompleteInput, Box, Breadcrumbs, Button, Callout, Checkbox, CircleProgressBar, ContentsTable, CounterInput, DatePicker, Dropdown, EmptyState, Flexbox, GridBox, Header, Jumbo, Icon, Iframe,
     Image, ImageUpload, Input, InputLabel, Label, Modal, OptionsList, PageHeader, Pagination, ProgressBar, RangeSlider, RichTextInput, SearchInput, SelectList, StatHighlight, Table, Tabs,
