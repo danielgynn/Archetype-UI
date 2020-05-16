@@ -87,8 +87,9 @@ export default class ContentsTable extends Component {
                                     color={ active && active[field] === subItem[field] ? 'text' : 'textSecondary' }
                                     weight={ active && active[field] === subItem[field] ? '700' : '500' }
                                     text={ `${ index + 1 }.${ subItemIndex + 1 }. ${ subItem[field] }` }
-                                    onClick={ () => onClick(subItem) }
+                                    onClick={ !subItem.locked ? () => onClick(subItem) : null }
                                     margin={ 0 }
+                                    opacity={subItem.locked ? .65 : 1}
                                     fontSize={ '.85rem' }
                                 >
                                     

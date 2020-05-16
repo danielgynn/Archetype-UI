@@ -8,25 +8,26 @@ import { Icon } from '../..';
 const StyledLink = styled.p`
     ${ props => color(props) };
     ${ props => space(props) };
+    opacity: ${props => props.opacity};
     font-size: ${ props => props.fontSize ? props.fontSize : props.theme.fontSizes.p };
     font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
     text-decoration: none;
     text-align: ${ props => props.align ? props.align : 'left' };
     display: ${ props => props.display ? props.display : 'inline-block' };
-    cursor: pointer;
+    cursor: ${props => props.onClick ? 'pointer' : 'normal'};
     border-bottom: ${ props => props.active ? `1px solid ${ props.theme.colors[props.color || 'textInverted'] }` : '1px solid transparent' };
     user-select: none;
     transition: ${ props => props.theme.transitions.default };
 
     &:hover {
         color: ${ props => hexToRgb(props.theme.colors[props.color || 'textInverted'], .85) };
-        border-color: ${ props => hexToRgb(props.theme.colors[props.color || 'textInverted'], .85) };
+        border-color: ${ props => props.onClick ? hexToRgb(props.theme.colors[props.color || 'textInverted'], .85) : 'transparent' };
     }
 
     &:active,
     &:focus {
         color: ${ props => hexToRgb(props.theme.colors[props.color || 'textInverted'], .7) };
-        border-color: ${ props => hexToRgb(props.theme.colors[props.color || 'textInverted'], .7) };
+        border-color: ${ props => props.onClick ? hexToRgb(props.theme.colors[props.color || 'textInverted'], .7) : 'transparent' };
     }
 
     ${ props => props.disabled && `
@@ -39,7 +40,7 @@ const StyledLink = styled.p`
 
 export default class TextLink extends Component {
     render() {
-        const { onClick, href, text, color, active, disabled, icon, iconPosition, iconType, ...rest } = this.props;
+        const { onClick, href, text, color, active, disabled, icon, iconPosition, iconType, opacity, ...rest } = this.props;
 
         return (
             <StyledLink
@@ -47,6 +48,7 @@ export default class TextLink extends Component {
                 href={ href }
                 color={ color }
                 disabled={ disabled }
+                opacity={opacity}
                 active={ active }
                 role={ (onClick) ? 'button' : null }
                 { ...rest }>
@@ -65,7 +67,8 @@ export default class TextLink extends Component {
 TextLink.defaultProps = {
     href: '/',
     active: false,
-    margin: [0,1,0,1]
+    margin: [0,1,0,1],
+    opacity: 1
 };
 
 TextLink.propTypes = {
@@ -79,5 +82,6 @@ TextLink.propTypes = {
     disabled: PropTypes.bool,
     icon: PropTypes.string,
     iconType: PropTypes.string,
+    opacity: PropTypes.number,
     iconPosition: PropTypes.string
 };
