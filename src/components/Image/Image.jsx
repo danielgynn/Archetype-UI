@@ -31,14 +31,30 @@ const Caption = styled.figcaption`
 `;
 
 export default class Image extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {dimensions: {}};
+        this.onImgLoad = this.onImgLoad.bind(this);
+    }
+
     addFallbackImage(e) {
         const { fallback } = this.props;
 
         e.target.src = fallback;
     }
 
+    onImgLoad({target:img}) {
+        this.setState({
+            dimensions:{
+                height:img.offsetHeight,
+                width:img.offsetWidth
+            }
+        });
+    }
+
     render() {
-        const { src, alt, width, height, style, caption, imageWidth, radius, fallback, onError, ...rest } = this.props;
+        const { src, alt, width, height, style, caption, useExactSize, imageWidth, radius, fallback, onError, ...rest } = this.props;
+        const { dimensions } = this.state;
 
         return (
             <ImageContainer
@@ -48,10 +64,11 @@ export default class Image extends Component {
                 <StyledImage
                     src={ src }
                     alt={ alt }
-                    width={ imageWidth }
-                    height={ height }
+                    width={ useExactSize ? `${dimensions.width}px` : imageWidth }
+                    height={ useExactSize ? `${dimensions.height}px` : height }
                     style={ style }
                     radius={ radius }
+                    onLoad={this.onImgLoad}
                     onError={ onError ? (e) => onError(e) : fallback ? (e) => this.addFallbackImage(e) : null }
                 />
                 { (caption) && <Caption>{ caption } </Caption> }
@@ -63,7 +80,9 @@ export default class Image extends Component {
 Image.defaultProps = {
     alt: 'Image',
     width: '150px',
-    imageWidth: '100%'
+    imageWidth: '100%',
+    height: 'auto',
+    useExactSize: false
 };
 
 Image.propTypes = {
@@ -74,5 +93,6 @@ Image.propTypes = {
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     imageWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
-    style: PropTypes.object
+    style: PropTypes.object,
+    useExactSize: PropTypes.bool
 };
