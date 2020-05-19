@@ -160,13 +160,13 @@ export default class RichTextInput extends Component {
         super(props);
 
         const blocksFromHTML = (props.content) ? convertFromHTML(props.content) : null;
-        const state = (props.content) ? ContentState.createFromBlockArray(
+        const state = (props.content && blocksFromHTML && blocksFromHTML.contentBlocks !== null) ? ContentState.createFromBlockArray(
             blocksFromHTML.contentBlocks,
             blocksFromHTML.entityMap,
         ) : null;
         
         this.state = {
-            editorState: (props.content) ? EditorState.createWithContent(state) : EditorState.createEmpty()
+            editorState: (props.content && state) ? EditorState.createWithContent(state) : EditorState.createEmpty()
         };
 
         this.inputElement = '';
