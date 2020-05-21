@@ -43,11 +43,11 @@ export default class Image extends Component {
         e.target.src = fallback;
     }
 
-    onImgLoad({target:img}) {
+    onImgLoad({target: img}) {
         this.setState({
             dimensions:{
-                height:img.offsetHeight,
-                width:img.offsetWidth
+                height: img.naturalHeight || img.offsetHeight,
+                width: img.naturalWidth || img.offsetWidth
             }
         });
     }
