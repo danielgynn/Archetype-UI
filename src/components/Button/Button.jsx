@@ -8,7 +8,7 @@ import { hexToRgb, space, hide } from '../../utils';
 
 const StyledButton = styled.button`
     ${ props => space(props, 2) };
-    ${ props => props.hide && hide(props, 2) };
+    ${ props => props.hide && hide(props, 2, 'inline-block') };
     border-radius: 8px;
     display: inline-block;
     text-align: center;
@@ -48,12 +48,12 @@ const StyledButton = styled.button`
 
     ${ breakpoint('md') `
         ${ props => space(props, 1) };
-        ${ props => props.hide && hide(props, 1) };
+        ${ props => props.hide && hide(props, 1, 'inline-block') };
     ` }
     
     ${ breakpoint('lg') `
         ${ props => space(props, 0) };
-        ${ props => props.hide && hide(props, 0) };
+        ${ props => props.hide && hide(props, 0, 'inline-block') };
     ` }
 `;
 

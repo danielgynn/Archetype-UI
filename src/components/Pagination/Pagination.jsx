@@ -12,6 +12,7 @@ const PaginationWrapper = Styled(Box)`
 const PaginationButton = Styled(Button)`
     height: 35px !important;
     padding: 0 1rem;
+    display: inline-block;
 `;
 
 const PaginationInput = Styled(Input)`
