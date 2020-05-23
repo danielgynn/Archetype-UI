@@ -166,7 +166,7 @@ export default class Toast extends Component {
 }
 
 Toast.defaultProps = {
-    timeout: 50000
+    timeout: 5000
 };
 
 Toast.propTypes = {
