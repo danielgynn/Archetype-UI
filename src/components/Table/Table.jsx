@@ -81,11 +81,11 @@ export default class Table extends Component {
         return (
             <TableHeadings key={ 'headings' }>
                 { columns && columns.map((_column, columnIndex) => (
-                    (columns[columnIndex] && columns[columnIndex].length > 0) && (
+                    (columns[columnIndex] && (typeof columns[columnIndex] !== 'string' || columns[columnIndex].length > 0)) && (
                         <Cell
                             key={ `heading-${columnIndex}` }
                             content={ columns[columnIndex] }
-                            header={ true }
+                            header={ typeof columns[columnIndex] === 'string' ? true : false }
                             fixed={ columnIndex === 0 && fixedFirstCol }
                             sorted={ sortColIndex === columnIndex && sortDirection ? sortDirection : null }
                             onClick={ sorts && sorts[columnIndex] ? () => this.runSort(columnIndex) : null }
