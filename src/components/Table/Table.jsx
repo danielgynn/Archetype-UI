@@ -41,7 +41,7 @@ const StyledTableHead = styled.thead`
 const StyledTableRow = styled.tr`
     border-bottom: 1px solid ${ props => props.theme.colors.accentTwo };
     transition: ${ props => props.theme.transitions.default };
-    cursor: pointer;
+    ${ props => props.onClick && `cursor: pointer` };
     position: relative;
     color: ${ props => props.selected ? props.theme.colors.textInverted : props.theme.colors.text };
     background: ${ props => props.selected ? props.theme.colors.primary : props.theme.colors.white };

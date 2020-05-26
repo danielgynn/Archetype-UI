@@ -19,6 +19,7 @@ const CheckboxLabel = styled.span`
 
 const CheckboxContainer = styled.div`
     display: flex;
+    cursor: pointer;
     vertical-align: middle;
 `;
 

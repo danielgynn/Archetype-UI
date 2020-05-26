@@ -14,6 +14,8 @@ const StyledText = styled.p`
     padding: ${ props => getPaddingProperties(props.theme.space, props.padding) };
     font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
     text-align: ${ props => props.align ? props.align : 'left' };
+    ${ props => props.underline && `text-decoration: underline` };
+    cursor: ${ props => props.cursor ? props.cursor : props.onClick ? 'pointer' : 'normal' };
     text-transform: ${ props => props.transform ? props.transform : 'none' };
     letter-spacing: ${ props => props.spacing ? props.spacing : 'normal' };
     ${ props => props.fontStyle ? `font-style: ${ props.fontStyle }` : '' };
@@ -40,13 +42,14 @@ const StyledText = styled.p`
 
 export default class Text extends Component {
     render() {
-        const { children, className, clamp, html, ...rest } = this.props;
+        const { children, className, clamp, html, onClick, ...rest } = this.props;
 
         return (
             <StyledText
                 className={ className }
                 clamp={ clamp }
                 dangerouslySetInnerHTML={ html ? {__html: html} : null }
+                onClick={onClick}
                 { ...rest }>
 
                 { children }
