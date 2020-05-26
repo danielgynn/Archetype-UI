@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import breakpoint from 'styled-components-breakpoint';
 
-import { space, color, borders, hide } from '../../utils';
+import { space, color, borders, hide, position } from '../../utils';
 
 const StyledBox = styled.div`
     ${ props => space(props, 2) };
     ${ props => props.hide && hide(props, 2) };
     ${ props => color(props) };
     ${ props => borders(props, 2) };
-    ${ props => props.position && `position: ${ props.position }` };
+    ${ props => position(props) };
+    ${ props => props.shadow && `box-shadow: ${ props.theme.shadows[props.shadow] || props.theme.shadows.primary}` };
     ${ props => props.cursor && `cursor: ${ props.cursor }` };
     ${ props => props.display && `display: ${ props.display }` };
     ${ props => props.bgImage ? (`
