@@ -35,22 +35,22 @@ export default class Cell extends Component {
     render() {
         const { header, content, className, style, fixed, sorted, onClick } = this.props;
 
-        const CellComponent = header ? (
+        const CellComponent = header && content ? (
             <StyledTableHeader scope="col" className={ className } style={ style } sorted={ sorted } onClick={ onClick ? onClick : null }>
                 { this.returnContent(content) }
                 { sorted && <Icon icon={ sorted === 'desc' ? 'sort-down' : 'sort-up' } ml={1} /> }
             </StyledTableHeader>
         ) : (
-            fixed ? (
+            fixed && content ? (
                 <StyledTableHeader scope="row" className={ className } style={ style } sorted={ sorted } onClick={ onClick ? onClick : null }>
                     { this.returnContent(content) }
                     { sorted && <Icon icon={ sorted === 'desc' ? 'sort-down' : 'sort-up' } ml={1} cursor={ 'pointer' } /> }
                 </StyledTableHeader>
-            ) : (
+            ) : content ? (
                 <StyledTableCell className={ className } style={ style } sorted={ sorted } empty={ content === 'N/A' }>
                     { this.returnContent(content) }
                 </StyledTableCell>
-            )
+            ) : null
         );
 
         return CellComponent;
