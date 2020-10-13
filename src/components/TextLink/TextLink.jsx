@@ -30,6 +30,13 @@ const StyledLink = styled.p`
         border-color: ${ props => props.onClick ? hexToRgb(props.theme.colors[props.color || 'textInverted'], .7) : 'transparent' };
     }
 
+    ${ ({ clamp }) => clamp && `
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: ${ clamp };
+        -webkit-box-orient: vertical;
+    `}
+
     ${ props => props.disabled && `
         &&& {
             border: none;
@@ -40,7 +47,7 @@ const StyledLink = styled.p`
 
 export default class TextLink extends Component {
     render() {
-        const { onClick, href, text, color, active, disabled, icon, iconPosition, iconType, opacity, ...rest } = this.props;
+        const { onClick, href, text, color, active, disabled, icon, iconPosition, iconType, opacity, clamp, ...rest } = this.props;
 
         return (
             <StyledLink
@@ -51,6 +58,7 @@ export default class TextLink extends Component {
                 opacity={opacity}
                 active={ active }
                 role={ (onClick) ? 'button' : null }
+                clamp={clamp}
                 { ...rest }>
 
                 { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
@@ -83,5 +91,6 @@ TextLink.propTypes = {
     icon: PropTypes.string,
     iconType: PropTypes.string,
     opacity: PropTypes.number,
-    iconPosition: PropTypes.string
+    iconPosition: PropTypes.string,
+    clamp: PropTypes.number
 };

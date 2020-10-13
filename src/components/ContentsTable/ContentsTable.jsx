@@ -90,7 +90,8 @@ export default class ContentsTable extends Component {
                                     onClick={ !subItem.locked ? () => onClick(subItem) : null }
                                     margin={ 0 }
                                     opacity={subItem.locked ? .65 : 1}
-                                    fontSize={ '.85rem' }
+                                    fontSize={ '.75rem' }
+                                    clamp={1}
                                 >
                                     
                                 </TextLink>
