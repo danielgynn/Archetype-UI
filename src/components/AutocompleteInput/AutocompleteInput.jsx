@@ -169,6 +169,7 @@ class AutocompleteInput extends Component {
           label,
           value,
           disabled,
+          forceFocus,
           mt, mb, mr, ml, margin
       }
     } = this;
@@ -201,6 +202,7 @@ class AutocompleteInput extends Component {
           placeholder={ placeholder }
           value={value}
           disabled={ disabled }
+          forceFocus={forceFocus}
         />
         {suggestionsListComponent}
       </SuggestionsWrapper>

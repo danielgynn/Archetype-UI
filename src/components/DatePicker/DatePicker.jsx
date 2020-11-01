@@ -50,7 +50,7 @@ const StyledDatePicker = Styled(DatePickerComponent)`
 
 export default class DatePicker extends Component {
     render() {
-        const { id, label, required, onChange, currentDate, excludeWeekends, excludePast, ...rest } = this.props;
+        const { id, label, required, onChange, currentDate, excludeWeekends, excludePast, placeholder, ...rest } = this.props;
 
         const isWeekday = date => {
             const day = date.getDay();
@@ -67,6 +67,7 @@ export default class DatePicker extends Component {
                     onChange={ onChange }
                     minDate={ excludePast ? new Date() : null }
                     filterDate={ excludeWeekends ? isWeekday : null }
+                    placeholderText={placeholder}
                 />
             </Wrapper>
         )
@@ -88,5 +89,6 @@ DatePicker.propTypes = {
     currentDate: PropTypes.instanceOf(Date),
     onChange: PropTypes.func,
     excludeWeekends: PropTypes.bool,
-    excludePast: PropTypes.bool
+    excludePast: PropTypes.bool,
+    placeholder: PropTypes.string
 };
