@@ -84,7 +84,7 @@ export default class ContentsTable extends Component {
                             { item[itemList].map((subItem, subItemIndex) => (
                                 <TextLink
                                     key={ `subItem${ subItemIndex }` }
-                                    color={ active && active[field] === subItem[field] ? 'text' : 'textSecondary' }
+                                    color={ (active && active[field] === subItem[field]) || !subItem.locked  ? 'text' : 'textSecondary' }
                                     weight={ active && active[field] === subItem[field] ? '700' : '500' }
                                     text={ `${ index + 1 }.${ subItemIndex + 1 }. ${ subItem[field] }` }
                                     onClick={ !subItem.locked ? () => onClick(subItem) : null }
