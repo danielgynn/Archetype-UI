@@ -50,7 +50,7 @@ const StyledDatePicker = Styled(DatePickerComponent)`
 
 export default class DatePicker extends Component {
     render() {
-        const { id, label, required, onChange, currentDate, excludeWeekends, excludePast, placeholder, ...rest } = this.props;
+        const { id, label, required, onChange, currentDate, excludeWeekends, excludePast, placeholder, showTimeSelect, ...rest } = this.props;
 
         const isWeekday = date => {
             const day = date.getDay();
@@ -63,8 +63,9 @@ export default class DatePicker extends Component {
 
                 <StyledDatePicker
                     selected={ currentDate }
-                    dateFormat="dd/MM/yyyy"
+                    dateFormat={showTimeSelect ? "MMMM d, yyyy h:mm aa" : "dd/MM/yyyy"}
                     onChange={ onChange }
+                    showTimeSelect={showTimeSelect}
                     minDate={ excludePast ? new Date() : null }
                     filterDate={ excludeWeekends ? isWeekday : null }
                     placeholderText={placeholder}
