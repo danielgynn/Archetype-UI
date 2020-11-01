@@ -74,8 +74,9 @@ export default class ContentsTable extends Component {
                         margin={ [0,0,1,0] }
                     >
                         <TextLink
-                            color={ active && (active[field] === item[field] || active[idField] === item.id) ? 'text' : 'textSecondary' }
-                            weight={ active && (active[field] === item[field] || active[idField] === item.id) ? '700' : '500' }
+                            color='text'
+                            weight={ active && (active[field] === item[field] || active[idField] === item.id) ? '700' : '600' }
+                            textDecoration={active && (active[field] === item[field] || active[idField] === item.id) ? 'underline' : 'none'}
                             text={ `${ index + 1 }. ${ item[field] }` }
                             onClick={ () => onClick(item) }
                             margin={ 0 }
@@ -85,9 +86,10 @@ export default class ContentsTable extends Component {
                                 <TextLink
                                     key={ `subItem${ subItemIndex }` }
                                     color={ (active && active[field] === subItem[field]) || !subItem.locked  ? 'text' : 'textSecondary' }
-                                    weight={ active && active[field] === subItem[field] ? '700' : '500' }
+                                    weight={ active && active[field] === subItem[field] ? '700' : '600' }
                                     text={ `${ index + 1 }.${ subItemIndex + 1 }. ${ subItem[field] }` }
                                     onClick={ !subItem.locked ? () => onClick(subItem) : null }
+                                    textDecoration={active && active[field] === subItem[field] ? 'underline' : 'none'}
                                     margin={ 0 }
                                     opacity={subItem.locked ? .65 : 1}
                                     fontSize={ '.75rem' }

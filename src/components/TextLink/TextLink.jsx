@@ -11,7 +11,7 @@ const StyledLink = styled.p`
     opacity: ${props => props.opacity};
     font-size: ${ props => props.fontSize ? props.fontSize : props.theme.fontSizes.p };
     font-weight: ${ props => props.weight ? props.weight : props.theme.fontWeights.p };
-    text-decoration: none;
+    text-decoration: ${props => props.textDecoration || 'none'};
     text-align: ${ props => props.align ? props.align : 'left' };
     display: ${ props => props.display ? props.display : 'inline-block' };
     cursor: ${props => props.onClick ? 'pointer' : 'normal'};
@@ -47,7 +47,7 @@ const StyledLink = styled.p`
 
 export default class TextLink extends Component {
     render() {
-        const { onClick, href, text, color, active, disabled, icon, iconPosition, iconType, opacity, clamp, ...rest } = this.props;
+        const { onClick, href, text, color, active, disabled, icon, iconPosition, iconType, opacity, clamp, textDecoration, ...rest } = this.props;
 
         return (
             <StyledLink
@@ -59,6 +59,7 @@ export default class TextLink extends Component {
                 active={ active }
                 role={ (onClick) ? 'button' : null }
                 clamp={clamp}
+                textDecoration={textDecoration}
                 { ...rest }>
 
                 { (icon && (!iconPosition || iconPosition === 'left')) && <Icon margin={ [0,1,0,0] } icon={ icon } type={ iconType } /> }
