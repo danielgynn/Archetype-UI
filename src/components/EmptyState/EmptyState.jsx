@@ -26,8 +26,19 @@ const IconWrapper = Styled(Icon)`
 `;
 
 export default class EmptyState extends Component {
+    returnImage(image) {
+        return (
+            <Image
+                src={ image.src }
+                alt={ image.alt }
+                width={ [image.width || 50, 65, 75] }
+                margin={ [2,0,2,0] }
+            />
+        );
+    }
+
     render() {
-        const { header, text, icon, button, hideIcon, level, image, ...rest } = this.props;
+        const { header, text, icon, button, hideIcon, level, image, imagePosition, ...rest } = this.props;
 
         return (
             <Wrapper
@@ -39,17 +50,12 @@ export default class EmptyState extends Component {
 
                 { !hideIcon && <IconWrapper size={ '2x' } margin={ [1,0,0,0] } icon={ icon } /> }
 
-                { image && image.src && (
-                    <Image
-                        src={ image.src }
-                        alt={ image.alt }
-                        width={ [image.width || 50, 65, 75] }
-                        margin={ [2,0,2,0] }
-                    />
-                ) }
+                { !!(image && image.src && imagePosition === 'top') && this.returnImage(image) }
 
                 <Header align={ 'center' } margin={ [1,0,0,0] } weight={ 700 } level={ level }>{ header }</Header>
                 <Text align={ 'center' }>{ text }</Text>
+
+                { !!(image && image.src && imagePosition === 'bottom') && this.returnImage(image) }
 
                 { button && (
                     <Button margin={ [2,0,0,0] } { ...button } />
@@ -67,7 +73,8 @@ EmptyState.defaultProps = {
     icon: 'search',
     hideIcon: false,
     level: 2,
-    image: null
+    image: null,
+    imagePosition: 'top'
 };
 
 EmptyState.propTypes = {
@@ -77,5 +84,6 @@ EmptyState.propTypes = {
     button: PropTypes.object,
     hideIcon: PropTypes.bool,
     level: PropTypes.number,
-    image: PropTypes.object
+    image: PropTypes.object,
+    imagePosition: PropTypes.oneOf(['top', 'bottom'])
 };
