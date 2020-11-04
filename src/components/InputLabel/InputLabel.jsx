@@ -7,16 +7,17 @@ const StyledLabel = Styled.label`
     font-weight: 400;
     font-size: .9rem;
     display: inline-block;
-    margin-bottom: .5rem;
+    ${props => !props.noMargin && `margin-bottom: .5rem;`};
 `;
 
 export default class InputLabel extends Component {
     render() {
-        const { htmlFor, label, id, required, ...rest } = this.props;
+        const { htmlFor, label, id, required, noMargin, ...rest } = this.props;
 
         return (
             <StyledLabel
                 htmlFor={ htmlFor }
+                noMargin={noMargin}
                 { ...rest }
             >
                     { label } { required && '*' }
