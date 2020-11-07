@@ -22,10 +22,10 @@ const SectionIcon = styled(Box)`
 
 export default class PageHeader extends Component {
     render() {
-        const { title, subtitle, margin, button, buttons, textLink, label, breadcrumbs, icon, titleLevel } = this.props;
+        const { title, subtitle, margin, button, buttons, textLink, label, breadcrumbs, icon, titleLevel, ...rest } = this.props;
 
         return (
-            <Box margin={ margin }>
+            <Box margin={ margin } {...rest}>
                 { breadcrumbs && <Breadcrumbs breadcrumbs={ breadcrumbs } /> }
 
                 <Flexbox
