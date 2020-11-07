@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { space } from '../../utils';
+import { hexToRgb, space } from '../../utils';
 import Box from '../Box/Box.jsx';
 
 const ROUND_PRECISION = 1000;
@@ -10,7 +10,7 @@ const ROUND_PRECISION = 1000;
 const ProgressWrapper = Styled(Box)`
     height: ${ props => props.height };
     font-size: .75rem;
-    background-color: ${ props => props.theme.colors[props.background] };
+    background-color: ${ props => props.customColor ? hexToRgb(props.customColor, .15) : props.theme.colors[props.background] };
     border-radius: ${ props => props.radius };
     position: relative;
     ${ props => space(props) };
@@ -25,7 +25,7 @@ const Progress = Styled(Box)`
     ${ props => props.now >= 90 ? `border-radius: ${ props.radius }` : '' };
     text-align: center;
     white-space: nowrap;
-    background-color: ${ props => props.theme.colors[props.color] };
+    background-color: ${ props => props.customColor ? hexToRgb(props.customColor, 1) : props.theme.colors[props.color] };
     -webkit-transition: width .6s ease;
     transition: width .6s ease;
     font-weight: 700;
@@ -63,6 +63,7 @@ export default class ProgressBar extends Component {
             background,
             height,
             radius,
+            customColor,
             ...props
         }
     ) {
@@ -72,6 +73,7 @@ export default class ProgressBar extends Component {
                 role="progressbar"
                 color={ color }
                 background={ background }
+                customColor={customColor}
                 striped={ striped }
                 height={ height }
                 now={ now }
@@ -98,12 +100,14 @@ export default class ProgressBar extends Component {
             background,
             height,
             radius,
+            customColor,
             ...wrapperProps
         } = this.props;
         
         return (
             <ProgressWrapper
                 background={ background }
+                customColor={customColor}
                 radius={ radius }
                 now={ now }
                 { ...wrapperProps }
@@ -117,6 +121,7 @@ export default class ProgressBar extends Component {
                         animated,
                         bsPrefix,
                         color,
+                        customColor,
                         background,
                         height,
                         radius
@@ -149,5 +154,6 @@ ProgressBar.propTypes = {
     color: PropTypes.string,
     striped: PropTypes.bool,
     animated: PropTypes.bool,
-    bsPrefix: PropTypes.string
+    bsPrefix: PropTypes.string,
+    customColor: PropTypes.string
 };
