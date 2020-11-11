@@ -63,6 +63,12 @@ const StyledInput = styled.input`
         opacity: .4;
         border: 0;
     }  
+
+    ${props => props.type === 'textarea' && `
+        height: unset !important;
+        line-height: unset !important;
+        padding: 1.15rem;
+    `};
 `;
 
 const StyledHelpText = styled.span`
