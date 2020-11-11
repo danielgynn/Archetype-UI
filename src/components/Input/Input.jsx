@@ -94,7 +94,7 @@ export default class Input extends Component {
     render() {
         const {
             margin, className, id, label, type, placeholder, value, onChange, onKeyUp, onKeyDown, disabled, forceFocus, error,
-            errorMessage, success, successMessage, helpMessage, required, bg, readonly, ...rest
+            errorMessage, success, successMessage, helpMessage, required, bg, readonly, rows, cols, ...rest
         } = this.props;
 
         return (
@@ -105,7 +105,8 @@ export default class Input extends Component {
 					type={ type }
 					id={ id }
 					ref={ (input) => { this[`inputField${id}`] = input; } } 
-					aria-describedby={ id }
+                    aria-describedby={ id }
+                    as={type === 'textarea' ? 'textarea' : 'input'}
 					placeholder={ placeholder }
 					autoFocus={ forceFocus }
 					value={ value }
@@ -117,6 +118,8 @@ export default class Input extends Component {
                     error={ error }
                     success={ success }
                     bg={ bg }
+                    rows={rows}
+                    cols={cols}
 				/>
 
                 { (error && errorMessage) ? (
@@ -162,5 +165,7 @@ Input.propTypes = {
     error: PropTypes.bool,
     errorMessage: PropTypes.string,
     helpMessage: PropTypes.string,
-    bg: PropTypes.string
+    bg: PropTypes.string,
+    rows: PropTypes.number,
+    cols: PropTypes.number
 };
