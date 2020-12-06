@@ -63,151 +63,156 @@ const SuggestionsListItem = Styled.li`
 `;
 
 class AutocompleteInput extends Component {
-  static propTypes = {
-    suggestions: PropTypes.instanceOf(Array)
-  };
-
-  static defaultProps = {
-    suggestions: []
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      // The active selection's index
-      activeSuggestion: 0,
-      // The suggestions that match the user's input
-      filteredSuggestions: [],
-      // Whether or not the suggestion list is shown
-      showSuggestions: false
+    static propTypes = {
+        suggestions: PropTypes.instanceOf(Array)
     };
-  }
 
-  onChange = e => {
-    const { suggestions, onChange } = this.props;
-    const userInput = e.currentTarget.value;
+    static defaultProps = {
+        suggestions: []
+    };
 
-    // Filter our suggestions that don't contain the user's input
-    const filteredSuggestions = suggestions.filter(
-      suggestion =>
-        suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    );
+    constructor(props) {
+        super(props);
 
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions,
-      showSuggestions: true
-    });
-
-    if (userInput !== undefined) {
-      onChange(userInput);
+        this.state = {
+            activeSuggestion: 0,
+            filteredSuggestions: [],
+            showSuggestions: false
+        };
     }
-  };
 
-  onClick = e => {
-      const { onChange } = this.props;
+    componentDidUpdate(prevProps) {
+        const {suggestions, ignoreFilter} = this.props;
 
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions: [],
-      showSuggestions: false
-    });
-
-    if (e && e.currentTarget.innerText !== undefined) {
-      onChange(e.currentTarget.innerText);
+        if (ignoreFilter && prevProps.suggestions !== suggestions) {
+            this.setState({
+                activeSuggestion: 0,
+                filteredSuggestions: suggestions,
+                showSuggestions: true
+            });
+        }
     }
-  };
 
-  onKeyDown = e => {
-    const { activeSuggestion, filteredSuggestions } = this.state;
-    const { onChange } = this.props;
+    onChange = e => {
+        const { suggestions, onChange, ignoreFilter } = this.props;
+        const userInput = e.currentTarget.value;
 
-    // User pressed the enter key
-    if (e.keyCode === 13) {
-      this.setState({
-        activeSuggestion: 0,
-        showSuggestions: false
-      });
+        const filteredSuggestions = ignoreFilter ? suggestions : suggestions.filter(
+            suggestion =>
+                suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+            );
 
-      if (filteredSuggestions[activeSuggestion] !== undefined) {
-        onChange(filteredSuggestions[activeSuggestion]);
-      }
-    }
-    // User pressed the up arrow
-    else if (e.keyCode === 38) {
-      if (activeSuggestion === 0) {
-        return;
-      }
+        this.setState({
+            activeSuggestion: 0,
+            filteredSuggestions,
+            showSuggestions: true
+        });
 
-      this.setState({ activeSuggestion: activeSuggestion - 1 });
-    }
-    // User pressed the down arrow
-    else if (e.keyCode === 40) {
-      if (activeSuggestion - 1 === filteredSuggestions.length) {
-        return;
-      }
+        if (userInput !== undefined) {
+            onChange(userInput);
+        }
+    };
 
-      this.setState({ activeSuggestion: activeSuggestion + 1 });
-    }
-  };
+    onClick = e => {
+        const { onChange, onSelect } = this.props;
 
-  render() {
-    const {
-      onChange,
-      onClick,
-      onKeyDown,
-      state: {
-        activeSuggestion,
-        filteredSuggestions,
-        showSuggestions
-      },
-      props: {
-          width,
-          placeholder,
-          required,
-          label,
-          value,
-          disabled,
-          forceFocus,
-          mt, mb, mr, ml, margin
-      }
-    } = this;
+        this.setState({
+            activeSuggestion: 0,
+            filteredSuggestions: [],
+            showSuggestions: false
+        });
 
-    let suggestionsListComponent;
+        if (e && e.currentTarget.innerText !== undefined) {
+            onChange(e.currentTarget.innerText);
 
-    if (showSuggestions && value) {
-      if (filteredSuggestions.length) {
-        suggestionsListComponent = (
-          <SuggestionsList hasLabel={ label }>
-            {filteredSuggestions.map((suggestion, index) => {
-              return (
-                <SuggestionsListItem activeItem={ index === activeSuggestion } key={suggestion} onClick={onClick}>
-                  {suggestion}
-                </SuggestionsListItem>
-              );
-            })}
-          </SuggestionsList>
+            if (onSelect) onSelect(e.currentTarget.innerText);
+        }
+    };
+
+    onKeyDown = e => {
+        const { activeSuggestion, filteredSuggestions } = this.state;
+        const { onChange } = this.props;
+
+        if (e.keyCode === 13) {
+            this.setState({
+                activeSuggestion: 0,
+                showSuggestions: false
+            });
+
+            if (filteredSuggestions[activeSuggestion] !== undefined) {
+                onChange(filteredSuggestions[activeSuggestion]);
+            }
+        } else if (e.keyCode === 38) {
+            if (activeSuggestion === 0) {
+                return;
+            }
+
+            this.setState({ activeSuggestion: activeSuggestion - 1 });
+        } else if (e.keyCode === 40) {
+            if (activeSuggestion - 1 === filteredSuggestions.length) {
+                return;
+            }
+
+            this.setState({ activeSuggestion: activeSuggestion + 1 });
+        }
+    };
+
+    render() {
+        const {
+            onChange,
+            onClick,
+            onKeyDown,
+            state: {
+                activeSuggestion,
+                filteredSuggestions,
+                showSuggestions
+            },
+            props: {
+                width,
+                placeholder,
+                required,
+                label,
+                value,
+                disabled,
+                forceFocus,
+                mt, mb, mr, ml, margin
+            }
+        } = this;
+
+        let suggestionsListComponent;
+
+        if (showSuggestions && value) {
+            if (filteredSuggestions.length) {
+                suggestionsListComponent = (
+                    <SuggestionsList hasLabel={ label }>
+                        {filteredSuggestions.map((suggestion, index) => {
+                            return (
+                                <SuggestionsListItem activeItem={ index === activeSuggestion } key={suggestion} onClick={onClick}>
+                                    {suggestion}
+                                </SuggestionsListItem>
+                            );
+                        })}
+                    </SuggestionsList>
+                );
+            }
+        }
+
+        return (
+            <SuggestionsWrapper width={ width } mt={ mt } mb={ mb } mr={ mr } ml={ ml } margin={ margin }>
+                { (label) && <StyledLabel>{ label } { required && '*' }</StyledLabel> }
+                <Input
+                    type="text"
+                    onChange={onChange}
+                    onKeyDown={onKeyDown}
+                    placeholder={ placeholder }
+                    value={value}
+                    disabled={ disabled }
+                    forceFocus={forceFocus}
+                />
+                {suggestionsListComponent}
+            </SuggestionsWrapper>
         );
-      }
     }
-
-    return (
-      <SuggestionsWrapper width={ width } mt={ mt } mb={ mb } mr={ mr } ml={ ml } margin={ margin }>
-        { (label) && <StyledLabel>{ label } { required && '*' }</StyledLabel> }
-        <Input
-          type="text"
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          placeholder={ placeholder }
-          value={value}
-          disabled={ disabled }
-          forceFocus={forceFocus}
-        />
-        {suggestionsListComponent}
-      </SuggestionsWrapper>
-    );
-  }
 }
 
 export default AutocompleteInput;
