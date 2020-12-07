@@ -68,6 +68,10 @@ const StyledInput = styled.input`
         height: unset !important;
         line-height: unset !important;
         padding: 1.15rem;
+        
+        ${!props.allowResize && `
+            resize: none !important;
+        `};
     `};
 `;
 
@@ -100,7 +104,7 @@ export default class Input extends Component {
     render() {
         const {
             margin, className, id, label, type, placeholder, value, onChange, onKeyUp, onKeyDown, disabled, forceFocus, error,
-            errorMessage, success, successMessage, helpMessage, required, bg, readonly, rows, cols, ...rest
+            errorMessage, success, successMessage, helpMessage, required, bg, readonly, rows, cols, allowResize, ...rest
         } = this.props;
 
         return (
@@ -126,6 +130,7 @@ export default class Input extends Component {
                     bg={ bg }
                     rows={rows}
                     cols={cols}
+                    allowResize={allowResize}
 				/>
 
                 { (error && errorMessage) ? (
@@ -147,7 +152,8 @@ Input.defaultProps = {
     forceFocus: false,
     required: false,
     readonly: false,
-    disabled: false
+    disabled: false,
+    allowResize: false
 };
 
 Input.propTypes = {
@@ -173,5 +179,6 @@ Input.propTypes = {
     helpMessage: PropTypes.string,
     bg: PropTypes.string,
     rows: PropTypes.number,
-    cols: PropTypes.number
+    cols: PropTypes.number,
+    allowResize: PropTypes.bool
 };
