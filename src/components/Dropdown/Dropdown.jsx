@@ -120,7 +120,7 @@ export default class Dropdown extends Component {
     }
 
     render() {
-        const { id, list, label, required, disabled, small, ...rest } = this.props;
+        const { id, list, label, required, disabled, small, searchValue, onSearch, searchOptions, ...rest } = this.props;
         const { listOpen, headerTitle } = this.state;
 
         return (
@@ -155,6 +155,9 @@ export default class Dropdown extends Component {
                         hasLabel={ label }
                         selectItem={ this.selectItem }
                         top={ small ? '40px' : null }
+                        searchValue={searchValue}
+                        onSearch={onSearch}
+                        searchOptions={searchOptions}
                     />
                 ) }
             </DropdownWrapper>
@@ -174,5 +177,8 @@ Dropdown.propTypes = {
     list: PropTypes.array.isRequired,
     required: PropTypes.bool,
     disabled: PropTypes.bool,
-    small: PropTypes.bool
+    small: PropTypes.bool,
+    searchValue: PropTypes.string,
+    onSearch: PropTypes.func,
+    searchOptions: PropTypes.object
 };

@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Icon } from '../..';
 import { hexToRgb } from '../../utils';
+import { Input } from '..';
 
 const DropdownList = styled.ul`
     cursor: pointer;
@@ -36,8 +37,10 @@ const DropdownListItem = styled.li`
     background-color: ${ props => props.selected ? props.theme.colors.primary : 'inherit' };
 
     &:hover {
-        color: ${ props => props.theme.colors.white };
-        background-color: ${ props => hexToRgb(props.theme.colors.primary, .85) };
+      ${props => !props.isSearch && `
+        color: ${props.theme.colors.white};
+        background-color: ${hexToRgb(props.theme.colors.primary, .85)};
+      `};
     }
 `;
 
@@ -56,6 +59,12 @@ const DropdownEmptyItem = styled.li`
     background-color: ${ props => props.theme.colors.white };
 `;
 
+const DropdownInput = styled(Input)`
+  input {
+    height: 35px;
+  }
+`;
+
 const DropdownItemText = styled.p`
     display: block;
 `;
@@ -66,46 +75,62 @@ const DropdownItemDescription = styled.p`
     font-weight: 300;
 `;
 
-export default class OptionsList extends Component {
-    render() {
-        const { id, list, selectItem, small, ...rest } = this.props;
+const OptionsList = ({
+  id,
+  list,
+  selectItem,
+  small = false,
+  onSearch,
+  searchValue,
+  searchOptions = {},
+  ...rest
+}) => {
+  return (
+    <DropdownList id={ id } onClick={ e => e.stopPropagation() } { ...rest }>
+      {onSearch && (
+        <DropdownListItem small={small} isSearch>
+          <DropdownInput
+            value={searchValue}
+            onChange={(e) => onSearch(e.target.value)}
+            forceFocus
+            {...searchOptions}
+          />
+        </DropdownListItem>
+      )}
+      { list && list.map((item)=> (
+          <DropdownListItem
+              selected={ item.selected }
+              small={ small }
+              key={ item.id }
+              onClick={ () => selectItem(item.title, item.id, item.key) }
+          >
+              <DropdownItemText>
+                  { item.icon && <Icon icon={ item.icon } mr={ 1 } /> }
+                  { item.title } { item.selected && <Icon icon="check"/> }
+              </DropdownItemText>
+              <DropdownItemDescription selected={ item.selected }>
+                  { item.description ? item.description : '' }
+              </DropdownItemDescription>
+          </DropdownListItem>
+      )) }
 
-        return (
-            <DropdownList id={ id } onClick={ e => e.stopPropagation() } { ...rest }>
-                { list && list.map((item)=> (
-                    <DropdownListItem
-                        selected={ item.selected }
-                        small={ small }
-                        key={ item.id }
-                        onClick={ () => selectItem(item.title, item.id, item.key) }
-                    >
-                        <DropdownItemText>
-                            { item.icon && <Icon icon={ item.icon } mr={ 1 } /> }
-                            { item.title } { item.selected && <Icon icon="check"/> }
-                        </DropdownItemText>
-                        <DropdownItemDescription selected={ item.selected }>
-                            { item.description ? item.description : '' }
-                        </DropdownItemDescription>
-                    </DropdownListItem>
-                )) }
-
-                { !list || list.length === 0 && (
-                    <DropdownEmptyItem>
-                        No items available
-                    </DropdownEmptyItem>
-                ) }
-            </DropdownList>
-        )
-    }
-}
-
-OptionsList.defaultProps = {
-    small: false
+      { !list || list.length === 0 && (
+          <DropdownEmptyItem>
+              No items available
+          </DropdownEmptyItem>
+      ) }
+    </DropdownList>
+  );
 };
 
 OptionsList.propTypes = {
-    id: PropTypes.string,
-    list: PropTypes.array.isRequired,
-    selectItem: PropTypes.func.isRequired,
-    small: PropTypes.bool
+  id: PropTypes.string,
+  list: PropTypes.array.isRequired,
+  selectItem: PropTypes.func.isRequired,
+  small: PropTypes.bool,
+  onSearch: PropTypes.func,
+  searchValue: PropTypes.string,
+  searchOptions: PropTypes.object
 };
+
+export default OptionsList;
