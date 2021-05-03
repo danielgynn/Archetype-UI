@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Flexbox, Box, Header, Text, Button, TextLink, Label, Breadcrumbs, Icon } from '../..';
+import { Dropdown } from '..';
 
 const SectionIcon = styled(Box)`
     margin-right: .75rem;
@@ -20,81 +21,87 @@ const SectionIcon = styled(Box)`
     }
 `;
 
-export default class PageHeader extends Component {
-    render() {
-        const { title, subtitle, margin, button, buttons, textLink, label, breadcrumbs, icon, titleLevel, ...rest } = this.props;
+const PageHeader = ({
+  title,
+  subtitle,
+  margin = [0,0,0,0],
+  button,
+  buttons,
+  textLink,
+  label,
+  breadcrumbs,
+  icon,
+  titleLevel = 1,
+  dropdown,
+  ...rest
+}) => (
+  <Box margin={ margin } {...rest}>
+    { breadcrumbs && <Breadcrumbs breadcrumbs={ breadcrumbs } /> }
 
-        return (
-            <Box margin={ margin } {...rest}>
-                { breadcrumbs && <Breadcrumbs breadcrumbs={ breadcrumbs } /> }
+    <Flexbox
+      alignItems={ 'flex-start' }
+      justifyContent={ 'space-between' }
+      element={ 'section' }
+      flexDirection={ ['row','row','column'] }
+    >
+      <Box>
+        { label && <Label { ...label } /> }
+        <Header
+          margin={ 0 }
+          level={ titleLevel }
+          weight={ 900 }
+        >
+          { icon && <SectionIcon><Icon icon={ icon } /></SectionIcon> }
+          { title }
+        </Header>
+        <Text
+          color={ 'tertiary' }
+          margin={ [0,0,0,0] }
+        >
+          { subtitle }
+        </Text>
+      </Box>
 
-                <Flexbox
-                    alignItems={ 'flex-start' }
-                    justifyContent={ 'space-between' }
-                    element={ 'section' }
-                    flexDirection={ ['row','row','column'] }
-                >
-                    <Box>
-                        { label && <Label { ...label } /> }
-                        <Header
-                            margin={ 0 }
-                            level={ titleLevel }
-                            weight={ 900 }
-                        >
-                            { icon && <SectionIcon><Icon icon={ icon } /></SectionIcon> }
-                            { title }
-                        </Header>
-                        <Text
-                            color={ 'tertiary' }
-                            margin={ [0,0,0,0] }
-                        >
-                            { subtitle }
-                        </Text>
-                    </Box>
+      { (button) && (
+        <Button
+          { ...button }
+          width={ [button.width || 30, button.width || 30, 100] }
+          mt={ [0,0,2] }
+        />
+      ) }
 
-                    { (button) && (
-                        <Button
-                            { ...button }
-                            width={ [button.width || 30, button.width || 30, 100] }
-                            mt={ [0,0,2] }
-                        />
-                    ) }
+      {!!(buttons && buttons.length) && (
+        <Flexbox ai='center' jc='flex-end' width={[50,50,100]}>
+          {buttons.map((btn, buttonIndex) => (
+            <Button
+              {...btn}
+              key={buttonIndex}
+              width={[btn.width || 30, btn.width || 30, 100]}
+              mt={[0,0,2]}
+              ml={1}
+            />
+          ))}
+        </Flexbox>
+      )}
+      {dropdown && <Dropdown {...dropdown} />}
+    </Flexbox>
 
-                    {!!(buttons && buttons.length) && (
-                        <Flexbox ai='center' jc='flex-end' width={[50,50,100]}>
-                            {buttons.map((btn, buttonIndex) => (
-                                <Button
-                                    {...btn}
-                                    key={buttonIndex}
-                                    width={[btn.width || 30, btn.width || 30, 100]}
-                                    mt={[0,0,2]}
-                                    ml={1}
-                                />
-                            ))}
-                        </Flexbox>
-                    )}
-                </Flexbox>
-
-                { textLink && <TextLink { ...textLink } /> }
-            </Box>
-        )
-    }
-}
-
-PageHeader.defaultProps = {
-    margin: [0,0,0,0],
-    titleLevel: 1
-};
+    { textLink && <TextLink { ...textLink } /> }
+  </Box>
+);
 
 PageHeader.propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-    margin: PropTypes.array,
-    button: PropTypes.object,
-    buttons: PropTypes.arrayOf(PropTypes.object),
-    textLink: PropTypes.object,
-    label: PropTypes.object,
-    breadcrumbs: PropTypes.array,
-    icon: PropTypes.string,
-    titleLevel: PropTypes.number
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  margin: PropTypes.array,
+  button: PropTypes.object,
+  buttons: PropTypes.arrayOf(PropTypes.object),
+  textLink: PropTypes.object,
+  label: PropTypes.object,
+  breadcrumbs: PropTypes.array,
+  icon: PropTypes.string,
+  titleLevel: PropTypes.number,
+  dropdown: PropTypes.object
 };
+
+export default PageHeader;
