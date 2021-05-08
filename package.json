@@ -1,6 +1,6 @@
 {
 	"name": "archetype-ui",
-	"version": "0.31.0",
+	"version": "0.32.0",
 	"description": "",
 	"author": "Daniel Gynn <danielgynn94@gmail.com>",
 	"license": "ISC",
@@ -23,6 +23,7 @@
 		"prepare": "npm run build"
 	},
 	"dependencies": {
+		"@draft-js-plugins/buttons": "^4.1.0",
 		"draft-js": "^0.10.5",
 		"rc-slider": "^9.2.4",
 		"video.js": "^7.4.1"
