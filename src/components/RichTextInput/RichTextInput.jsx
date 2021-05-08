@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromHTML, createFromBlockArray, ContentState } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import Styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -88,7 +88,7 @@ const BLOCK_TYPES = [
     {label: 'Blockquote', style: 'blockquote'},
     {label: 'UL', style: 'unordered-list-item'},
     {label: 'OL', style: 'ordered-list-item'},
-    {label: 'Code Block', style: 'code-block'},
+    {label: 'Code Block', style: 'code-block'}
 ];
 
 const BlockStyleControls = (props) => {
@@ -122,6 +122,8 @@ const styleMap = {
         fontSize: 16,
         padding: 2,
     },
+    SUBSCRIPT: { fontSize: '0.6em', verticalAlign: 'sub' },
+    SUPERSCRIPT: { fontSize: '0.6em', verticalAlign: 'super' }
 };
   
 function getBlockStyle(block) {
@@ -136,6 +138,8 @@ const INLINE_STYLES = [
     {label: 'Italic', style: 'ITALIC'},
     {label: 'Underline', style: 'UNDERLINE'},
     {label: 'Monospace', style: 'CODE'},
+    {label: 'Subscript', style: 'SUBSCRIPT'},
+    {label: 'Superscript', style: 'SUPERSCRIPT'}
 ];
   
 const InlineStyleControls = (props) => {
