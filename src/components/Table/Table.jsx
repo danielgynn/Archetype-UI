@@ -39,7 +39,9 @@ const StyledTableHead = styled.thead`
 `;
 
 const StyledTableRow = styled.tr`
-    border-bottom: 1px solid ${ props => props.theme.colors.accentTwo };
+    ${props => !props.expanded && `
+      border-bottom: 1px solid ${props.theme.colors.accentTwo};
+    `};
     transition: ${ props => props.theme.transitions.default };
     ${ props => props.onClick && `cursor: pointer` };
     position: relative;
@@ -47,12 +49,20 @@ const StyledTableRow = styled.tr`
     background: ${ props => props.selected ? props.theme.colors.primary : props.theme.colors.white };
 
     &:nth-of-type(2n) {
-        background: ${ props => props.selected ? props.theme.colors.primary : 'rgba(230,234,238,.2)' };
+      background: ${ props => props.selected ? props.theme.colors.primary : 'rgba(230,234,238,.2)' };
     }
 
-    &:hover {
-        background: ${ props => props.selected ? hexToRgb(props.theme.colors.primary, .85) : props.theme.colors.accent };
-    }
+    ${props => !props.expansion && `
+      &:hover {
+        background: ${ props.selected ? hexToRgb(props.theme.colors.primary, .85) : props.theme.colors.accent };
+      }
+    `}
+
+    ${props => props.expansion && `
+      >div {
+        width: 100%;
+      }
+    `};
 `;
 
 const TableHeadings = styled.tr`
@@ -97,26 +107,41 @@ export default class Table extends Component {
     }
 
     renderBodyRow(row, rowIndex) {
-        const { data, fixedFirstCol, onRowClick, selectedRows, sortColIndex } = this.props;
+        const { data, fixedFirstCol, onRowClick, selectedRows, sortColIndex, expandedRow, expandedRowContent } = this.props;
 
         const objRow = row.find(col => typeof col === 'object');
         const selected = ((objRow && objRow.selected) || (selectedRows && selectedRows.includes(rowIndex))) ? true : false;
 
         return (
-            <StyledTableRow key={ `row-${rowIndex}` } onClick={ onRowClick ? () => onRowClick(row, rowIndex) : null } selected={ selected }>
-                {data[rowIndex].map((cell, cellIndex) => {
-                    if (cell && (typeof cell !== 'object' || (typeof cell === 'object' && !cell.hide))) {
-                        return (
-                            <Cell
-                                key={ `${rowIndex}-${cellIndex}` }
-                                content={ data[rowIndex][cellIndex] }
-                                fixed={ cellIndex === 0 && fixedFirstCol }
-                                sorted={ sortColIndex === cellIndex }
-                            />
-                        )
-                    }
-                }) }
+          <>
+            <StyledTableRow
+              key={ `row-${rowIndex}` }
+              onClick={ onRowClick ? () => onRowClick(row, rowIndex) : null }
+              selected={ selected }
+              expanded={(expandedRow === rowIndex && expandedRowContent)}
+            >
+              {data[rowIndex].map((cell, cellIndex) => {
+                if (cell && (typeof cell !== 'object' || (typeof cell === 'object' && !cell.hide))) {
+                  return (
+                    <Cell
+                        key={ `${rowIndex}-${cellIndex}` }
+                        content={ data[rowIndex][cellIndex] }
+                        fixed={ cellIndex === 0 && fixedFirstCol }
+                        sorted={ sortColIndex === cellIndex }
+                    />
+                  )
+                }
+              }) }
             </StyledTableRow>
+            {!!(expandedRow === rowIndex && expandedRowContent) && (
+              <StyledTableRow
+                key={`rowExpansion-${rowIndex}`}
+                expansion
+              >
+                <td colspan={row.filter(c => !c.hide).length}>{expandedRowContent}</td>
+              </StyledTableRow>
+            )}
+          </>
         );
     }
 
@@ -145,5 +170,7 @@ Table.propTypes = {
     data: PropTypes.array,
     onRowClick: PropTypes.func,
     selectedRows: PropTypes.array,
-    sortCallback: PropTypes.func
+    sortCallback: PropTypes.func,
+    expandedRow: PropTypes.number,
+    expandedRowContent: PropTypes.node
 };
